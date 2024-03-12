@@ -3,5 +3,6 @@
 
 #define MAXNAMELENGTH 64
 #define MAXVALIDYEAR 3000
+#define PHONENUMBERLENGTH 10
 
 #endif

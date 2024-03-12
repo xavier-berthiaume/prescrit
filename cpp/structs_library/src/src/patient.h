@@ -3,7 +3,9 @@
 
 #include "../globalDefinitions.h"
 #include "time.h"
+#include "phonenumbers.h"
 
+#include <cctype>
 #include <string>
 #include <chrono>
 #include <ctime>
@@ -48,7 +50,7 @@ public:
 	void setBirthYear(const unsigned short&);
 	void setBirthDate(const tm*);
 
-	void addPhoneNumber(std::string);
+	void addPhoneNumber(const std::string&);
 
 };
 

@@ -1,4 +1,6 @@
 #include "patient.h"
+#include "phonenumbers.h"
+#include <cctype>
 
 const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 
@@ -64,6 +66,11 @@ void Patient::setFirstName(const std::string& firstNameParam) {
 	if(firstNameParam.length() > Patient::kMaximumNameLength)
 		return;
 
+	for(char character : firstNameParam) {
+		if(!std::isalpha(character))
+			return;
+	}
+
 	firstName_ = firstNameParam; 
 }
 
@@ -71,6 +78,11 @@ void Patient::setLastName(const std::string& lastNameParam) {
 
 	if(lastNameParam.length() > Patient::kMaximumNameLength)
 		return;
+
+	for(char character : lastNameParam) {
+		if(!std::isalpha(character))
+			return;
+	}
 
 	lastName_ = lastNameParam;
 }
@@ -132,14 +144,11 @@ void Patient::setBirthDate(const tm* birthDateParam) {
 	birthdate_->tm_mday = birthDateParam->tm_mday;
 }
 
-void Patient::addPhoneNumber(std::string phoneNumberParam) {
+void Patient::addPhoneNumber(const std::string& phoneNumberParam) {
 
-	std::string phoneNumberCleaned;
 	// First validate the number
+	if(!phone_validation::checkPhoneNumber(phoneNumberParam))
+		return;
 	
-	// Second alter the number to keep it stored in a
-	// consistent fashion
-	
-	// Third save the number
-	phoneNumbers_.push_back(phoneNumberCleaned);
+	phoneNumbers_.push_back(phoneNumberParam);
 }
