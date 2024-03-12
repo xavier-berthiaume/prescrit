@@ -1,5 +1,4 @@
 #include "patient.h"
-#include "time.h"
 
 const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 
@@ -48,6 +47,16 @@ const unsigned short Patient::getBirthMonth() const {
 const unsigned short Patient::getBirthYear() const {
 
 	return birthdate_->tm_year;
+}
+
+std::vector<std::string> Patient::getPhoneNumbers() const {
+
+	return phoneNumbers_;
+}
+
+std::string Patient::getPhoneNumber(const unsigned int& positionParam) const {
+
+	return phoneNumbers_.at(positionParam);
 }
 
 void Patient::setFirstName(const std::string& firstNameParam) {
@@ -121,4 +130,16 @@ void Patient::setBirthDate(const tm* birthDateParam) {
 	birthdate_->tm_year = birthDateParam->tm_year;
 	birthdate_->tm_mon = birthDateParam->tm_mon;
 	birthdate_->tm_mday = birthDateParam->tm_mday;
+}
+
+void Patient::addPhoneNumber(std::string phoneNumberParam) {
+
+	std::string phoneNumberCleaned;
+	// First validate the number
+	
+	// Second alter the number to keep it stored in a
+	// consistent fashion
+	
+	// Third save the number
+	phoneNumbers_.push_back(phoneNumberCleaned);
 }

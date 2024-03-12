@@ -7,6 +7,7 @@
 #include <string>
 #include <chrono>
 #include <ctime>
+#include <vector>
 
 class Patient {
 
@@ -17,6 +18,8 @@ class Patient {
 
 	unsigned short age_;
 	tm *birthdate_;
+
+	std::vector<std::string> phoneNumbers_;
 
 public:
 
@@ -34,6 +37,9 @@ public:
 	const unsigned short getBirthMonth() const;
 	const unsigned short getBirthYear() const;
 
+	std::vector<std::string> getPhoneNumbers() const;
+	std::string getPhoneNumber(const unsigned int&) const;
+
 	void setFirstName(const std::string&);
 	void setLastName(const std::string&);
 	
@@ -41,6 +47,8 @@ public:
 	void setBirthMonth(const unsigned short&);
 	void setBirthYear(const unsigned short&);
 	void setBirthDate(const tm*);
+
+	void addPhoneNumber(std::string);
 
 };
 
