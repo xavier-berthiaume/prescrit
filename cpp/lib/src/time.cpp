@@ -81,11 +81,17 @@ bool time_validation::checkDateBeforePresent(const tm *dateParam) {
 	const std::time_t currentTime_t = std::chrono::system_clock::to_time_t(currentTime);
 	const std::tm *currentTime_tm = std::localtime(&currentTime_t);
 
-	if(dateParam->tm_year > currentTime_tm->tm_year ||
-	   dateParam->tm_mon > currentTime_tm->tm_mon ||
-	   dateParam->tm_mday > currentTime_tm->tm_mday
-	)
+	if(dateParam->tm_year > currentTime_tm->tm_year) {
 		return false;
+	} else if (dateParam->tm_year == currentTime_tm->tm_year) {
+		if(dateParam->tm_mon > currentTime_tm->tm_mon) {
+			return false;
+		} else if (dateParam->tm_mon == currentTime_tm->tm_mon) {
+			if(dateParam->tm_mday > currentTime_tm->tm_mday) {
+				return false;
+			}
+		}
+	}
 
 	return true;
 }

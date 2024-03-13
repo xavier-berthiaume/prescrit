@@ -99,8 +99,9 @@ void Patient::setBirthDay(const unsigned short& birthDateParam) {
 	const std::tm *currentTime_tm = std::localtime(&currentTime_t);
 	const unsigned short currentDay = currentTime_tm->tm_mday;
 
-	if(birthDateParam > currentDay)
+	if(birthDateParam > currentDay) {
 		return;
+	}
 
 	birthdate_->tm_mday = birthDateParam;
 }
@@ -112,8 +113,9 @@ void Patient::setBirthMonth(const unsigned short& birthMonthParam) {
 	const std::tm *currentTime_tm = std::localtime(&currentTime_t);
 	const unsigned short currentMonth = currentTime_tm->tm_mon+1;
 
-	if(birthMonthParam > 11)
+	if(birthMonthParam > 11) {
 		return;
+	}
 
 	birthdate_->tm_mon = birthMonthParam;
 }
@@ -125,8 +127,9 @@ void Patient::setBirthYear(const unsigned short& birthYearParam) {
 	const std::tm *currentTime_tm = std::localtime(&currentTime_t);
 	const unsigned short currentYear = currentTime_tm->tm_year + 1900;
 
-	if(birthYearParam < 1900 || birthYearParam > currentYear)
+	if(birthYearParam < 1900 || birthYearParam > currentYear) {
 		return;
+	}
 
 	birthdate_->tm_year = birthYearParam-1900;
 }
@@ -136,7 +139,7 @@ void Patient::setBirthDate(const tm* birthDateParam) {
 	if(!time_validation::checkDateBeforePresent(birthDateParam))
 		return;
 
-	if(!time_validation::checkDayWithinRange(birthDateParam->tm_mday, birthDateParam->tm_mon, birthDateParam->tm_mday) ||
+	if(!time_validation::checkDayWithinRange(birthDateParam->tm_mday, birthDateParam->tm_mon, birthDateParam->tm_year) ||
 	   !time_validation::checkMonthWithinRange(birthDateParam->tm_mon) ||
 	   !time_validation::checkYearWithinRange(birthDateParam->tm_year))
 		return;
