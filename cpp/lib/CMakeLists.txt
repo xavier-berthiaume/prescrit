@@ -6,6 +6,9 @@ set(version 0.1)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+include(CTest)
+
+add_subdirectory(tests)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -28,11 +31,6 @@ target_include_directories(utils
 target_compile_definitions(utils PRIVATE PRESCRIT_UTILS_LIBRARY)
 
 install(
-    FILES src/structDefinitions.h
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(
   TARGETS utils 
   EXPORT utilsTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -44,6 +42,13 @@ install(
 install(
     FILES src/utilDefinitions.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(
+    FILES 
+      src/utils/phonenumbers.h
+      src/utils/time.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/utils
 )
 
 install(
@@ -87,6 +92,16 @@ install(
 install(
     FILES src/structDefinitions.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(
+    FILES 
+      src/structs/patient.h
+      src/structs/insurance.h
+      src/structs/prescriber.h
+      src/structs/prescription.h
+      src/structs/product.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/structs
 )
 
 install(

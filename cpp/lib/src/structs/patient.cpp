@@ -1,6 +1,4 @@
 #include "patient.h"
-#include "phonenumbers.h"
-#include <cctype>
 
 const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 
