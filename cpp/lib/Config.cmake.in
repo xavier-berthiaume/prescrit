@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+set(_prescrit_supported_components structs utils)
+
+foreach(_comp ${prescrit_FIND_COMPONENTS})
+  if (NOT _comp IN_LIST _person_supported_components)
+    set(prescrit_FOUND False)
+    set(prescrit_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+  endif()
+  include("${CMAKE_CURRENT_LIST_DIR}/prescrit${_comp}Targets.cmake")
+endforeach()

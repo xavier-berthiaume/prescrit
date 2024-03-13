@@ -1,15 +1,14 @@
 #ifndef PATIENT_H
 #define PATIENT_H
 
-#include "../globalDefinitions.h"
-#include "time.h"
-#include "phonenumbers.h"
-
 #include <cctype>
 #include <string>
 #include <chrono>
 #include <ctime>
 #include <vector>
+
+#include <utilDefinitions.h>
+#include <globalDefinitions.h>
 
 class Patient {
 
