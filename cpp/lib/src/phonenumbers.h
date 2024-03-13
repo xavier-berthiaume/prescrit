@@ -1,7 +1,7 @@
 #ifndef PHONENUMBERS_H
 #define PHONENUMBERS_H
 
-#include "../globalDefinitions.h"
+#include "globalDefinitions.h"
 
 #include <string>
 #include <cctype>

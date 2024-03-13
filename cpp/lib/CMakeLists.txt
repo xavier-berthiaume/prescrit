@@ -15,55 +15,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 install(FILES src/globalDefinitions.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-add_library(utils SHARED
-	"src/utils/phonenumbers.cpp"
-	"src/utils/time.cpp"
-)
-
-add_library(prescrit::utils ALIAS utils)
-
-target_include_directories(utils
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-target_compile_definitions(utils PRIVATE PRESCRIT_UTILS_LIBRARY)
-
-install(
-  TARGETS utils 
-  EXPORT utilsTargets
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(
-    FILES src/utilDefinitions.h
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(
-    FILES 
-      src/utils/phonenumbers.h
-      src/utils/time.h
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/utils
-)
-
-install(
-  EXPORT utilsTargets
-  FILE prescritutilsTargets.cmake
-  NAMESPACE ${PROJECT_NAME}::
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/prescrit
-)
-
 add_library(structs SHARED
-	"src/structs/patient.cpp"
-	"src/structs/prescriber.cpp"
-	"src/structs/prescription.cpp"
-	"src/structs/insurance.cpp"
-	"src/structs/product.cpp"
+	"src/patient.cpp"
+	"src/prescriber.cpp"
+	"src/prescription.cpp"
+	"src/insurance.cpp"
+	"src/product.cpp"
+	"src/time.cpp"
+	"src/phonenumbers.cpp"
 )
 
 add_library(prescrit::structs ALIAS structs)
@@ -72,10 +31,6 @@ target_include_directories(structs
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-target_link_libraries(structs
-  PRIVATE prescrit::utils
 )
 
 target_compile_definitions(structs PRIVATE PRESCRIT_STRUCTS_LIBRARY)
@@ -90,17 +45,14 @@ install(
 )
 
 install(
-    FILES src/structDefinitions.h
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(
     FILES 
-      src/structs/patient.h
-      src/structs/insurance.h
-      src/structs/prescriber.h
-      src/structs/prescription.h
-      src/structs/product.h
+      src/patient.h
+      src/insurance.h
+      src/prescriber.h
+      src/prescription.h
+      src/product.h
+      src/phonenumbers.h
+      src/time.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/structs
 )
 

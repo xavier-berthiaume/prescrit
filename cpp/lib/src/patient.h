@@ -7,8 +7,9 @@
 #include <ctime>
 #include <vector>
 
-#include <utilDefinitions.h>
-#include <globalDefinitions.h>
+#include "globalDefinitions.h"
+#include "time.h"
+#include "phonenumbers.h"
 
 class Patient {
 

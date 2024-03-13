@@ -1,5 +1,5 @@
-add_executable(patient_tests patientTest.cpp)
-target_link_libraries(patient_tests
+add_executable(patientTest patientTest.cpp)
+target_link_libraries(patientTest
   PRIVATE structs
 )
-add_test(NAME patient_tests COMMAND patientTest)
+add_test(NAME patientTest COMMAND patientTest Xavier Berthiaume 13 4 1997)

@@ -2,9 +2,13 @@
 
 const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 
-Patient::Patient() {}
+Patient::Patient() {
+	birthdate_ = new std::tm();
+}
 
-Patient::~Patient() {}
+Patient::~Patient() {
+	delete birthdate_;
+}
 
 std::string Patient::getFirstName() const {
 
@@ -46,7 +50,7 @@ const unsigned short Patient::getBirthMonth() const {
 
 const unsigned short Patient::getBirthYear() const {
 
-	return birthdate_->tm_year;
+	return birthdate_->tm_year+1900;
 }
 
 std::vector<std::string> Patient::getPhoneNumbers() const {
