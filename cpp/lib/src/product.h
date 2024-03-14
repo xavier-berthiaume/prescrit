@@ -51,8 +51,8 @@ protected:
 public:
 	std::string getDetailedName() const override;
 	std::string getDIN() const;
-	std::vector<Ingredient> getActiveIngredients() const;
-	Ingredient getActiveIngredient(const unsigned int&) const;
+	Ingredient *getActiveIngredient() const;
+	Ingredient *getNextActiveIngredient() const;
 
 	void setDIN(const std::string&);
 	void AddIngredient(const Ingredient&);
