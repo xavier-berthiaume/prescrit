@@ -36,12 +36,6 @@ void Premade::setProducer(const std::string& producerParam) {
 
 std::string Medication::getDetailedName() const {
 
-	// Only append the doses and their units, slash separated
-	std::string concatenated_doses {};
-	for(Ingredient ing : ingredients_) {
-		concatenated_doses.append(ing.getFormattedDose() + "/");
-	}
-	return Premade::getDetailedName() + " ";
 }
 
 std::string Medication::getDIN() const {
@@ -49,9 +43,8 @@ std::string Medication::getDIN() const {
 	return din_;
 }
 
-std::vector<Ingredient> Medication::getActiveIngredients() const {
+Ingredient *Medication::getActiveIngredients() const {
 
-	return ingredients_;
 }
 
 

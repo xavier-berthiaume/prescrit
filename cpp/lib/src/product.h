@@ -43,16 +43,14 @@ public:
 
 class Medication : public Premade {
 protected:
-	// List of the ingredients
-	std::vector<Ingredient> ingredients_;
+	IngredientList *ingredients_;
 
 	std::string din_;
 
 public:
 	std::string getDetailedName() const override;
 	std::string getDIN() const;
-	std::vector<Ingredient> getActiveIngredients() const;
-	Ingredient getActiveIngredient(const unsigned int&) const;
+	IngredientList getActiveIngredients() const;
 
 	void setDIN(const std::string&);
 	void AddIngredient(const Ingredient&);
