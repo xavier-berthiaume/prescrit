@@ -79,18 +79,15 @@ int main(int argc, char* argv[]) {
 
 	assert((test_patient.getBirthYear() != 2025));
 	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
-
+	
 	std::tm valid_birth_date;
 	valid_birth_date.tm_mday = 10;
 	valid_birth_date.tm_mon = 3;
-	valid_birth_date.tm_year = 1993;
+	// 93 as year in tm struct is 1993
+	valid_birth_date.tm_year = 93;
 
 	test_patient.setBirthDate(&valid_birth_date);
 	
-	std::cout << "Birthday: " << test_patient.getBirthDay();
-	std::cout << "Birthmonth: " << test_patient.getBirthMonth();
-	std::cout << "Birthyear: " << test_patient.getBirthYear();
-
 	assert((test_patient.getBirthDay() == 10));
 	assert((test_patient.getBirthMonth() == 3));
 	assert((test_patient.getBirthYear() == 1993));

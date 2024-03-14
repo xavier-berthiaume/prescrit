@@ -141,7 +141,7 @@ void Patient::setBirthDate(const tm* birthDateParam) {
 
 	if(!time_validation::checkDayWithinRange(birthDateParam->tm_mday, birthDateParam->tm_mon, birthDateParam->tm_year) ||
 	   !time_validation::checkMonthWithinRange(birthDateParam->tm_mon) ||
-	   !time_validation::checkYearWithinRange(birthDateParam->tm_year))
+	   !time_validation::checkYearWithinRange(birthDateParam->tm_year+1900))
 		return;
 
 	birthdate_->tm_year = birthDateParam->tm_year;
