@@ -23,3 +23,17 @@ std::string units::convertToString(DoseUnit unitParam) {
 			return "ui/mL";
 	}
 }
+
+std::string units::convertToString(SizeUnit unitParam) {
+
+	switch(unitParam) {
+		case um:
+			return "mcm";
+		case mm:
+			return "mm";
+		case cm:
+			return "cm";
+		case m:
+			return "m";
+	}
+}
