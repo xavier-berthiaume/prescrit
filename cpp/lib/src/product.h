@@ -68,11 +68,8 @@ public:
 	std::string getDetailedName() const override;
 	std::string getIdentifier() const;
 	std::tuple<unsigned int, units::SizeUnit> getWidth() const;
-	std::tuple<unsigned int, units::SizeUnit> getWidth(units::SizeUnit) const;
 	std::tuple<unsigned int, units::SizeUnit> getLength() const;
-	std::tuple<unsigned int, units::SizeUnit> getLength(units::SizeUnit) const;
 	std::tuple<unsigned int, units::SizeUnit> getArea() const;
-	std::tuple<unsigned int, units::SizeUnit> getArea(units::SizeUnit) const;
 
 	void setWidth(const unsigned int&, units::SizeUnit);
 	void setLength(const unsigned int&, units::SizeUnit);

@@ -23,6 +23,8 @@ add_library(structs SHARED
 	"src/product.cpp"
 	"src/time.cpp"
 	"src/phonenumbers.cpp"
+	"src/units.cpp"
+	"src/ingredient.cpp"
 )
 
 add_library(prescrit::structs ALIAS structs)
@@ -46,13 +48,15 @@ install(
 
 install(
     FILES 
-      src/patient.h
-      src/insurance.h
-      src/prescriber.h
-      src/prescription.h
-      src/product.h
-      src/phonenumbers.h
-      src/time.h
+      "src/patient.h"
+      "src/insurance.h"
+      "src/prescriber.h"
+      "src/prescription.h"
+      "src/product.h"
+      "src/phonenumbers.h"
+      "src/time.h"
+      "src/units.h"
+      "src/ingredient.h"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/structs
 )
 
