@@ -9,6 +9,15 @@ Ingredient::Ingredient(const std::string& nameParam,
 	
 }
 
+IngredientList::~IngredientList() {
+
+	while(head != nullptr) {
+		Ingredient *nextIngredient = head->getNext();
+		delete head;
+		head = nextIngredient;
+	}
+}
+
 std::string Ingredient::getFormattedDose() {
 
 	return std::to_string(dose_) + units::convertToString(unit_);

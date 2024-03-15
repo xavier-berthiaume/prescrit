@@ -75,6 +75,7 @@ public:
 	// flesh out my own
 	std::tuple<unsigned int, units::AreaUnit> getArea() const;
 
+	void setIdentifier(const std::string&);
 	void setWidth(const unsigned int&, units::SizeUnit);
 	void setLength(const unsigned int&, units::SizeUnit);
 

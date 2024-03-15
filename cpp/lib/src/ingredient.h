@@ -24,6 +24,7 @@ private:
 
 struct IngredientList {
 	IngredientList();
+	~IngredientList();
 
 	void addIngredient(const std::string&, const unsigned int&, units::DoseUnit);
 	Ingredient *getNextIngredient(Ingredient *);

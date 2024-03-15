@@ -22,6 +22,8 @@ std::string units::convertToString(DoseUnit unitParam) {
 		case uimL:
 			return "ui/mL";
 	}
+
+	return "";
 }
 
 std::string units::convertToString(SizeUnit unitParam) {
@@ -36,6 +38,8 @@ std::string units::convertToString(SizeUnit unitParam) {
 		case m:
 			return "m";
 	}
+	
+	return "";
 }
 
 std::string units::convertToString(AreaUnit unitParam) {
@@ -50,4 +54,6 @@ std::string units::convertToString(AreaUnit unitParam) {
 		case m2:
 			return "m^2";
 	}
+	
+	return "";
 }
