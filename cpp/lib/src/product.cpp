@@ -71,12 +71,22 @@ IngredientList *Medication::getActiveIngredients() const {
 	return ingredients_;
 }
 
+ValidPrescriptionTypes Medication::getAnnex() const {
+
+	return annex_;
+}
+
 void Medication::setDIN(const std::string& dinParam) {
 
 	if(dinParam.length() != 8)
 		return;
 
 	din_ = dinParam;
+}
+
+void Medication::setAnnex(ValidPrescriptionTypes annexParam) {
+
+	annex_ = annexParam;
 }
 
 void Medication::AddIngredient(const std::string& nameParam, const unsigned int& doseParam, units::DoseUnit unitParam) {

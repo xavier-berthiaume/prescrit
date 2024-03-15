@@ -22,9 +22,6 @@ protected:
 	std::string name_;
 
 public:
-	Product();
-	~Product();
-
 	std::string getName() const;
 	virtual std::string getDetailedName() const;
 
@@ -47,6 +44,8 @@ protected:
 
 	std::string din_;
 
+	ValidPrescriptionTypes annex_;
+
 public:
 	Medication();
 	~Medication();
@@ -54,8 +53,10 @@ public:
 	std::string getDetailedName() const override;
 	std::string getDIN() const;
 	IngredientList *getActiveIngredients() const;
+	ValidPrescriptionTypes getAnnex() const;
 
 	void setDIN(const std::string&);
+	void setAnnex(ValidPrescriptionTypes);
 	void AddIngredient(const std::string&, const unsigned int&, units::DoseUnit);
 };
 
