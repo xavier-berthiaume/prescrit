@@ -81,3 +81,12 @@ void Prescriber::setLicense(const std::string& licenseParam) {
 
 	license_ = licenseParam;
 }
+
+void Prescriber::addLocation(const std::string& streetParam, 
+			     const std::string& cityParam,
+			     const std::string& zipParam = "") {
+
+	workLocations_->addLocation(streetParam, cityParam);
+	if(zipParam != "")
+		workLocations_->getNextLocation()->zipCode_ = zipParam;
+}
