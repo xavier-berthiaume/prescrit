@@ -4,31 +4,19 @@ Ingredient::Ingredient(const std::string& nameParam,
 		       const unsigned int& magnitudeParam, 
 		       units::DoseUnit unitParam) : ingredientName_(nameParam),
 						    dose_(magnitudeParam),
-						    unit_(unitParam) {
+						    unit_(unitParam) {}
 
-	
-}
-
-IngredientList::~IngredientList() {
-
-	while(head != nullptr) {
-		Ingredient *nextIngredient = head->getNext();
-		delete head;
-		head = nextIngredient;
-	}
-}
-
-std::string Ingredient::getFormattedDose() {
+std::string Ingredient::getFormattedDose() const {
 
 	return std::to_string(dose_) + units::convertToString(unit_);
 }
 
-std::string Ingredient::getFormattedName() {
+std::string Ingredient::getFormattedName() const {
 
 	return ingredientName_ + " " + std::to_string(dose_) + units::convertToString(unit_);
 }
 
-Ingredient *Ingredient::getNext() {
+Ingredient *Ingredient::getNext() const {
 
 	return next;
 }
@@ -39,6 +27,15 @@ void Ingredient::setNext(Ingredient *ingredientParam) {
 }
 
 IngredientList::IngredientList() : head(nullptr) {}
+
+IngredientList::~IngredientList() {
+
+	while(head != nullptr) {
+		Ingredient *nextIngredient = head->getNext();
+		delete head;
+		head = nextIngredient;
+	}
+}
 
 void IngredientList::addIngredient(const std::string& nameParam, const unsigned int& magnitudeParam, units::DoseUnit unitParam) {
 

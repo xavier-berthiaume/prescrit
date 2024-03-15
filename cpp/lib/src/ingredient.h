@@ -11,10 +11,10 @@ struct Ingredient {
 	unsigned int dose_;
 	units::DoseUnit unit_;
 	
-	std::string getFormattedDose();
-	std::string getFormattedName();
+	std::string getFormattedDose() const;
+	std::string getFormattedName() const;
 
-	Ingredient *getNext();
+	Ingredient *getNext() const;
 	void setNext(Ingredient *);
 
 private:
