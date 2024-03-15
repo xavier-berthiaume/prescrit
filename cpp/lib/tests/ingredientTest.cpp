@@ -6,13 +6,17 @@
 // 4.1. Nodes add without error (removal not necessary)
 // 4.2. Get next returns without error
 
-#include <structs/ingredient.h>
 #include <structs/units.h>
+#include <structs/ingredient.h>
 
 int main(int argc, char *argv[]) {
+
 	IngredientList list = IngredientList();
 
 	list.addIngredient("Test", 320, units::mg);
 	list.addIngredient("Acetaminophen", 500, units::mg);
 
+	Ingredient *ingredient {nullptr};
+	for(int x = 0; x < 15; x++)
+	ingredient = list.getNextIngredient(ingredient);
 }
