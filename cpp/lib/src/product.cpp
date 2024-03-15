@@ -1,5 +1,7 @@
 #include "product.h"
+#include "globalDefinitions.h"
 #include "units.h"
+#include <string>
 #include <tuple>
 
 std::string Product::getName() const {
@@ -142,4 +144,32 @@ void Bandage::setWidth(const unsigned int& measureParam, units::SizeUnit unitPar
 void Bandage::setLength(const unsigned int& measureParam, units::SizeUnit unitParam) {
 
 	length_ = std::make_tuple(measureParam, unitParam);
+}
+
+std::string Syringe::getDetailedName() const {
+
+	return Premade::getDetailedName() + " " + std::to_string(guage_) + "G, " + identifier_;
+}
+
+std::string Syringe::getIdentifier() const {
+
+	return identifier_;
+}
+
+unsigned short Syringe::getGuage() const {
+
+	return guage_;
+}
+
+void Syringe::setIdentifier(const std::string& identifierParam) {
+
+	if(identifier_.length() > MAXIDENTIFIERLENGTH)
+		return;
+
+	identifier_ = identifierParam;
+}
+
+void Syringe::setGuage(const unsigned short& guageParam) {
+
+	guage_ = guageParam;
 }
