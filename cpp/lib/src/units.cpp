@@ -37,3 +37,17 @@ std::string units::convertToString(SizeUnit unitParam) {
 			return "m";
 	}
 }
+
+std::string units::convertToString(AreaUnit unitParam) {
+
+	switch(unitParam) {
+		case um2:
+			return "um^2";
+		case mm2:
+			return "mm^2";
+		case cm2:
+			return "cm^2";
+		case m2:
+			return "m^2";
+	}
+}

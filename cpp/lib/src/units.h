@@ -24,8 +24,16 @@ namespace units {
 		m
 	};
 
+	enum AreaUnit {
+		um2,
+		mm2,
+		cm2,
+		m2
+	};
+
 	std::string convertToString(DoseUnit);
 	std::string convertToString(SizeUnit);
+	std::string convertToString(AreaUnit);
 };
 
 #endif // !UNITS_H

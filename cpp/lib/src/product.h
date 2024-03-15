@@ -48,13 +48,15 @@ protected:
 	std::string din_;
 
 public:
+	Medication();
+	~Medication();
+
 	std::string getDetailedName() const override;
 	std::string getDIN() const;
-	IngredientList getActiveIngredients() const;
+	IngredientList *getActiveIngredients() const;
 
 	void setDIN(const std::string&);
-	void AddIngredient(const Ingredient&);
-	void removeIngredient(const Ingredient&);
+	void AddIngredient(const std::string&, const unsigned int&, units::DoseUnit);
 };
 
 class Bandage : public Premade {
@@ -67,7 +69,10 @@ public:
 	std::string getIdentifier() const;
 	std::tuple<unsigned int, units::SizeUnit> getWidth() const;
 	std::tuple<unsigned int, units::SizeUnit> getLength() const;
-	std::tuple<unsigned int, units::SizeUnit> getArea() const;
+	// Catch here is that you have to have a width and height of the same unit
+	// To fix this, I'll have to commit to a more robust units library or
+	// flesh out my own
+	std::tuple<unsigned int, units::AreaUnit> getArea() const;
 
 	void setWidth(const unsigned int&, units::SizeUnit);
 	void setLength(const unsigned int&, units::SizeUnit);
