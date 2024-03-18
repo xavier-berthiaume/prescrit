@@ -10,6 +10,7 @@
 #include "product.h"
 
 class Prescription {
+
 	std::tm *originalDate_;
 	std::tm *expiryDate_;
 	std::tm *refillDate_;
@@ -25,8 +26,8 @@ class Prescription {
 	// Each refill is its own Prescription instance with its
 	// own data at that point
 	Prescription *previousRefill_;
-
 public:
+
 	std::tm *getOriginalDate() const;
 	std::tm *getExpiryDate() const;
 	std::tm *getRefillDate() const;
@@ -49,10 +50,9 @@ public:
 	void setOriginalQuantity(const unsigned int&);
 	void setOriginalRefills(const unsigned short&);
 	void setRemainingQuantity(const unsigned int&);
-	void setRefillQuantity(const unsigned int&);
+	void setRefillQuantity(unsigned int);
 
 	void setPreviousRefill(Prescription *);
-
 };
 
 class Normal : public Prescription {
@@ -60,14 +60,12 @@ class Normal : public Prescription {
 	// Premades
 	Premade *originalProduct_;
 	Premade *givenProduct_;
-
 };
 
 class Magistral : public Prescription {
 
 	// Just a list of ingredients
 	std::vector<Premade *> ingredients_;
-	
 };
 
 class Misc : public Prescription {
@@ -75,7 +73,6 @@ class Misc : public Prescription {
 	// Products
 	Product *prescribedProduct_;
 	Product *givenProduct_;
-
 };
 
 #endif // !PRESCRIPTION_H
