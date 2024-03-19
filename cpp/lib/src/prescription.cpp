@@ -1,5 +1,46 @@
 #include "prescription.h"
-#include "globalDefinitions.h"
+
+Prescription::Prescription() {
+
+	prescribedProduct_ = nullptr;
+	givenProduct_ = nullptr;
+}
+
+Prescription::Prescription(Prescription *cpyObject) {
+
+	prescribedProduct_ = cpyObject->getPrescribedProduct();
+	givenProduct_ = cpyObject->getGivenProduct();
+	
+	originalDate_ = cpyObject->getOriginalDate();
+	expiryDate_ = cpyObject->getExpiryDate();
+	refillDate_ = cpyObject->getRefillDate();
+
+	prescriber_ = cpyObject->getPrescriber();
+
+	originalQuantity_ = cpyObject->getOriginalQuantity();
+	originalRefills_ = cpyObject->getOriginalRefills();
+	remainingQuantity_ = cpyObject->getRemainingQuantity();
+	refillQuantity_ = cpyObject->getRefillQuantity();
+}
+
+Prescription::~Prescription() {
+
+	if(prescribedProduct_ != nullptr)
+		delete prescribedProduct_;
+
+	if(givenProduct_ != nullptr)
+		delete givenProduct_;
+}
+
+Product *Prescription::getPrescribedProduct() const {
+
+	return prescribedProduct_;
+}
+
+Product *Prescription::getGivenProduct() const {
+
+	return givenProduct_;
+}
 
 std::tm *Prescription::getOriginalDate() const {
 
@@ -44,6 +85,22 @@ unsigned int Prescription::getRefillQuantity() const {
 Prescription *Prescription::getPreviousRefill() const {
 
 	return previousRefill_;
+}
+
+void Prescription::setPrescribedProduct(Product *productParam) {
+
+	if(productParam == nullptr)
+		return;
+
+	prescribedProduct_ = productParam;
+}
+
+void Prescription::setGivenProduct(Product *productParam) {
+
+	if(productParam == nullptr)
+		return;
+
+	givenProduct_ = productParam;
 }
 
 void Prescription::setOriginalDate(const unsigned short& dayParam, 
@@ -155,6 +212,49 @@ void Prescription::setPreviousRefill(Prescription *prescriptionParam) {
 	previousRefill_ = prescriptionParam;
 }
 
+Prescription *Prescription::refill(const unsigned int& quantityParam) {
+
+	return nullptr;
+}
+
+Normal::Normal() {
+
+	originalProduct_ = nullptr;
+	givenProduct_ = nullptr;
+}
+
+Normal::Normal(Normal *cpyObject) {
+
+	originalProduct_ = cpyObject->getOriginalProduct();
+	givenProduct_ = cpyObject->getGivenProduct();
+
+	originalDate_ = cpyObject->getOriginalDate();
+	expiryDate_ = cpyObject->getExpiryDate();
+	refillDate_ = cpyObject->getRefillDate();
+
+	prescriber_ = cpyObject->getPrescriber();
+
+	originalQuantity_ = cpyObject->getOriginalQuantity();
+	originalRefills_ = cpyObject->getOriginalRefills();
+	remainingQuantity_ = cpyObject->getRemainingQuantity();
+	refillQuantity_ = cpyObject->getRefillQuantity();
+
+	// Do not copy over the previous refill
+}
+
+Normal::~Normal() {
+
+	if(originalProduct_ != nullptr)
+		delete  originalProduct_;
+
+	if(givenProduct_ != nullptr)
+		delete givenProduct_;
+
+	// Maybe a better way to do this?
+	if(previousRefill_ != nullptr)
+		delete previousRefill_;
+}
+
 Premade *Normal::getOriginalProduct() const {
 
 	return originalProduct_;
@@ -174,6 +274,31 @@ void Normal::setGivenProduct(Premade *productParam) {
 
 	givenProduct_ = productParam;
 }
+
+Prescription *Normal::refill(const unsigned int& quantityParam) {
+
+	return nullptr;
+}
+
+Magistral::Magistral() {}
+
+Magistral::Magistral(Magistral *cpyObject) {
+
+	ingredients_ = cpyObject->getIngredients();
+
+	originalDate_ = cpyObject->getOriginalDate();
+	expiryDate_ = cpyObject->getExpiryDate();
+	refillDate_ = cpyObject->getRefillDate();
+
+	prescriber_ = cpyObject->getPrescriber();
+
+	originalQuantity_ = cpyObject->getOriginalQuantity();
+	originalRefills_ = cpyObject->getOriginalRefills();
+	remainingQuantity_ = cpyObject->getRemainingQuantity();
+	refillQuantity_ = cpyObject->getRefillQuantity();
+}
+
+Magistral::~Magistral() {}
 
 std::vector<Premade *> Magistral::getIngredients() const {
 
@@ -196,22 +321,7 @@ void Magistral::removeIngredient(Premade *ingredientParam) {
 	ingredients_.erase(std::remove(ingredients_.begin(), ingredients_.end(), ingredientParam), ingredients_.end());
 }
 
-Product *Misc::getPrescribedProduct() const {
+Prescription *Magistral::refill(const unsigned int& quantityParam) {
 
-	return prescribedProduct_;
-}
-
-Product *Misc::getGivenProduct() const {
-
-	return givenProduct_;
-}
-
-void Misc::setPrescribedProduct(Product *productParam) {
-
-	prescribedProduct_ = productParam;
-}
-
-void Misc::setGivenProduct(Product *productParam) {
-
-	givenProduct_ = productParam;
+	return nullptr;
 }

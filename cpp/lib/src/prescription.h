@@ -12,6 +12,15 @@
 
 class Prescription {
 
+	Product *prescribedProduct_;
+	Product *givenProduct_;
+
+	Product *getPrescribedProduct() const;
+	Product *getGivenProduct() const;
+	void setPrescribedProduct(Product *);
+	void setGivenProduct(Product *);
+protected:
+
 	std::tm *originalDate_;
 	std::tm *expiryDate_;
 	std::tm *refillDate_;
@@ -28,6 +37,10 @@ class Prescription {
 	// own data at that point
 	Prescription *previousRefill_;
 public:
+
+	Prescription();
+	Prescription(Prescription *);
+	~Prescription();
 
 	std::tm *getOriginalDate() const;
 	std::tm *getExpiryDate() const;
@@ -54,6 +67,8 @@ public:
 	void setRefillQuantity(unsigned int);
 
 	void setPreviousRefill(Prescription *);
+
+	virtual Prescription *refill(const unsigned int&);
 };
 
 class Normal : public Prescription {
@@ -62,10 +77,17 @@ class Normal : public Prescription {
 	Premade *originalProduct_;
 	Premade *givenProduct_;
 public:
+
+	Normal();
+	Normal(Normal *);
+	~Normal();
+
 	Premade *getOriginalProduct() const;
 	Premade *getGivenProduct() const;
 	void setOriginalProduct(Premade *);
 	void setGivenProduct(Premade *);
+
+	Prescription *refill(const unsigned int&);
 };
 
 class Magistral : public Prescription {
@@ -73,21 +95,15 @@ class Magistral : public Prescription {
 	// Just a list of ingredients
 	std::vector<Premade *> ingredients_;
 public:
+
+	Magistral();
+	Magistral(Magistral *);
+	~Magistral();
+
 	std::vector<Premade *> getIngredients() const;
 	void addIngredient(Premade *);
 	void removeIngredient(Premade *);
+
+	Prescription *refill(const unsigned int&);
 };
-
-class Misc : public Prescription {
-
-	// Products
-	Product *prescribedProduct_;
-	Product *givenProduct_;
-public:
-	Product *getPrescribedProduct() const;
-	Product *getGivenProduct() const;
-	void setPrescribedProduct(Product *);
-	void setGivenProduct(Product *);
-};
-
 #endif // !PRESCRIPTION_H

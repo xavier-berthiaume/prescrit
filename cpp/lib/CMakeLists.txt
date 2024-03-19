@@ -23,6 +23,7 @@ add_library(structs SHARED
 	"src/phonenumbers.cpp"
 	"src/units.cpp"
 	"src/ingredient.cpp"
+	"src/location.cpp"
 )
 
 add_library(prescrit::structs ALIAS structs)
@@ -55,6 +56,7 @@ install(
       "src/time.h"
       "src/units.h"
       "src/ingredient.h"
+      "src/location.h"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/structs
 )
 
@@ -83,4 +85,8 @@ install(FILES
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
-add_subdirectory(tests)
+option(BUILD_TESTS "Build tests along with source" OFF)
+
+if(${BUILD_TESTS})
+  add_subdirectory(tests)
+endif()
