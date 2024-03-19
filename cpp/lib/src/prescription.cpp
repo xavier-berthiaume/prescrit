@@ -154,3 +154,64 @@ void Prescription::setPreviousRefill(Prescription *prescriptionParam) {
 
 	previousRefill_ = prescriptionParam;
 }
+
+Premade *Normal::getOriginalProduct() const {
+
+	return originalProduct_;
+}
+
+Premade *Normal::getGivenProduct() const {
+
+	return givenProduct_;
+}
+
+void Normal::setOriginalProduct(Premade *productParam) {
+
+	originalProduct_ = productParam;
+}
+
+void Normal::setGivenProduct(Premade *productParam) {
+
+	givenProduct_ = productParam;
+}
+
+std::vector<Premade *> Magistral::getIngredients() const {
+
+	return ingredients_;
+}
+
+void Magistral::addIngredient(Premade *ingredientParam) {
+
+	if(ingredientParam == nullptr)
+		return;
+
+	ingredients_.push_back(ingredientParam);
+}
+
+void Magistral::removeIngredient(Premade *ingredientParam) {
+
+	if(ingredientParam == nullptr)
+		return;
+
+	ingredients_.erase(std::remove(ingredients_.begin(), ingredients_.end(), ingredientParam), ingredients_.end());
+}
+
+Product *Misc::getPrescribedProduct() const {
+
+	return prescribedProduct_;
+}
+
+Product *Misc::getGivenProduct() const {
+
+	return givenProduct_;
+}
+
+void Misc::setPrescribedProduct(Product *productParam) {
+
+	prescribedProduct_ = productParam;
+}
+
+void Misc::setGivenProduct(Product *productParam) {
+
+	givenProduct_ = productParam;
+}

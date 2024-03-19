@@ -1,6 +1,7 @@
 #ifndef PRESCRIPTION_H
 #define PRESCRIPTION_H
 
+#include <algorithm>
 #include <string>
 #include <ctime>
 
@@ -60,12 +61,21 @@ class Normal : public Prescription {
 	// Premades
 	Premade *originalProduct_;
 	Premade *givenProduct_;
+public:
+	Premade *getOriginalProduct() const;
+	Premade *getGivenProduct() const;
+	void setOriginalProduct(Premade *);
+	void setGivenProduct(Premade *);
 };
 
 class Magistral : public Prescription {
 
 	// Just a list of ingredients
 	std::vector<Premade *> ingredients_;
+public:
+	std::vector<Premade *> getIngredients() const;
+	void addIngredient(Premade *);
+	void removeIngredient(Premade *);
 };
 
 class Misc : public Prescription {
@@ -73,6 +83,11 @@ class Misc : public Prescription {
 	// Products
 	Product *prescribedProduct_;
 	Product *givenProduct_;
+public:
+	Product *getPrescribedProduct() const;
+	Product *getGivenProduct() const;
+	void setPrescribedProduct(Product *);
+	void setGivenProduct(Product *);
 };
 
 #endif // !PRESCRIPTION_H
