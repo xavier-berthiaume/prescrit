@@ -53,7 +53,7 @@ Medication::Medication(Medication *cpyObject) {
 
 	name_ = cpyObject->getName();
 	producer_ = cpyObject->getProducer();
-	ingredients_ = new IngredientsList(cpyObject->getActiveIngredients());
+	ingredients_ = new IngredientList(cpyObject->getActiveIngredients());
 }
 
 Medication::~Medication() {
@@ -64,7 +64,7 @@ Medication::~Medication() {
 std::string Medication::getDetailedName() const {
 
 	std::string formatted_doses {};
-	Ingredient *next_ingredient = ingredients_->getNextIngredient();
+	Ingredient *next_ingredient = ingredients_->getHead();
 	do {
 	
 		formatted_doses.append(next_ingredient->getFormattedDose());

@@ -57,7 +57,7 @@ install(
       "src/units.h"
       "src/ingredient.h"
       "src/location.h"
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/structs
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/prescrit/structs
 )
 
 install(

@@ -6,11 +6,16 @@
 
 struct Ingredient {
 	Ingredient(const std::string&, const unsigned int&, units::DoseUnit);
+	Ingredient(Ingredient *);
+	~Ingredient();
 
 	std::string ingredientName_;
 	unsigned int dose_;
 	units::DoseUnit unit_;
 	
+	std::string getName() const;
+	unsigned int getDose() const;
+	units::DoseUnit getUnit() const;
 	std::string getFormattedDose() const;
 	std::string getFormattedName() const;
 
@@ -28,8 +33,9 @@ struct IngredientList {
 	~IngredientList();
 
 	void addIngredient(const std::string&, const unsigned int&, units::DoseUnit);
+	void addIngredient(Ingredient *);
 	Ingredient *getNextIngredient(Ingredient *);
-	Ingredient *getNextIngredient();
+	Ingredient *getHead();
 
 private:
 	Ingredient *head;

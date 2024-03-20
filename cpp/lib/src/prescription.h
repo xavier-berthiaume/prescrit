@@ -114,4 +114,18 @@ public:
 
 	Prescription *refill(const unsigned int&) override;
 };
+
+struct PrescriptionRefillList {
+
+	PrescriptionRefillList();
+	PrescriptionRefillList(PrescriptionRefillList *);
+	~PrescriptionRefillList();
+
+	Prescription *getNextPrescription(Prescription *);
+	Prescription *getHead();
+private:
+
+	Prescription *head;
+};
+
 #endif // !PRESCRIPTION_H

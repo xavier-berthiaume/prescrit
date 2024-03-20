@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
 	assert((test_medication.getName() != test_medication.getDetailedName()));
 	assert((test_medication.getDIN() == argv[3]));
-	assert((test_medication.getActiveIngredients()->getNextIngredient() != nullptr));
+	assert((test_medication.getActiveIngredients()->getHead() != nullptr));
 
 	return 0;
 }

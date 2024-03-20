@@ -364,3 +364,38 @@ Prescription *Magistral::refill(const unsigned int& quantityParam) {
 
 	return nullptr;
 }
+
+PrescriptionRefillList::PrescriptionRefillList() : head{nullptr} {}
+
+PrescriptionRefillList::PrescriptionRefillList(PrescriptionRefillList *cpyObject) {
+
+	head = new Prescription(cpyObject->getHead());
+	Prescription *currentPositionOriginal = cpyObject->getNextPrescription(cpyObject->getHead());
+	Prescription *currentPositionNew = head;
+	while(currentPositionOriginal != nullptr) {
+
+		currentPositionNew->setPreviousRefill(new Prescription(currentPositionOriginal));
+		currentPositionNew = currentPositionNew->getPreviousRefill();
+		currentPositionOriginal = currentPositionOriginal->getPreviousRefill();
+	}
+}
+
+PrescriptionRefillList::~PrescriptionRefillList() {
+
+	while(head != nullptr) {
+
+		Prescription *nextPrescription = head->getPreviousRefill();
+		delete head;
+		head = nextPrescription;
+	}
+}
+
+Prescription *PrescriptionRefillList::getNextPrescription(Prescription *prescriptionParam) {
+
+	return prescriptionParam->getPreviousRefill();
+}
+
+Prescription *PrescriptionRefillList::getHead() {
+
+	return head;
+}
