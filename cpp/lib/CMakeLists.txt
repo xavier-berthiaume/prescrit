@@ -11,7 +11,12 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-install(FILES src/globalDefinitions.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(
+  FILES 
+    src/globalDefinitions.h 
+    structs.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/prescrit
+)
 
 add_library(structs SHARED
 	"src/patient.cpp"

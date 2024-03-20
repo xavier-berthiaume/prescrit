@@ -7,8 +7,7 @@
 // 4. Try getting the ingredients
 
 #include <cassert>
-#include <structs/product.h>
-#include <structs/units.h>
+#include <prescrit/structs.h>
 
 int main(int argc, char *argv[]) {
 

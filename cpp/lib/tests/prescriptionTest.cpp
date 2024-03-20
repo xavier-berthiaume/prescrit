@@ -13,9 +13,7 @@
 #include <cassert>
 #include <iostream>
 
-#include <structs/prescriber.h>
-#include <structs/product.h>
-#include <structs/prescription.h>
+#include <prescrit/structs.h>
 
 int main(int argc, char *argv[]) {
 

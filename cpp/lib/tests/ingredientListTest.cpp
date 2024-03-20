@@ -3,7 +3,7 @@
 // 2. Copying (deep) an ingredients list
 // 3. Deletion of the ingredients list
 
-#include <structs/ingredient.h>
+#include <prescrit/structs.h>
 
 int main(int argc, char *argv[]) {
 	

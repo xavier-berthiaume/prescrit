@@ -6,8 +6,7 @@
 // 4.1. Nodes add without error (removal not necessary)
 // 4.2. Get next returns without error
 
-#include <structs/units.h>
-#include <structs/ingredient.h>
+#include <prescrit/structs.h>
 
 int main(int argc, char *argv[]) {
 

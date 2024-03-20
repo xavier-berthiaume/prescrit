@@ -6,8 +6,7 @@
 // isn't overwritten
 
 #include <cassert>
-#include <string>
-#include <structs/product.h>
+#include <prescrit/structs.h>
 
 int main(int argc, char *argv[]) {
 

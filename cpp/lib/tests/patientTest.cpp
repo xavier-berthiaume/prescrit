@@ -14,7 +14,7 @@
 #include <cassert>
 #include <ctime>
 #include <string>
-#include <structs/patient.h>
+#include <prescrit/structs.h>
 
 int main(int argc, char* argv[]) {
 
