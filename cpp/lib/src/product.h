@@ -22,6 +22,10 @@ protected:
 	std::string name_;
 
 public:
+	Product();
+	Product(Product *);
+	~Product();
+
 	std::string getName() const;
 	virtual std::string getDetailedName() const;
 
@@ -48,6 +52,7 @@ protected:
 
 public:
 	Medication();
+	Medication(Medication *);
 	~Medication();
 
 	std::string getDetailedName() const override;

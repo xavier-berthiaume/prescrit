@@ -16,9 +16,9 @@ class Prescription {
 	Product *givenProduct_;
 protected:
 
-	std::tm *originalDate_;
-	std::tm *expiryDate_;
-	std::tm *refillDate_;
+	std::tm originalDate_;
+	std::tm expiryDate_;
+	std::tm refillDate_;
 
 	Prescriber *prescriber_;
 
@@ -37,9 +37,9 @@ public:
 	Prescription(Prescription *);
 	~Prescription();
 
-	std::tm *getOriginalDate() const;
-	std::tm *getExpiryDate() const;
-	std::tm *getRefillDate() const;
+	std::tm getOriginalDate() const;
+	std::tm getExpiryDate() const;
+	std::tm getRefillDate() const;
 
 	Prescriber *getPrescriber() const;
 

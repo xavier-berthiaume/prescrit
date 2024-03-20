@@ -28,6 +28,11 @@ void Ingredient::setNext(Ingredient *ingredientParam) {
 
 IngredientList::IngredientList() : head(nullptr) {}
 
+IngredientList::IngredientList(IngredientList *cpyObject) {
+
+	head = cpyObject->getNextIngredient();
+}
+
 IngredientList::~IngredientList() {
 
 	while(head != nullptr) {

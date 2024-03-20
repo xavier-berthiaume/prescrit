@@ -39,3 +39,9 @@ target_link_libraries(syringeTest
   PRIVATE structs
 )
 add_test(NAME syringeTest COMMAND syringeTest bd luerlock 33 1232322)
+
+add_executable(prescriptionTest prescriptionTest.cpp)
+target_link_libraries(prescriptionTest
+  PRIVATE structs
+)
+add_test(NAME prescriptionTest COMMAND prescriptionTest)

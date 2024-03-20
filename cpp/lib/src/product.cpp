@@ -1,6 +1,15 @@
 #include "product.h"
 #include "globalDefinitions.h"
 
+Product::Product() {}
+
+Product::Product(Product *cpyObject) {
+
+	name_ = cpyObject->getName();
+}
+
+Product::~Product() {}
+
 std::string Product::getName() const {
 
 	return name_;
@@ -38,6 +47,13 @@ void Premade::setProducer(const std::string& producerParam) {
 Medication::Medication() {
 
 	ingredients_ = new IngredientList();
+}
+
+Medication::Medication(Medication *cpyObject) {
+
+	name_ = cpyObject->getName();
+	producer_ = cpyObject->getProducer();
+	ingredients_ = new IngredientsList(cpyObject->getActiveIngredients());
 }
 
 Medication::~Medication() {

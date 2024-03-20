@@ -2,6 +2,8 @@
 
 Prescription::Prescription() {
 
+	prescriber_ = nullptr;
+
 	originalProduct_ = nullptr;
 	givenProduct_ = nullptr;
 }
@@ -25,6 +27,9 @@ Prescription::Prescription(Prescription *cpyObject) {
 
 Prescription::~Prescription() {
 
+	if(prescriber_ != nullptr)
+		delete prescriber_;
+
 	if(originalProduct_ != nullptr)
 		delete originalProduct_;
 
@@ -42,17 +47,17 @@ Product *Prescription::getGivenProduct() const {
 	return givenProduct_;
 }
 
-std::tm *Prescription::getOriginalDate() const {
+std::tm Prescription::getOriginalDate() const {
 
 	return originalDate_;
 }
 
-std::tm *Prescription::getExpiryDate() const {
+std::tm Prescription::getExpiryDate() const {
 
 	return expiryDate_;
 }
 
-std::tm *Prescription::getRefillDate() const {
+std::tm Prescription::getRefillDate() const {
 
 	return refillDate_;
 }
@@ -92,7 +97,7 @@ void Prescription::setOriginalProduct(Product *productParam) {
 	if(productParam == nullptr)
 		return;
 
-	originalProduct_ = productParam;
+	originalProduct_ = new Product(productParam);
 }
 
 void Prescription::setGivenProduct(Product *productParam) {
@@ -100,7 +105,7 @@ void Prescription::setGivenProduct(Product *productParam) {
 	if(productParam == nullptr)
 		return;
 
-	givenProduct_ = productParam;
+	givenProduct_ = new Product(productParam);
 }
 
 void Prescription::setOriginalDate(const unsigned short& dayParam, 
@@ -116,9 +121,9 @@ void Prescription::setOriginalDate(const unsigned short& dayParam,
 	if(!time_validation::checkYearWithinRange(yearParam))
 		return;
 
-	originalDate_->tm_mday = dayParam;
-	originalDate_->tm_mon = monthParam;
-	originalDate_->tm_year = yearParam;
+	originalDate_.tm_mday = dayParam;
+	originalDate_.tm_mon = monthParam;
+	originalDate_.tm_year = yearParam-1900;
 }
 
 void Prescription::setExpiryDate(const unsigned short& dayParam, 
@@ -134,9 +139,9 @@ void Prescription::setExpiryDate(const unsigned short& dayParam,
 	if(!time_validation::checkYearWithinRange(yearParam))
 		return;
 
-	expiryDate_->tm_mday = dayParam;
-	expiryDate_->tm_mon = monthParam;
-	expiryDate_->tm_year = yearParam;
+	expiryDate_.tm_mday = dayParam;
+	expiryDate_.tm_mon = monthParam;
+	expiryDate_.tm_year = yearParam-1900;
 }
 
 void Prescription::setRefillDate(const unsigned short& dayParam, 
@@ -152,12 +157,15 @@ void Prescription::setRefillDate(const unsigned short& dayParam,
 	if(!time_validation::checkYearWithinRange(yearParam))
 		return;
 
-	refillDate_->tm_mday = dayParam;
-	refillDate_->tm_mon = monthParam;
-	refillDate_->tm_year = yearParam;
+	refillDate_.tm_mday = dayParam;
+	refillDate_.tm_mon = monthParam;
+	refillDate_.tm_year = yearParam-1900;
 }
 
 void Prescription::setPrescriber(Prescriber *prescriberParam) {
+
+	if(prescriberParam == nullptr)
+		return;
 
 	prescriber_ = prescriberParam;
 }
@@ -190,7 +198,7 @@ void Prescription::setRemainingQuantity(const unsigned int& quantityParam) {
 	}
 
 	// Makes no sense to have the remaining quantity be greater than the original quantity
-	if(quantityParam > originalQuantity_)
+	if(quantityParam > originalQuantity_*originalRefills_)
 		return;
 
 	remainingQuantity_ = quantityParam;
@@ -267,12 +275,18 @@ Premade *Normal::getGivenProduct() const {
 
 void Normal::setOriginalProduct(Product *productParam) {
 
-	originalProduct_ = productParam;
+	if(productParam == nullptr)
+		return;
+
+	originalProduct_ = dynamic_cast<Premade *>(productParam);
 }
 
 void Normal::setGivenProduct(Product *productParam) {
+	
+	if(productParam == nullptr)
+		return;
 
-	givenProduct_ = productParam;
+	givenProduct_ = dynamic_cast<Premade *>(productParam);
 }
 
 Prescription *Normal::refill(const unsigned int& quantityParam) {
@@ -319,6 +333,31 @@ void Magistral::removeIngredient(Premade *ingredientParam) {
 		return;
 
 	ingredients_.erase(std::remove(ingredients_.begin(), ingredients_.end(), ingredientParam), ingredients_.end());
+}
+
+Product *Magistral::getOriginalProduct() const {
+
+	return product_;
+}
+
+Product *Magistral::getGivenProduct() const {
+
+	return product_;
+}
+
+void Magistral::setOriginalProduct(Product *productParam) {
+
+	if(productParam == nullptr)
+		return;
+
+	product_ = productParam;
+}
+
+void Magistral::setGivenProduct(Product *productParam) {
+	if(productParam == nullptr)
+		return;
+
+	product_ = productParam;
 }
 
 Prescription *Magistral::refill(const unsigned int& quantityParam) {
