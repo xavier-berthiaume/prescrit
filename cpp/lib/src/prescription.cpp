@@ -2,13 +2,13 @@
 
 Prescription::Prescription() {
 
-	prescribedProduct_ = nullptr;
+	originalProduct_ = nullptr;
 	givenProduct_ = nullptr;
 }
 
 Prescription::Prescription(Prescription *cpyObject) {
 
-	prescribedProduct_ = cpyObject->getPrescribedProduct();
+	originalProduct_ = cpyObject->getOriginalProduct();
 	givenProduct_ = cpyObject->getGivenProduct();
 	
 	originalDate_ = cpyObject->getOriginalDate();
@@ -25,16 +25,16 @@ Prescription::Prescription(Prescription *cpyObject) {
 
 Prescription::~Prescription() {
 
-	if(prescribedProduct_ != nullptr)
-		delete prescribedProduct_;
+	if(originalProduct_ != nullptr)
+		delete originalProduct_;
 
 	if(givenProduct_ != nullptr)
 		delete givenProduct_;
 }
 
-Product *Prescription::getPrescribedProduct() const {
+Product *Prescription::getOriginalProduct() const {
 
-	return prescribedProduct_;
+	return originalProduct_;
 }
 
 Product *Prescription::getGivenProduct() const {
@@ -87,12 +87,12 @@ Prescription *Prescription::getPreviousRefill() const {
 	return previousRefill_;
 }
 
-void Prescription::setPrescribedProduct(Product *productParam) {
+void Prescription::setOriginalProduct(Product *productParam) {
 
 	if(productParam == nullptr)
 		return;
 
-	prescribedProduct_ = productParam;
+	originalProduct_ = productParam;
 }
 
 void Prescription::setGivenProduct(Product *productParam) {
@@ -265,12 +265,12 @@ Premade *Normal::getGivenProduct() const {
 	return givenProduct_;
 }
 
-void Normal::setOriginalProduct(Premade *productParam) {
+void Normal::setOriginalProduct(Product *productParam) {
 
 	originalProduct_ = productParam;
 }
 
-void Normal::setGivenProduct(Premade *productParam) {
+void Normal::setGivenProduct(Product *productParam) {
 
 	givenProduct_ = productParam;
 }

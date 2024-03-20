@@ -12,13 +12,8 @@
 
 class Prescription {
 
-	Product *prescribedProduct_;
+	Product *originalProduct_;
 	Product *givenProduct_;
-
-	Product *getPrescribedProduct() const;
-	Product *getGivenProduct() const;
-	void setPrescribedProduct(Product *);
-	void setGivenProduct(Product *);
 protected:
 
 	std::tm *originalDate_;
@@ -48,18 +43,24 @@ public:
 
 	Prescriber *getPrescriber() const;
 
+	virtual Product *getOriginalProduct() const;
+	virtual Product *getGivenProduct() const;
+
 	unsigned int getOriginalQuantity() const;
 	unsigned short getOriginalRefills() const;
 	unsigned int getRemainingQuantity() const;
 	unsigned int getRefillQuantity() const;
 
 	Prescription *getPreviousRefill() const;
-
+	
 	void setOriginalDate(const unsigned short&, const unsigned short&, const unsigned short&);
 	void setExpiryDate(const unsigned short&, const unsigned short&, const unsigned short&);
 	void setRefillDate(const unsigned short&, const unsigned short&, const unsigned short&);
 	
 	void setPrescriber(Prescriber *);
+	
+	virtual void setOriginalProduct(Product *);
+	virtual void setGivenProduct(Product *); 
 
 	void setOriginalQuantity(const unsigned int&);
 	void setOriginalRefills(const unsigned short&);
@@ -82,16 +83,17 @@ public:
 	Normal(Normal *);
 	~Normal();
 
-	Premade *getOriginalProduct() const;
-	Premade *getGivenProduct() const;
-	void setOriginalProduct(Premade *);
-	void setGivenProduct(Premade *);
+	Premade *getOriginalProduct() const override;
+	Premade *getGivenProduct() const override;
+	void setOriginalProduct(Product *) override;
+	void setGivenProduct(Product *) override;
 
-	Prescription *refill(const unsigned int&);
+	Prescription *refill(const unsigned int&) override;
 };
 
 class Magistral : public Prescription {
 
+	Product *product_;
 	// Just a list of ingredients
 	std::vector<Premade *> ingredients_;
 public:
@@ -104,6 +106,12 @@ public:
 	void addIngredient(Premade *);
 	void removeIngredient(Premade *);
 
-	Prescription *refill(const unsigned int&);
+	// Although both getters and setters are included here, they will both point to the same thing
+	Product *getOriginalProduct() const override;
+	Product *getGivenProduct() const override;
+	void setOriginalProduct(Product *) override;
+	void setGivenProduct(Product *) override;
+
+	Prescription *refill(const unsigned int&) override;
 };
 #endif // !PRESCRIPTION_H
