@@ -220,11 +220,6 @@ void Prescription::setPreviousRefill(Prescription *prescriptionParam) {
 	previousRefill_ = prescriptionParam;
 }
 
-Prescription *Prescription::refill(const unsigned int& quantityParam) {
-
-	return nullptr;
-}
-
 Normal::Normal() {
 
 	originalProduct_ = nullptr;
@@ -289,11 +284,6 @@ void Normal::setGivenProduct(Product *productParam) {
 	givenProduct_ = dynamic_cast<Premade *>(productParam);
 }
 
-Prescription *Normal::refill(const unsigned int& quantityParam) {
-
-	return nullptr;
-}
-
 Magistral::Magistral() {}
 
 Magistral::Magistral(Magistral *cpyObject) {
@@ -354,15 +344,11 @@ void Magistral::setOriginalProduct(Product *productParam) {
 }
 
 void Magistral::setGivenProduct(Product *productParam) {
+
 	if(productParam == nullptr)
 		return;
 
 	product_ = productParam;
-}
-
-Prescription *Magistral::refill(const unsigned int& quantityParam) {
-
-	return nullptr;
 }
 
 PrescriptionRefillList::PrescriptionRefillList() : head{nullptr} {}
@@ -398,4 +384,23 @@ Prescription *PrescriptionRefillList::getNextPrescription(Prescription *prescrip
 Prescription *PrescriptionRefillList::getHead() {
 
 	return head;
+}
+
+void PrescriptionRefillList::setHead(Prescription *prescriptionParam) {
+
+	head = prescriptionParam;
+}
+
+bool PrescriptionRefillList::refillPrescription(const unsigned int& quantityParam) {
+
+	Prescription *recentRefill = new Prescription(head);
+	if(recentRefill->getRemainingQuantity() < quantityParam)
+		return false;
+	recentRefill->setRefillQuantity(quantityParam);
+	recentRefill->setRemainingQuantity(recentRefill->getRemainingQuantity() - quantityParam);
+
+	recentRefill->setPreviousRefill(head);
+	head = recentRefill;
+	
+	return true;
 }

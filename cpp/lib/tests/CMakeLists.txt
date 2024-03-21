@@ -45,3 +45,9 @@ target_link_libraries(prescriptionTest
   PRIVATE structs
 )
 add_test(NAME prescriptionTest COMMAND prescriptionTest)
+
+add_executable(prescriptionListTest prescriptionListTest.cpp)
+target_link_libraries(prescriptionListTest
+  PRIVATE structs
+)
+add_test(NAME prescriptionListTest COMMAND prescriptionListTest)

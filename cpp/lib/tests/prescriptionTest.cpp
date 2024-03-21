@@ -18,14 +18,14 @@
 int main(int argc, char *argv[]) {
 
 	std::cout << "Creating test product";
-	Product *testProduct = new Product;
-	testProduct->setName("Test Product");
+	Product testProduct = Product();
+	testProduct.setName("Test Product");
 
 	std::cout << "Creating test prescriber";
-	Prescriber *testPrescriber = new Prescriber;
-	testPrescriber->setFirstName("Bob");
-	testPrescriber->setLastName("Ross");
-	testPrescriber->setLicense("123456");
+	Prescriber testPrescriber = Prescriber();
+	testPrescriber.setFirstName("Bob");
+	testPrescriber.setLastName("Ross");
+	testPrescriber.setLicense("123456");
 
 	std::cout << "Creating test prescription";
 	Prescription testPrescription = Prescription();
@@ -42,11 +42,11 @@ int main(int argc, char *argv[]) {
 	testPrescription.setRefillQuantity(0);
 
 	std::cout << "Setting prescriber";
-	testPrescription.setPrescriber(testPrescriber);
+	testPrescription.setPrescriber(&testPrescriber);
 
 	std::cout << "Setting products";
-	testPrescription.setOriginalProduct(testProduct);
-	testPrescription.setGivenProduct(testProduct);
+	testPrescription.setOriginalProduct(&testProduct);
+	testPrescription.setGivenProduct(&testProduct);
 
 	// Assertions that check if the object was properly created
 	assert((testPrescription.getPrescriber() != nullptr));

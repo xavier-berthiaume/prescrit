@@ -68,8 +68,6 @@ public:
 	void setRefillQuantity(unsigned int);
 
 	void setPreviousRefill(Prescription *);
-
-	virtual Prescription *refill(const unsigned int&);
 };
 
 class Normal : public Prescription {
@@ -87,8 +85,6 @@ public:
 	Premade *getGivenProduct() const override;
 	void setOriginalProduct(Product *) override;
 	void setGivenProduct(Product *) override;
-
-	Prescription *refill(const unsigned int&) override;
 };
 
 class Magistral : public Prescription {
@@ -111,8 +107,6 @@ public:
 	Product *getGivenProduct() const override;
 	void setOriginalProduct(Product *) override;
 	void setGivenProduct(Product *) override;
-
-	Prescription *refill(const unsigned int&) override;
 };
 
 struct PrescriptionRefillList {
@@ -123,6 +117,10 @@ struct PrescriptionRefillList {
 
 	Prescription *getNextPrescription(Prescription *);
 	Prescription *getHead();
+
+	void setHead(Prescription *);
+
+	bool refillPrescription(const unsigned int&);
 private:
 
 	Prescription *head;
