@@ -5,6 +5,15 @@ Prescriber::Prescriber() {
 	workLocations_ = new LocationList();
 }
 
+Prescriber::Prescriber(Prescriber *cpyObject) {
+
+    firstName_ = cpyObject->getFirstName();
+    lastName_ = cpyObject->getLastName();
+    license_ = cpyObject->getLicense();
+
+    workLocations_ = new LocationList(cpyObject->getLocations());
+}
+
 Prescriber::~Prescriber() {
 
 	delete workLocations_;

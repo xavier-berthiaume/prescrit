@@ -17,6 +17,7 @@ class Prescriber {
 	static bool validateLicense(const std::string&);
 public:
 	Prescriber();
+    Prescriber(Prescriber *);
 	~Prescriber();
 
 	std::string getFirstName() const;

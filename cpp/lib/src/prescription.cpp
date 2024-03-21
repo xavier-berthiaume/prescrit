@@ -167,7 +167,7 @@ void Prescription::setPrescriber(Prescriber *prescriberParam) {
 	if(prescriberParam == nullptr)
 		return;
 
-	prescriber_ = prescriberParam;
+	prescriber_ = new Prescriber(prescriberParam);
 }
 
 void Prescription::setOriginalQuantity(const unsigned int& quantityParam) {
