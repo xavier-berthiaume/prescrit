@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 install(
   FILES 
-    src/globalDefinitions.h 
     structs.h
+    test-fr.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/prescrit
 )
 
@@ -29,6 +29,7 @@ add_library(structs SHARED
 	"src/units.cpp"
 	"src/ingredient.cpp"
 	"src/location.cpp"
+    "src/testframework.cpp"
 )
 
 add_library(prescrit::structs ALIAS structs)
@@ -62,6 +63,10 @@ install(
       "src/units.h"
       "src/ingredient.h"
       "src/location.h"
+      "src/patient-tf.h"
+      "src/products-tf.h"
+      "src/prescriber-tf.h"
+      "src/prescription-tf.h"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/prescrit/structs
 )
 
@@ -71,7 +76,6 @@ install(
   NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/prescrit
 )
-
 write_basic_package_version_file(
   ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
   VERSION ${version}

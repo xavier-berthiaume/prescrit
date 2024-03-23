@@ -39,7 +39,7 @@ std::string testFramework::generateInvalidName() {
     return invalidNameList[randomIndex];
 }
 
-tm * testFramework::generateValidBirthday() {
+tm *testFramework::generateValidBirthday() {
 
     tm *validGeneratedBirthday;
     
@@ -55,4 +55,38 @@ tm * testFramework::generateValidBirthday() {
     validGeneratedBirthday->tm_year = distrbution(generator);
 
     return validGeneratedBirthday;
+}
+
+tm *testFramework::generateInvalidBirthday() {
+
+    tm*invalidGeneratedBirthday;
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    // Distibution that will generate a random day of the month that could be in bounds,
+    // or could be completely out of bounds
+    std::uniform_int_distribution<int> distributionDay(0, 100);
+
+    // Distribution that will generate a random month of the year that could be in
+    // bounds, or could be completely out of bounds
+    std::uniform_int_distribution<int> distributionMonth(0, 20);
+    
+    // Distribution that will generate a random year that is between 3000 and 4000
+    std::uniform_int_distribution<int> distributionYear(0, 1000);
+    invalidGeneratedBirthday->tm_mday = distributionDay(generator);
+    invalidGeneratedBirthday->tm_mon = distributionMonth(generator);
+    invalidGeneratedBirthday->tm_year = distributionYear(generator) + 1000; 
+
+    return invalidGeneratedBirthday;
+}
+
+Patient *testFramework::generatePatient() {
+
+    Patient *testPatient = new Patient();
+
+    testPatient->setFirstName(generateValidName());
+    testPatient->setLastName(generateValidName());
+    testPatient->setBirthDate(generateValidBirthday());
+
+    return testPatient;
 }

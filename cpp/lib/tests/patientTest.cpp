@@ -14,7 +14,9 @@
 #include <cassert>
 #include <ctime>
 #include <string>
+#include <iostream>
 #include <prescrit/structs.h>
+#include <prescrit/test-fr.h>
 
 int main(int argc, char* argv[]) {
 
@@ -93,6 +95,12 @@ int main(int argc, char* argv[]) {
 
 	std::string valid_phone_number {"1123456789"};
 	test_patient.addPhoneNumber(valid_phone_number);
+
+    // Patient *generatedPatient = testFramework::generatePatient();
+    /*
+    std::cout << "FName: " << generatedPatient->getFirstName();
+    std::cout << "LName: " << generatedPatient->getLastName();
+    */
 
 	return 0;
 }
