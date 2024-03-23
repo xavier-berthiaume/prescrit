@@ -5,8 +5,8 @@
 #include <string>
 #include <ctime>
 
-#include "globalDefinitions.h"
-#include "time.h"
+#include "../globals.h"
+#include "../utils.h"
 #include "prescriber.h"
 #include "product.h"
 

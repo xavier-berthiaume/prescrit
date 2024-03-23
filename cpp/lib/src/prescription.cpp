@@ -1,4 +1,4 @@
-#include "prescription.h"
+#include <prescrit/structs/prescription.h> 
 
 Prescription::Prescription() {
 

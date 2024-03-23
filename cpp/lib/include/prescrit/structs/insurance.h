@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "globalDefinitions.h"
+#include "../globals.h"
 
 enum Beneficiary {
 	Insured,

@@ -5,9 +5,8 @@
 #include <tuple>
 #include <vector>
 
-#include "globalDefinitions.h"
-#include "ingredient.h"
-#include "units.h"
+#include "../globals.h"
+#include "../utils.h"
 
 enum ValidPrescriptionTypes {
 	Annex1,

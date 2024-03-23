@@ -1,4 +1,4 @@
-#include "patient.h"
+#include <prescrit/structs/patient.h>
 
 const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 

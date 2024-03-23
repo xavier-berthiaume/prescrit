@@ -5,7 +5,7 @@
 #include <vector>
 #include <random>
 
-#include "patient.h"
+#include "../structs.h"
 
 namespace testFramework {
 

@@ -1,7 +1,4 @@
-#include "patient-tf.h"
-#include "products-tf.h"
-#include "prescriber-tf.h"
-#include "prescription-tf.h"
+#include <prescrit/test-fr.h>
 
 std::string testFramework::generateValidName() {
 
@@ -41,7 +38,7 @@ std::string testFramework::generateInvalidName() {
 
 tm *testFramework::generateValidBirthday() {
 
-    tm *validGeneratedBirthday;
+    tm *validGeneratedBirthday = new tm;
     
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -59,7 +56,7 @@ tm *testFramework::generateValidBirthday() {
 
 tm *testFramework::generateInvalidBirthday() {
 
-    tm*invalidGeneratedBirthday;
+    tm *invalidGeneratedBirthday = new tm;
 
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -86,7 +83,182 @@ Patient *testFramework::generatePatient() {
 
     testPatient->setFirstName(generateValidName());
     testPatient->setLastName(generateValidName());
-    testPatient->setBirthDate(generateValidBirthday());
+    tm *generatedBirthday = generateValidBirthday();
+    testPatient->setBirthDate(generatedBirthday);
+
+    delete generatedBirthday;
 
     return testPatient;
+}
+
+std::string testFramework::generateValidCompany() {
+    
+    std::vector<std::string> validCompanyList = {
+        "Pfizer",
+        "Johnson & Johnson",
+        "Novartis",
+        "Roche",
+        "Merck",
+        "GlaxoSmithKline",
+        "AbbVie",
+        "Sanofi",
+        "AstraZeneca",
+        "Bayer",
+        "Jamp",
+        "Teva", 
+        "Pro Doc",
+        "Auro"
+        // Add more company names as needed
+    };
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, validCompanyList.size() - 1);
+
+    int randomIndex = distribution(generator);
+    
+    return validCompanyList[randomIndex];
+}
+
+std::string testFramework::generateValidProductName() {
+
+    std::vector<std::string> validProductNames = {
+        "Acetaminophen",
+        "Ibuprofen",
+        "Aspirin",
+        "Lisinopril",
+        "Metformin",
+        "Atorvastatin",
+        "Levothyroxine",
+        "Simvastatin",
+        "Losartan",
+        "Amlodipine",
+        // Add more medication names as needed
+    };
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, validProductNames.size() - 1);
+
+    int randomIndex = distribution(generator);
+
+    return validProductNames[randomIndex];
+}
+
+unsigned int testFramework::generateValidDose() {
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, 1000);
+
+    return (unsigned int)distribution(generator);
+}
+
+std::string testFramework::generateValidDIN() {
+
+    int length = 8;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, 9); // Digits 0 to 9
+
+    std::string result;
+    for (int i = 0; i < length; ++i) {
+        result += std::to_string(distribution(gen));
+    }
+    return result;
+}
+
+units::DoseUnit testFramework::selectUnit() {
+
+    std::vector<units::DoseUnit> unitsList = {
+        units::DoseUnit::ug,
+        units::DoseUnit::mg,
+        units::DoseUnit::g,
+        units::DoseUnit::uL,
+        units::DoseUnit::mL,
+        units::DoseUnit::L,
+        units::DoseUnit::mgmL,
+        units::DoseUnit::ui,
+        units::DoseUnit::uimL
+    };
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, unitsList.size() - 1);
+
+    int randomIndex = distribution(generator);
+    
+    return unitsList[randomIndex];
+}
+
+ValidPrescriptionTypes testFramework::selectAnnex() {
+
+    std::vector<ValidPrescriptionTypes> annexList = {
+        Annex1,
+        Annex2,
+        Annex3
+    };
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, annexList.size() - 1);
+
+    int randomIndex = distribution(generator);
+
+    return annexList[randomIndex];
+}
+
+Ingredient *testFramework::generateIngredient() {
+
+    Ingredient *generatedIngredient = new Ingredient(
+            testFramework::generateValidProductName(),
+            testFramework::generateValidDose(),
+            testFramework::selectUnit());
+
+    return generatedIngredient;
+}
+
+Product *testFramework::generateProduct() {
+
+    Product *generatedProduct = new Product();
+
+    generatedProduct->setName(generateValidProductName());
+    
+    return generatedProduct;
+}
+
+Premade *testFramework::generatePremade() {
+
+    Premade *generatedPremade = new Premade();
+
+    generatedPremade->setName(generateValidProductName());
+    generatedPremade->setProducer(generateValidCompany());
+
+    return generatedPremade;
+}
+
+Medication *testFramework::generateMedication() {
+
+    Medication *generatedMedication = new Medication();
+
+    generatedMedication->setName(generateValidProductName());
+    generatedMedication->setProducer(generateValidCompany());
+    generatedMedication->setDIN(generateValidDIN());
+    generatedMedication->setAnnex(selectAnnex());
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, 5);
+
+    int randomIndex = distribution(generator);
+
+    for (int x = 0; x < randomIndex; x++) {
+        generatedMedication->AddIngredient(
+            testFramework::generateValidProductName(),
+            testFramework::generateValidDose(),
+            testFramework::selectUnit());
+    }
+
+    return generatedMedication;
 }

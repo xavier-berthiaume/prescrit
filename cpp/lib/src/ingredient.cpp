@@ -1,4 +1,4 @@
-#include "ingredient.h"
+#include <prescrit/utils/ingredient.h>
 
 Ingredient::Ingredient(const std::string& nameParam, 
 		       const unsigned int& magnitudeParam, 

@@ -4,8 +4,8 @@
 #include <string>
 #include <cctype>
 
-#include "globalDefinitions.h"
-#include "location.h"
+#include "../globals.h"
+#include "../utils.h"
 
 class Prescriber {
 

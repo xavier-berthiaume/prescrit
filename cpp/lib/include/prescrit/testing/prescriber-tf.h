@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "prescriber.h"
+#include "../structs.h"
 
 namespace testFramework {
 

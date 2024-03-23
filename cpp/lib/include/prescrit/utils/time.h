@@ -1,7 +1,7 @@
 #ifndef TIME_H
 #define TIME_H
 
-#include "globalDefinitions.h"
+#include "../globals.h"
 
 #include <chrono>
 #include <ctime>

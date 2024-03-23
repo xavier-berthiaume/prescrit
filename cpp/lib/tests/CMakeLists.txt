@@ -1,3 +1,9 @@
+add_executable(frameworkTest frameworkTest.cpp)
+target_link_libraries(frameworkTest
+    PRIVATE structs
+)
+add_test(NAME frameworkTest COMMAND frameworkTest)
+
 add_executable(patientTest patientTest.cpp)
 target_link_libraries(patientTest
   PRIVATE structs

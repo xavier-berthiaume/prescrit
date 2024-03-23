@@ -11,11 +11,11 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
 install(
-  FILES 
-    structs.h
-    test-fr.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/prescrit
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/prescrit 
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 add_library(structs SHARED
@@ -51,24 +51,6 @@ install(
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(
-    FILES 
-      "src/patient.h"
-      "src/insurance.h"
-      "src/prescriber.h"
-      "src/prescription.h"
-      "src/product.h"
-      "src/phonenumbers.h"
-      "src/time.h"
-      "src/units.h"
-      "src/ingredient.h"
-      "src/location.h"
-      "src/patient-tf.h"
-      "src/products-tf.h"
-      "src/prescriber-tf.h"
-      "src/prescription-tf.h"
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/prescrit/structs
-)
 
 install(
   EXPORT structsTargets

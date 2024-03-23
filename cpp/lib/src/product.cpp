@@ -1,5 +1,4 @@
-#include "product.h"
-#include "globalDefinitions.h"
+#include <prescrit/structs/product.h> 
 
 Product::Product() {}
 
@@ -65,13 +64,13 @@ std::string Medication::getDetailedName() const {
 
 	std::string formatted_doses {};
 	Ingredient *next_ingredient = ingredients_->getHead();
-	do {
+	while (next_ingredient != nullptr) {
 	
 		formatted_doses.append(next_ingredient->getFormattedDose());
 		next_ingredient = ingredients_->getNextIngredient(next_ingredient);
 		if(next_ingredient != nullptr)
 			formatted_doses.append("/");
-	}while (next_ingredient != nullptr);
+	}
 
 	return Premade::getDetailedName() + " " + formatted_doses;
 }

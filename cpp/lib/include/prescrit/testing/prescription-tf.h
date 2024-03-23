@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "prescription.h"
+#include "../structs.h"
 #include "patient-tf.h"
 #include "products-tf.h"
 #include "prescriber-tf.h"
