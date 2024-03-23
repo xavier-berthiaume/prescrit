@@ -2,10 +2,12 @@
 #define PATIENT_TF_H
 
 #include <string>
+#include <vector>
+#include <random>
 
 #include "patient.h"
 
-namespace PatientTestFramework {
+namespace testFramework {
 
     std::string generateValidName();
 

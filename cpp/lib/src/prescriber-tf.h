@@ -5,11 +5,7 @@
 
 #include "prescriber.h"
 
-namespace PrescriberTestFramework {
-
-    std::string generateValidName();
-
-    std::string generateInvalidName();
+namespace testFramework {
 
     std::string generateValidLicense();
 

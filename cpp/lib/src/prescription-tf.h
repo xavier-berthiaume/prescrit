@@ -8,7 +8,7 @@
 #include "products-tf.h"
 #include "prescriber-tf.h"
 
-namespace PrescriptionTestFramework {
+namespace testFramework {
 
     Prescription *generatePrescription();
 

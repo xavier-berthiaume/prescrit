@@ -6,11 +6,11 @@
 #include "product.h"
 #include "units.h"
 
-namespace ProductTestFramework {
+namespace testFramework {
 
     std::string generateValidCompany();
 
-    std::string generateValidName();
+    std::string generateValidProductName();
 
     unsigned int generateValidDose();
 
