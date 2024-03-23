@@ -6,41 +6,16 @@ WorkLocation::WorkLocation(const std::string& addressParam,
 
 WorkLocation::WorkLocation(WorkLocation *cpyObject) {
 
-    address_ = cpyObject->getAddress();
-    city_ = cpyObject->getCity();
-    zipCode_ = cpyObject->getZipCode();
-    phoneNumber_ = cpyObject->getPhone();
-    faxNumber_ = cpyObject->getZipCode();
+    address_ = cpyObject->address_;
+    city_ = cpyObject->city_;
+    zipCode_ = cpyObject->zipCode_;
+    phoneNumber_ = cpyObject->phoneNumber_;
+    faxNumber_ = cpyObject->faxNumber_;
 }
 
 std::string WorkLocation::getFormattedAddress() const {
 
 	return address_ + ", " + city_ + ", " + zipCode_;
-}
-
-std::string WorkLocation::getAddress() const {
-
-    return address_;
-}
-
-std::string WorkLocation::getCity() const {
-
-    return city_;
-}
-
-std::string WorkLocation::getZipCode() const {
-
-    return zipCode_;
-}
-
-std::string WorkLocation::getPhone() const {
-
-    return phoneNumber_;
-}
-
-std::string WorkLocation::getFax() const {
-
-    return faxNumber_;
 }
 
 WorkLocation *WorkLocation::getNext() const {
@@ -57,7 +32,12 @@ LocationList::LocationList() : head(nullptr) {}
 
 LocationList::LocationList(LocationList *cpyObject) {
 
-    head = new WorkLocation(cpyObject->getHead());
+    if(cpyObject->getHead() != nullptr) {
+        head = new WorkLocation(cpyObject->getHead());
+    } else {
+        head = nullptr;
+    }
+
     WorkLocation *currentPositionOriginal = cpyObject->getNextLocation(cpyObject->getHead());
     WorkLocation *currentPositionNew = head;
     while(currentPositionOriginal != nullptr) {
@@ -84,7 +64,7 @@ void LocationList::addLocation(const std::string& addressParam, const std::strin
 	head = newLocation;
 }
 
-WorkLocation *LocationList::getNextLocation(WorkLocation( *currentParam)) {
+WorkLocation *LocationList::getNextLocation(WorkLocation *currentParam) {
 
 	if(currentParam == nullptr || currentParam->getNext() == nullptr) {
 		return nullptr;

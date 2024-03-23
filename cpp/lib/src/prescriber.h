@@ -8,6 +8,7 @@
 #include "location.h"
 
 class Prescriber {
+
 	std::string firstName_;
 	std::string lastName_;
 	std::string license_;
@@ -16,6 +17,7 @@ class Prescriber {
 
 	static bool validateLicense(const std::string&);
 public:
+
 	Prescriber();
     Prescriber(Prescriber *);
 	~Prescriber();

@@ -84,4 +84,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Copy Prescriber Address: " << testPrescription.getPrescriber() << "\n\n";
     std::cout << "Free Product Address: " << testProduct << "\n";
     std::cout << "Copy Product Address: " << testPrescription.getOriginalProduct() << "\n\n";
+
+    delete testProduct;
+    delete testPrescriber;
 }

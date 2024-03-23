@@ -51,3 +51,15 @@ target_link_libraries(prescriptionListTest
   PRIVATE structs
 )
 add_test(NAME prescriptionListTest COMMAND prescriptionListTest)
+
+add_executable(prescriberTest prescriberTest.cpp)
+target_link_libraries(prescriberTest
+  PRIVATE structs
+)
+add_test(NAME prescriberTest COMMAND prescriberTest Jean Tremblay 123456)
+
+add_executable(insuranceTest insuranceTest.cpp)
+target_link_libraries(insuranceTest
+  PRIVATE structs
+)
+add_test(NAME insuranceTest COMMAND insuranceTest asc 80123123 000000000901)

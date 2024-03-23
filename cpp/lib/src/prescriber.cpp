@@ -11,7 +11,8 @@ Prescriber::Prescriber(Prescriber *cpyObject) {
     lastName_ = cpyObject->getLastName();
     license_ = cpyObject->getLicense();
 
-    workLocations_ = new LocationList(cpyObject->getLocations());
+    if(cpyObject->getLocations() != nullptr)
+        workLocations_ = new LocationList(cpyObject->getLocations());
 }
 
 Prescriber::~Prescriber() {
@@ -97,5 +98,5 @@ void Prescriber::addLocation(const std::string& streetParam,
 
 	workLocations_->addLocation(streetParam, cityParam);
 	if(zipParam != "")
-		workLocations_->getNextLocation()->zipCode_ = zipParam;
+		workLocations_->getHead()->zipCode_ = zipParam;
 }

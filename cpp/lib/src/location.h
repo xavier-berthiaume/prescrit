@@ -16,13 +16,6 @@ struct WorkLocation {
 	std::string faxNumber_;
 	
 	std::string getFormattedAddress() const;
-
-    std::string getAddress() const;
-    std::string getCity() const;
-    std::string getZipCode() const;
-    
-    std::string getPhone() const;
-    std::string getFax() const;
 	
 	WorkLocation *getNext() const;
 	void setNext(WorkLocation *);

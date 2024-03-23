@@ -10,14 +10,14 @@ Prescription::Prescription() {
 
 Prescription::Prescription(Prescription *cpyObject) {
 
-	originalProduct_ = cpyObject->getOriginalProduct();
-	givenProduct_ = cpyObject->getGivenProduct();
+	originalProduct_ = new Product(cpyObject->getOriginalProduct());
+	givenProduct_ = new Product(cpyObject->getGivenProduct());
 	
 	originalDate_ = cpyObject->getOriginalDate();
 	expiryDate_ = cpyObject->getExpiryDate();
 	refillDate_ = cpyObject->getRefillDate();
 
-	prescriber_ = cpyObject->getPrescriber();
+	prescriber_ = new Prescriber(cpyObject->getPrescriber());
 
 	originalQuantity_ = cpyObject->getOriginalQuantity();
 	originalRefills_ = cpyObject->getOriginalRefills();
@@ -252,10 +252,6 @@ Normal::~Normal() {
 
 	if(givenProduct_ != nullptr)
 		delete givenProduct_;
-
-	// Maybe a better way to do this?
-	if(previousRefill_ != nullptr)
-		delete previousRefill_;
 }
 
 Premade *Normal::getOriginalProduct() const {
