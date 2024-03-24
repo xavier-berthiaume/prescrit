@@ -11,9 +11,13 @@ namespace testFramework {
 
     std::string generateInvalidLicense();
 
-    WorkLocation *generateWorkLocation();
+    std::string generateAddress();
 
-    LocationList *generateLocationList();
+    std::string generateCity();
+
+    std::string generateZipCode();
+
+    WorkLocation *generateWorkLocation();
 
     Prescriber *generatePrescriber();
 }

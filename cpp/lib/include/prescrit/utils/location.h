@@ -6,6 +6,7 @@
 #include "phonenumbers.h"
 
 struct WorkLocation {
+
 	WorkLocation(const std::string&, const std::string&);
     WorkLocation(WorkLocation *);
 	std::string address_;
@@ -19,13 +20,13 @@ struct WorkLocation {
 	
 	WorkLocation *getNext() const;
 	void setNext(WorkLocation *);
-
 private:
+    
 	WorkLocation *next;
-	
 };
 
 struct LocationList {
+
 	LocationList();
     LocationList(LocationList *);
 	~LocationList();
@@ -33,10 +34,9 @@ struct LocationList {
 	void addLocation(const std::string&, const std::string&);
 	WorkLocation *getNextLocation(WorkLocation *);
     WorkLocation *getHead();
-
 private:
-	WorkLocation *head;
 
+	WorkLocation *head;
 };
 
 #endif // !LOCATION_H

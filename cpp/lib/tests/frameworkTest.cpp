@@ -89,5 +89,12 @@ int main(int argc, char *argv[]) {
     std::cout << std::endl;
     delete generatedMedication;
 
+    Prescriber *generatedPrescriber = testFramework::generatePrescriber();
+    std::cout << "Generated Prescriber: \n"
+        "\tFull Name: " << generatedPrescriber->getFullName() << "\n"
+        "\tLicense Number: " << generatedPrescriber->getLicense() << "\n";
+    
+    std::cout << std::endl;
+
     return 0;
 }

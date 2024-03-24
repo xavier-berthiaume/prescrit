@@ -262,3 +262,151 @@ Medication *testFramework::generateMedication() {
 
     return generatedMedication;
 }
+
+std::string testFramework::generateValidLicense() {
+
+    int length = 5;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, 9); // Digits 0 to 9
+
+    std::string result = "1";
+    for (int i = 0; i < length; ++i) {
+        result += std::to_string(distribution(gen));
+    }
+    return result;
+}
+
+std::string testFramework::generateInvalidLicense() {
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, 9); // Digits 0 to 9
+
+    int length = distribution(gen);
+    // Lazy check to make sure that we don't accidentally generate a valid license number
+    if(length == 6)
+        length++;
+    std::string result;
+    for (int i = 0; i < length; ++i) {
+        result += std::to_string(distribution(gen));
+    }
+    return result;
+}
+
+std::string testFramework::generateAddress() {
+
+    std::vector<std::string> addressList = {
+        "123 big street",
+        "792 new street",
+        "1 grand boulevard",
+        "10 mountain drive",
+        "30 goat avenue"
+    };
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, addressList.size() - 1); // Digits 0 to 9
+
+    int randomIndex = distribution(gen);
+    return addressList[randomIndex];
+}
+
+std::string testFramework::generateCity() {
+
+    std::vector<std::string> cityList = {
+        "Paris",
+        "London",
+        "Milan",
+        "Montreal",
+        "Ottawa",
+        "Toronto"
+    };
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, cityList.size() - 1); // Digits 0 to 9
+
+    int randomIndex = distribution(gen);
+    return cityList[randomIndex];
+}
+
+std::string testFramework::generateZipCode() {
+    
+    std::string postalCode;
+
+    // Random number generator for selecting letters
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 25); // for letters A-Z
+
+    // Random number generator for selecting numbers
+    std::uniform_int_distribution<> dis_num(0, 9); // for digits 0-9
+
+    // First letter (A-Z)
+    char firstLetter = 'A' + dis(gen);
+    postalCode.push_back(firstLetter);
+
+    // Second character (numeric)
+    postalCode.push_back('0' + dis_num(gen));
+
+    // Third letter (A-Z), excluding 'D', 'F', 'I', 'O', 'Q', 'U', 'W', 'Z'
+    char thirdLetter;
+    do {
+        thirdLetter = 'A' + dis(gen);
+    } while (thirdLetter == 'D' || thirdLetter == 'F' || thirdLetter == 'I' || 
+             thirdLetter == 'O' || thirdLetter == 'Q' || thirdLetter == 'U' || 
+             thirdLetter == 'W' || thirdLetter == 'Z');
+    postalCode.push_back(thirdLetter);
+
+    // Space
+    postalCode.push_back(' ');
+
+    // Fourth number (0-9)
+    postalCode.push_back('0' + dis_num(gen));
+
+    // Fifth letter (A-Z)
+    char fifthLetter = 'A' + dis(gen);
+    postalCode.push_back(fifthLetter);
+
+    // Sixth number (0-9)
+    postalCode.push_back('0' + dis_num(gen));
+
+    return postalCode;
+}
+
+WorkLocation *testFramework::generateWorkLocation() {
+
+    WorkLocation *generatedLocation;
+
+    generatedLocation->address_ = generateAddress();
+    generatedLocation->city_ = generateCity();
+    generatedLocation->zipCode_ = generateZipCode();
+
+    // Next generate a phone number and fax number
+    // once you've implemented phone number generation
+
+    return generatedLocation;
+}
+
+Prescriber *testFramework::generatePrescriber() {
+
+    Prescriber *generatedPrescriber = new Prescriber();
+
+    generatedPrescriber->setFirstName(generateValidName());
+    generatedPrescriber->setLastName(generateValidName());
+    generatedPrescriber->setLicense(generateValidLicense());
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, 3);
+
+    int randomIndex = distribution(gen);
+    
+    for(int x = 0; x < randomIndex; x++) {
+        generatedPrescriber->addLocation(generateAddress(), generateCity(), generateZipCode());
+    }
+
+    return generatedPrescriber;
+}
