@@ -12,6 +12,8 @@ namespace testFramework {
 
     std::string generateValidProductName();
 
+    std::string generateValidMagistralName();
+
     unsigned int generateValidDose();
 
     std::string generateValidDIN();

@@ -145,6 +145,25 @@ std::string testFramework::generateValidProductName() {
     return validProductNames[randomIndex];
 }
 
+std::string testFramework::generateValidMagistralName() {
+
+    std::vector<std::string> validProductNames = {
+        "ASA 5% Cream",
+        "Tadalafil 1% Cream",
+        "Magic Mouth Wash",
+        "Newmann Ointment"
+        // Add more medication names as needed
+    };
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, validProductNames.size() - 1);
+
+    int randomIndex = distribution(generator);
+
+    return validProductNames[randomIndex];
+}
+
 unsigned int testFramework::generateValidDose() {
 
     std::random_device rd;
@@ -261,6 +280,17 @@ Medication *testFramework::generateMedication() {
     }
 
     return generatedMedication;
+}
+
+Magistral *testFramework::generateMagistral() {
+    
+    Product *generatedProduct = new Product();
+    generatedProduct->setName(generateValidProductName());
+
+    Magistral *generatedMagistral = new Magistral();
+    generatedMagistral->setOriginalProduct(generatedProduct);
+
+    return generatedMagistral;
 }
 
 std::string testFramework::generateValidLicense() {
