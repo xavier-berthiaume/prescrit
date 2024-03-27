@@ -1,5 +1,7 @@
 #include <prescrit/utils/location.h> 
 
+WorkLocation::WorkLocation() {}
+
 WorkLocation::WorkLocation(const std::string& addressParam, 
 	     const std::string& cityParam) : address_(addressParam),
 					     city_(cityParam) {}
@@ -55,6 +57,13 @@ LocationList::~LocationList() {
 		delete head;
 		head = nextLocation;
 	}
+}
+
+void LocationList::addLocation(WorkLocation *locationParam) {
+
+    WorkLocation *newLocation = new WorkLocation(locationParam);
+    newLocation->setNext(head);
+    head = newLocation;
 }
 
 void LocationList::addLocation(const std::string& addressParam, const std::string& cityParam) {

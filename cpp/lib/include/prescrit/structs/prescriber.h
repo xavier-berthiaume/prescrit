@@ -32,6 +32,7 @@ public:
 	void setFirstName(const std::string&);
 	void setLastName(const std::string&);
 	void setLicense(const std::string&);
+	void addLocation(WorkLocation *);
 	void addLocation(const std::string&, const std::string&, const std::string&);
 
 };

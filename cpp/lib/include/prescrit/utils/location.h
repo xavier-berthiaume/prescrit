@@ -7,6 +7,7 @@
 
 struct WorkLocation {
 
+    WorkLocation();
 	WorkLocation(const std::string&, const std::string&);
     WorkLocation(WorkLocation *);
 	std::string address_;
@@ -31,6 +32,7 @@ struct LocationList {
     LocationList(LocationList *);
 	~LocationList();
 
+	void addLocation(WorkLocation *);
 	void addLocation(const std::string&, const std::string&);
 	WorkLocation *getNextLocation(WorkLocation *);
     WorkLocation *getHead();

@@ -53,6 +53,9 @@ public:
 
 	Prescription *getPreviousRefill() const;
 	
+	void setOriginalDate(tm *);
+	void setExpiryDate(tm *);
+	void setRefillDate(tm *);
 	void setOriginalDate(const unsigned short&, const unsigned short&, const unsigned short&);
 	void setExpiryDate(const unsigned short&, const unsigned short&, const unsigned short&);
 	void setRefillDate(const unsigned short&, const unsigned short&, const unsigned short&);

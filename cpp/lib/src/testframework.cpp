@@ -397,7 +397,7 @@ std::string testFramework::generateZipCode() {
 
 WorkLocation *testFramework::generateWorkLocation() {
 
-    WorkLocation *generatedLocation;
+    WorkLocation *generatedLocation = new WorkLocation;
 
     generatedLocation->address_ = generateAddress();
     generatedLocation->city_ = generateCity();
@@ -424,7 +424,9 @@ Prescriber *testFramework::generatePrescriber() {
     int randomIndex = distribution(gen);
     
     for(int x = 0; x < randomIndex; x++) {
-        generatedPrescriber->addLocation(generateAddress(), generateCity(), generateZipCode());
+        WorkLocation *generatedLocation = generateWorkLocation();
+        generatedPrescriber->addLocation(generatedLocation);
+        delete generatedLocation;
     }
 
     return generatedPrescriber;
@@ -434,7 +436,7 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
 
     // Get today's date
     std::time_t currentTime = std::time(nullptr);
-    tm *refillDate = std::localtime(&currentTime);
+    tm *currentDate = std::localtime(&currentTime);
 
     // Generate a random date, if it's before today, then
     // generate a new one. Also validate that the date is
@@ -446,9 +448,9 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
     // the year will be between the current year and 2 years past.
     std::uniform_int_distribution<int> distributionDay(1, 31);
     std::uniform_int_distribution<int> distributionMonth(0, 11);
-    std::uniform_int_distribution<int> distributionYear(refillDate->tm_year-2, refillDate->tm_year);
+    std::uniform_int_distribution<int> distributionYear(currentDate->tm_year-2, currentDate->tm_year);
 
-    tm *originalDate, *expiryDate;
+    tm *refillDate = new tm, *originalDate = new tm, *expiryDate = new tm;
     bool dateIsValid = false;
     do {
         
@@ -456,15 +458,25 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
         originalDate->tm_mon = distributionMonth(generator);
         originalDate->tm_year = distributionYear(generator);
 
-        if(time_validation::checkValidDate(originalDate) ||
+        // There's a problem with checkValidDate where it'll never
+        // return true. Investigate
+        /*
+        if(time_validation::checkValidDate(originalDate) &&
            time_validation::checkDateBeforePresent(originalDate))
             dateIsValid = true;
+        */
 
+        if(time_validation::checkDateBeforePresent(originalDate))
+            dateIsValid = true;
     } while (!dateIsValid);
 
     expiryDate->tm_mday = originalDate->tm_mday;
     expiryDate->tm_mon = originalDate->tm_mon;
-    expiryDate->tm_year = originalDate->tm_year-2;
+    expiryDate->tm_year = originalDate->tm_year+2;
+
+    refillDate->tm_mday = currentDate->tm_mday;
+    refillDate->tm_mon = currentDate->tm_mon;
+    refillDate->tm_year = currentDate->tm_year;
 
     return std::make_tuple(refillDate, originalDate, expiryDate);
 }
@@ -473,8 +485,43 @@ Prescription *testFramework::generatePrescription() {
 
     Prescription *generatedPrescription = new Prescription();
 
-    Product *presProduct = generateProduct();
-    Product *givenProduct = generateProduct();
+    Product *genProduct = generateProduct();
+
+    generatedPrescription->setOriginalProduct(genProduct);
+    generatedPrescription->setGivenProduct(genProduct);
+
+    delete genProduct;
+
+    Prescriber *genPrescriber = generatePrescriber();
+
+    generatedPrescription->setPrescriber(genPrescriber);
+
+    delete genPrescriber;
+
+    tm *refillDate, *originalDate, *expiryDate;
+    std::tie(refillDate, originalDate, expiryDate) = generatePrescriptionDates();
+
+    generatedPrescription->setRefillDate(refillDate);
+    generatedPrescription->setOriginalDate(originalDate);
+    generatedPrescription->setExpiryDate(expiryDate);
+
+    delete refillDate;
+    delete originalDate;
+    delete expiryDate;
+
+    std:std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, 6);
+    
+    unsigned int origQuantity = distribution(generator)*30;
+    unsigned int origRefills = distribution(generator)*2;
+
+    generatedPrescription->setOriginalQuantity(origQuantity);
+    generatedPrescription->setOriginalRefills(origRefills);
+    generatedPrescription->setRemainingQuantity(origQuantity*origRefills);
+    // In all prescriptions the inital prescription that's entered will have
+    // a refill quantity of 0.
+    generatedPrescription->setRefillQuantity(0);
 
     return generatedPrescription;
 }

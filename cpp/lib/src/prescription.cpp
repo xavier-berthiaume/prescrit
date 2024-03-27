@@ -108,6 +108,54 @@ void Prescription::setGivenProduct(Product *productParam) {
 	givenProduct_ = new Product(productParam);
 }
 
+void Prescription::setOriginalDate(tm *tmParam) {
+
+    if(!time_validation::checkDayWithinRange(tmParam->tm_mday, tmParam->tm_mon, tmParam->tm_year+1900))
+        return;
+
+    if(!time_validation::checkMonthWithinRange(tmParam->tm_mon))
+        return;
+
+    if(!time_validation::checkYearWithinRange(tmParam->tm_year+1900))
+        return;
+
+    originalDate_.tm_mday = tmParam->tm_mday;
+    originalDate_.tm_mon = tmParam->tm_mon;
+    originalDate_.tm_year = tmParam->tm_year;
+}
+
+void Prescription::setExpiryDate(tm *tmParam) {
+
+    if(!time_validation::checkDayWithinRange(tmParam->tm_mday, tmParam->tm_mon, tmParam->tm_year+1900))
+        return;
+
+    if(!time_validation::checkMonthWithinRange(tmParam->tm_mon))
+        return;
+
+    if(!time_validation::checkYearWithinRange(tmParam->tm_year+1900))
+        return;
+
+    expiryDate_.tm_mday = tmParam->tm_mday;
+    expiryDate_.tm_mon = tmParam->tm_mon;
+    expiryDate_.tm_year = tmParam->tm_year;
+}
+
+void Prescription::setRefillDate(tm *tmParam) {
+
+    if(!time_validation::checkDayWithinRange(tmParam->tm_mday, tmParam->tm_mon, tmParam->tm_year+1900))
+        return;
+
+    if(!time_validation::checkMonthWithinRange(tmParam->tm_mon))
+        return;
+
+    if(!time_validation::checkYearWithinRange(tmParam->tm_year+1900))
+        return;
+
+    refillDate_.tm_mday = tmParam->tm_mday;
+    refillDate_.tm_mon = tmParam->tm_mon;
+    refillDate_.tm_year = tmParam->tm_year;
+}
+
 void Prescription::setOriginalDate(const unsigned short& dayParam, 
 				   const unsigned short& monthParam, 
 				   const unsigned short& yearParam) {

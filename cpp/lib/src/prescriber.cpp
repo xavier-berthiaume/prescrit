@@ -100,3 +100,8 @@ void Prescriber::addLocation(const std::string& streetParam,
 	if(zipParam != "")
 		workLocations_->getHead()->zipCode_ = zipParam;
 }
+
+void Prescriber::addLocation(WorkLocation *locationParam) {
+
+    workLocations_->addLocation(locationParam);
+}

@@ -78,13 +78,13 @@ bool time_validation::checkYearWithinRange(const unsigned short &yearParam) {
 
 bool time_validation::checkValidDate(const tm *timeToValidate) {
 
-    if(checkDayWithinRange(timeToValidate->tm_mday, timeToValidate->tm_mon, timeToValidate->tm_year))
+    if(!checkDayWithinRange(timeToValidate->tm_mday, timeToValidate->tm_mon, timeToValidate->tm_year))
         return false;
 
-    if(checkMonthWithinRange(timeToValidate->tm_mon))
+    if(!checkMonthWithinRange(timeToValidate->tm_mon))
         return false;
 
-    if(checkYearWithinRange(timeToValidate->tm_year))
+    if(!checkYearWithinRange(timeToValidate->tm_year))
         return false;
 
     return true;
