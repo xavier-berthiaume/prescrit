@@ -10,7 +10,13 @@
 
 namespace testFramework {
 
+    std::string generateValidMagistralName();
+
+    std::tuple<tm *, tm *, tm *> generatePrescriptionDates();
+
     Prescription *generatePrescription();
+
+    Magistral *generateMagistral();
 
     PrescriptionRefillList *generatePrescriptionList();
 }

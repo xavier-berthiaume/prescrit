@@ -29,8 +29,6 @@ namespace testFramework {
     Premade *generatePremade();
 
     Medication *generateMedication();
-
-    Magistral *generateMagistral();
 }
 
 #endif

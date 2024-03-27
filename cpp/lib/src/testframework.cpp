@@ -282,17 +282,6 @@ Medication *testFramework::generateMedication() {
     return generatedMedication;
 }
 
-Magistral *testFramework::generateMagistral() {
-    
-    Product *generatedProduct = new Product();
-    generatedProduct->setName(generateValidProductName());
-
-    Magistral *generatedMagistral = new Magistral();
-    generatedMagistral->setOriginalProduct(generatedProduct);
-
-    return generatedMagistral;
-}
-
 std::string testFramework::generateValidLicense() {
 
     int length = 5;
@@ -439,4 +428,53 @@ Prescriber *testFramework::generatePrescriber() {
     }
 
     return generatedPrescriber;
+}
+
+std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
+
+    // Get today's date
+    std::time_t currentTime = std::time(nullptr);
+    tm *refillDate = std::localtime(&currentTime);
+
+    // Generate a random date, if it's before today, then
+    // generate a new one. Also validate that the date is
+    // a possible day (no Feb. 31)
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    // Generate different distributions to create a date that is valid, and where
+    // the year will be between the current year and 2 years past.
+    std::uniform_int_distribution<int> distributionDay(1, 31);
+    std::uniform_int_distribution<int> distributionMonth(0, 11);
+    std::uniform_int_distribution<int> distributionYear(refillDate->tm_year-2, refillDate->tm_year);
+
+    tm *originalDate, *expiryDate;
+    bool dateIsValid = false;
+    do {
+        
+        originalDate->tm_mday = distributionDay(generator);
+        originalDate->tm_mon = distributionMonth(generator);
+        originalDate->tm_year = distributionYear(generator);
+
+        if(time_validation::checkValidDate(originalDate) ||
+           time_validation::checkDateBeforePresent(originalDate))
+            dateIsValid = true;
+
+    } while (!dateIsValid);
+
+    expiryDate->tm_mday = originalDate->tm_mday;
+    expiryDate->tm_mon = originalDate->tm_mon;
+    expiryDate->tm_year = originalDate->tm_year-2;
+
+    return std::make_tuple(refillDate, originalDate, expiryDate);
+}
+
+Prescription *testFramework::generatePrescription() {
+
+    Prescription *generatedPrescription = new Prescription();
+
+    Product *presProduct = generateProduct();
+    Product *givenProduct = generateProduct();
+
+    return generatedPrescription;
 }

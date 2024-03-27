@@ -1,5 +1,6 @@
 #include <prescrit/utils/time.h>
 
+
 bool time_validation::checkDayWithinRange(const unsigned short &dayParam, 
 			       const unsigned short &monthParam, 
 			       const unsigned short &yearParam) {
@@ -73,6 +74,20 @@ bool time_validation::checkYearWithinRange(const unsigned short &yearParam) {
 		return false;
 
 	return true;
+}
+
+bool time_validation::checkValidDate(const tm *timeToValidate) {
+
+    if(checkDayWithinRange(timeToValidate->tm_mday, timeToValidate->tm_mon, timeToValidate->tm_year))
+        return false;
+
+    if(checkMonthWithinRange(timeToValidate->tm_mon))
+        return false;
+
+    if(checkYearWithinRange(timeToValidate->tm_year))
+        return false;
+
+    return true;
 }
 
 bool time_validation::checkDateBeforePresent(const tm *dateParam) {

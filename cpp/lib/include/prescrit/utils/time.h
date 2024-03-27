@@ -19,8 +19,10 @@ namespace time_validation {
 	bool checkMonthWithinRange(const unsigned short&);
 
 	bool checkYearWithinRange(const unsigned short&);
+    
+    bool checkValidDate(const tm *);
 
-	bool checkDateBeforePresent(const tm*);
+	bool checkDateBeforePresent(const tm *);
 };
 
 #endif // !TIME_H 
