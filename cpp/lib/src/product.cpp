@@ -121,6 +121,22 @@ void Medication::AddIngredient(const std::string& nameParam, const unsigned int&
 	ingredients_->addIngredient(nameParam, doseParam, unitParam);
 }
 
+Bandage::Bandage() {
+
+    width_ = std::make_tuple(0, units::mm);
+    length_ = std::make_tuple(0, units::mm);
+    identifier_ = "";
+}
+
+Bandage::Bandage(Bandage *cpyObject) {
+
+    width_ = cpyObject->width_;
+    length_ = cpyObject->length_;
+    identifier_ = cpyObject->getIdentifier();
+}
+
+Bandage::~Bandage() {}
+
 std::string Bandage::getDetailedName() const {
 
 	std::string width_string, length_string;
@@ -187,6 +203,20 @@ void Bandage::setLength(const unsigned int& measureParam, units::SizeUnit unitPa
 
 	length_ = std::make_tuple(measureParam, unitParam);
 }
+
+Syringe::Syringe() {
+
+    guage_ = 0;
+    identifier_ = "";
+}
+
+Syringe::Syringe(Syringe *cpyObject) {
+
+    guage_ = cpyObject->getGuage();
+    identifier_ = cpyObject->getIdentifier();
+}
+
+Syringe::~Syringe() {}
 
 std::string Syringe::getDetailedName() const {
 

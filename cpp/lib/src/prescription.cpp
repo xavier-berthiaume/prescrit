@@ -299,7 +299,15 @@ void Normal::setOriginalProduct(Product *productParam) {
 	if(productParam == nullptr)
 		return;
 
-	originalProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
+    if(dynamic_cast<Medication *>(productParam)) {
+        originalProduct_ = new Medication(dynamic_cast<Medication *>(productParam));
+    } else if(dynamic_cast<Bandage *>(productParam)) {
+        originalProduct_ = new Bandage(dynamic_cast<Bandage *>(productParam));
+    } else if(dynamic_cast<Syringe *>(productParam)) {
+        originalProduct_ = new Syringe(dynamic_cast<Syringe *>(productParam));
+    } else {
+	    originalProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
+    }
 }
 
 void Normal::setGivenProduct(Product *productParam) {

@@ -77,6 +77,10 @@ protected:
 	std::string identifier_;
 public:
 
+    Bandage();
+    Bandage(Bandage *);
+    ~Bandage();
+
 	std::string getDetailedName() const override;
 	std::string getIdentifier() const;
 	std::tuple<unsigned int, units::SizeUnit> getWidth() const;
@@ -97,6 +101,10 @@ protected:
 	unsigned short guage_;
 	std::string identifier_;
 public:
+
+    Syringe();
+    Syringe(Syringe *);
+    ~Syringe();
 
 	std::string getDetailedName() const override;
 	std::string getIdentifier() const;
