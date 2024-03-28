@@ -110,13 +110,7 @@ void Prescription::setGivenProduct(Product *productParam) {
 
 void Prescription::setOriginalDate(tm *tmParam) {
 
-    if(!time_validation::checkDayWithinRange(tmParam->tm_mday, tmParam->tm_mon, tmParam->tm_year+1900))
-        return;
-
-    if(!time_validation::checkMonthWithinRange(tmParam->tm_mon))
-        return;
-
-    if(!time_validation::checkYearWithinRange(tmParam->tm_year+1900))
+    if(!time_validation::checkValidDate(tmParam))
         return;
 
     originalDate_.tm_mday = tmParam->tm_mday;
@@ -126,13 +120,7 @@ void Prescription::setOriginalDate(tm *tmParam) {
 
 void Prescription::setExpiryDate(tm *tmParam) {
 
-    if(!time_validation::checkDayWithinRange(tmParam->tm_mday, tmParam->tm_mon, tmParam->tm_year+1900))
-        return;
-
-    if(!time_validation::checkMonthWithinRange(tmParam->tm_mon))
-        return;
-
-    if(!time_validation::checkYearWithinRange(tmParam->tm_year+1900))
+    if(!time_validation::checkValidDate(tmParam))
         return;
 
     expiryDate_.tm_mday = tmParam->tm_mday;
@@ -142,13 +130,7 @@ void Prescription::setExpiryDate(tm *tmParam) {
 
 void Prescription::setRefillDate(tm *tmParam) {
 
-    if(!time_validation::checkDayWithinRange(tmParam->tm_mday, tmParam->tm_mon, tmParam->tm_year+1900))
-        return;
-
-    if(!time_validation::checkMonthWithinRange(tmParam->tm_mon))
-        return;
-
-    if(!time_validation::checkYearWithinRange(tmParam->tm_year+1900))
+    if(!time_validation::checkValidDate(tmParam))
         return;
 
     refillDate_.tm_mday = tmParam->tm_mday;

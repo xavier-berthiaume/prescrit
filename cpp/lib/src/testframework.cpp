@@ -438,10 +438,6 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
     std::time_t currentTime = std::time(nullptr);
     tm *currentDate = std::localtime(&currentTime);
 
-    // Generate a random date, if it's before today, then
-    // generate a new one. Also validate that the date is
-    // a possible day (no Feb. 31)
-
     std::random_device rd;
     std::mt19937 generator(rd());
     // Generate different distributions to create a date that is valid, and where
@@ -458,16 +454,10 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
         originalDate->tm_mon = distributionMonth(generator);
         originalDate->tm_year = distributionYear(generator);
 
-        // There's a problem with checkValidDate where it'll never
-        // return true. Investigate
-        /*
         if(time_validation::checkValidDate(originalDate) &&
            time_validation::checkDateBeforePresent(originalDate))
             dateIsValid = true;
-        */
 
-        if(time_validation::checkDateBeforePresent(originalDate))
-            dateIsValid = true;
     } while (!dateIsValid);
 
     expiryDate->tm_mday = originalDate->tm_mday;
@@ -498,7 +488,7 @@ Prescription *testFramework::generatePrescription() {
 
     delete genPrescriber;
 
-    tm *refillDate, *originalDate, *expiryDate;
+    tm *refillDate {}, *originalDate {}, *expiryDate {};
     std::tie(refillDate, originalDate, expiryDate) = generatePrescriptionDates();
 
     generatedPrescription->setRefillDate(refillDate);
@@ -511,7 +501,7 @@ Prescription *testFramework::generatePrescription() {
 
     std:std::random_device rd;
     std::mt19937 generator(rd());
-    std::uniform_int_distribution<int> distribution(0, 6);
+    std::uniform_int_distribution<int> distribution(2, 12);
     
     unsigned int origQuantity = distribution(generator)*30;
     unsigned int origRefills = distribution(generator)*2;

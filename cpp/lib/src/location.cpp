@@ -4,7 +4,7 @@ WorkLocation::WorkLocation() {}
 
 WorkLocation::WorkLocation(const std::string& addressParam, 
 	     const std::string& cityParam) : address_(addressParam),
-					     city_(cityParam) {}
+					     city_(cityParam), next(nullptr) {}
 
 WorkLocation::WorkLocation(WorkLocation *cpyObject) {
 
@@ -13,6 +13,7 @@ WorkLocation::WorkLocation(WorkLocation *cpyObject) {
     zipCode_ = cpyObject->zipCode_;
     phoneNumber_ = cpyObject->phoneNumber_;
     faxNumber_ = cpyObject->faxNumber_;
+    next = cpyObject->getNext();
 }
 
 std::string WorkLocation::getFormattedAddress() const {

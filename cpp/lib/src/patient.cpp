@@ -91,7 +91,7 @@ void Patient::setLastName(const std::string& lastNameParam) {
 
 void Patient::setBirthDay(const unsigned short& birthDateParam) {
 
-	if(!time_validation::checkDayWithinRange(birthDateParam, birthdate_->tm_mon, birthdate_->tm_year))
+	if(!time_validation::checkDayWithinRange(birthDateParam, birthdate_->tm_mon, birthdate_->tm_year+1900))
 		return;
 	
 	const auto currentTime = std::chrono::system_clock::now();
@@ -139,7 +139,7 @@ void Patient::setBirthDate(const tm* birthDateParam) {
 	if(!time_validation::checkDateBeforePresent(birthDateParam))
 		return;
 
-	if(!time_validation::checkDayWithinRange(birthDateParam->tm_mday, birthDateParam->tm_mon, birthDateParam->tm_year) ||
+	if(!time_validation::checkDayWithinRange(birthDateParam->tm_mday, birthDateParam->tm_mon, birthDateParam->tm_year+1900) ||
 	   !time_validation::checkMonthWithinRange(birthDateParam->tm_mon) ||
 	   !time_validation::checkYearWithinRange(birthDateParam->tm_year+1900))
 		return;
