@@ -45,3 +45,15 @@ target_link_libraries(productGenerationTest
     PRIVATE structs
 )
 add_test(NAME productGenerationTest COMMAND productGenerationTest)
+
+add_executable(bandageGenerationTest bandageGenerationTest.cpp)
+target_link_libraries(bandageGenerationTest
+    PRIVATE structs
+)
+add_test(NAME bandageGenerationTest COMMAND bandageGenerationTest)
+
+add_executable(syringeGenerationTest syringeGenerationTest.cpp)
+target_link_libraries(syringeGenerationTest
+    PRIVATE structs
+)
+add_test(NAME syringeGenerationTest COMMAND syringeGenerationTest)

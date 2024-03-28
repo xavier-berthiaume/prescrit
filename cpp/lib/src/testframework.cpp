@@ -179,7 +179,7 @@ std::string testFramework::generateValidDIN() {
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distribution(0, 9); // Digits 0 to 9
+    std::uniform_int_distribution<int> distribution(0, 9);
 
     std::string result;
     for (int i = 0; i < length; ++i) {
@@ -188,7 +188,22 @@ std::string testFramework::generateValidDIN() {
     return result;
 }
 
-units::DoseUnit testFramework::selectUnit() {
+std::string testFramework::generateValidIdentifier() {
+
+    int length = 10;
+    
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, 9);
+
+    std::string result;
+    for (int i = 0; i < length; ++i) {
+        result += std::to_string(distribution(gen));
+    }
+    return result;
+}
+
+units::DoseUnit testFramework::selectMassUnit() {
 
     std::vector<units::DoseUnit> unitsList = {
         units::DoseUnit::ug,
@@ -200,6 +215,24 @@ units::DoseUnit testFramework::selectUnit() {
         units::DoseUnit::mgmL,
         units::DoseUnit::ui,
         units::DoseUnit::uimL
+    };
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, unitsList.size() - 1);
+
+    int randomIndex = distribution(generator);
+    
+    return unitsList[randomIndex];
+}
+
+units::SizeUnit testFramework::selectSizeUnit() {
+
+    std::vector<units::SizeUnit> unitsList = {
+        units::SizeUnit::um,
+        units::SizeUnit::mm,
+        units::SizeUnit::cm,
+        units::SizeUnit::m
     };
 
     std::random_device rd;
@@ -233,7 +266,7 @@ Ingredient *testFramework::generateIngredient() {
     Ingredient *generatedIngredient = new Ingredient(
             testFramework::generateValidProductName(),
             testFramework::generateValidDose(),
-            testFramework::selectUnit());
+            testFramework::selectMassUnit());
 
     return generatedIngredient;
 }
@@ -276,10 +309,52 @@ Medication *testFramework::generateMedication() {
         generatedMedication->AddIngredient(
             testFramework::generateValidProductName(),
             testFramework::generateValidDose(),
-            testFramework::selectUnit());
+            testFramework::selectMassUnit());
     }
 
     return generatedMedication;
+}
+
+Bandage *testFramework::generateBandage() {
+
+    Bandage *generatedBandage = new Bandage;
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(10, 100);
+
+    unsigned int generatedWidth = distribution(generator)*10;
+    unsigned int generatedLength = distribution(generator)/10;
+
+    units::SizeUnit generatedUnit = selectSizeUnit();
+
+    generatedBandage->setWidth(generatedWidth, generatedUnit);
+    generatedBandage->setLength(generatedLength, generatedUnit);
+
+    generatedBandage->setName(generateValidProductName());
+    generatedBandage->setProducer(generateValidCompany());
+    
+    generatedBandage->setIdentifier(generateValidIdentifier());
+
+    return generatedBandage;
+}
+
+Syringe *testFramework::generateSyringe() {
+
+    Syringe *generatedSyringe = new Syringe;
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(18, 35);
+
+    unsigned int generatedGuage = distribution(generator);
+
+    generatedSyringe->setName(generateValidProductName());
+    generatedSyringe->setProducer(generateValidCompany());
+    generatedSyringe->setGuage(generatedGuage);
+    generatedSyringe->setIdentifier(generateValidIdentifier());
+
+    return generatedSyringe;
 }
 
 std::string testFramework::generateValidLicense() {
@@ -519,13 +594,34 @@ Prescription *testFramework::generatePrescription() {
 Normal *testFramework::generateNormal() {
 
     Normal *generatedNormal = new Normal();
-
-    Medication *genMedication = generateMedication();
     
-    generatedNormal->setOriginalProduct(genMedication);
-    generatedNormal->setGivenProduct(genMedication);
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution productDistribution(0,3);
 
-    delete genMedication;
+    unsigned int productType = productDistribution(generator);
+
+    Premade *generatedProduct {};
+
+    switch(productType) {
+        case 0:
+            generatedProduct = generateMedication();
+            break;
+        case 1:
+            generatedProduct = generateBandage();
+            break;
+        case 2:
+            generatedProduct = generateSyringe();
+            break;
+        default:
+            generatedProduct = generatePremade();
+            break;
+    }
+
+    generatedNormal->setOriginalProduct(generatedProduct);
+    generatedNormal->setGivenProduct(generatedProduct);
+
+    delete generatedProduct;
 
     Prescriber *genPrescriber = generatePrescriber();
 
@@ -544,8 +640,6 @@ Normal *testFramework::generateNormal() {
     delete originalDate;
     delete expiryDate;
 
-    std:std::random_device rd;
-    std::mt19937 generator(rd());
     std::uniform_int_distribution<int> distribution(0, 6);
     
     unsigned int origQuantity = distribution(generator)*30;

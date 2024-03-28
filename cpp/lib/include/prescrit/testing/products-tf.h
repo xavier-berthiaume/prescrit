@@ -18,7 +18,11 @@ namespace testFramework {
 
     std::string generateValidDIN();
 
-    units::DoseUnit selectUnit();
+    std::string generateValidIdentifier();
+
+    units::DoseUnit selectMassUnit();
+
+    units::SizeUnit selectSizeUnit();
 
     ValidPrescriptionTypes selectAnnex();
 
@@ -29,6 +33,10 @@ namespace testFramework {
     Premade *generatePremade();
 
     Medication *generateMedication();
+
+    Bandage *generateBandage();
+
+    Syringe *generateSyringe();
 }
 
 #endif
