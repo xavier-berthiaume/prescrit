@@ -30,7 +30,7 @@ namespace time_validation {
 
     unsigned int convertYearToDays(const unsigned int &);
 
-    unsigned int convertMonthToDays(const unsigned int &);
+    unsigned int convertMonthToDays(const unsigned int &, const unsigned int &);
 };
 
 #endif // !TIME_H 

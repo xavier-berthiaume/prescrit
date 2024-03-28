@@ -111,22 +111,6 @@ bool time_validation::checkDateBeforePresent(const tm *dateParam) {
 	return true;
 }
 
-// Convert the years to number of days
-// Account for the leap years
-// Convert the months to days, account
-// for the different number of days per
-// month
-// Add the number of days
-tm *time_validation::addToDate(tm *timeParam, const unsigned int &daysParam, const unsigned int &monthsParam, const unsigned int &yearsParam) {
-
-    unsigned int totalDays = 0;
-    totalDays = totalDays + convertYearToDays(yearsParam);
-    totalDays = totalDays + convertMonthToDays(monthsParam, yearsParam);
-    totalDays = totalDays + timeParam;
-
-
-}
-
 unsigned int time_validation::convertYearToDays(const unsigned int &yearParam) {
 
 	if ((yearParam % 4 == 0 && yearParam % 100 != 0) || (yearParam % 400 == 0))
@@ -185,4 +169,46 @@ unsigned int time_validation::convertMonthToDays(const unsigned int &monthParam,
 			monthDays = 31;
 			break;
 	}
+
+    return monthDays;
+}
+
+tm *time_validation::addToDate(tm *timeParam, const unsigned int &daysParam, const unsigned int &monthsParam, const unsigned int &yearsParam) {
+
+    // Here, check timeParam->tm_year to know if it's a leap year
+    // also loop through all the numbers that are between
+    // timeParam->tm_year and timeParam->tm_year+2 and check which
+    // are leap years
+    // Add 1 day to result for each leap year skipped
+    //
+    // Also, if you start on a leap year or end on one, check to
+    // see if the leap day was accounted for or not
+    
+
+    unsigned int totalDays = 0, totalSeconds;
+    totalDays = totalDays + convertYearToDays(yearsParam);
+    totalDays = totalDays + convertMonthToDays(monthsParam, yearsParam);
+    totalDays = totalDays + daysParam;
+    totalSeconds = totalDays * 60 * 60 * 24;
+
+    time_t initialTime = std::mktime(timeParam);
+    time_t finalTime = initialTime + totalSeconds;
+    
+    tm *returnTime = std::localtime(&finalTime);
+    return returnTime;
+}
+
+tm *time_validation::subtractFromDate(tm *timeParam, const unsigned int &daysParam, const unsigned int &monthsParam, const unsigned int &yearsParam) {
+
+    unsigned int totalDays = 0, totalSeconds;
+    totalDays = totalDays + convertYearToDays(yearsParam);
+    totalDays = totalDays + convertMonthToDays(monthsParam, yearsParam);
+    totalDays = totalDays + daysParam;
+    totalSeconds = totalDays * 60 * 60 * 24;
+
+    time_t initialTime = std::mktime(timeParam);
+    time_t finalTime = initialTime - totalSeconds;
+    
+    tm *returnTime = std::localtime(&finalTime);
+    return returnTime;
 }
