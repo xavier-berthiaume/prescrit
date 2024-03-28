@@ -276,8 +276,8 @@ Normal::Normal() {
 
 Normal::Normal(Normal *cpyObject) {
 
-	originalProduct_ = cpyObject->getOriginalProduct();
-	givenProduct_ = cpyObject->getGivenProduct();
+	originalProduct_ = new Premade(cpyObject->getOriginalProduct());
+	givenProduct_ = new Premade(cpyObject->getGivenProduct());
 
 	originalDate_ = cpyObject->getOriginalDate();
 	expiryDate_ = cpyObject->getExpiryDate();
@@ -317,7 +317,7 @@ void Normal::setOriginalProduct(Product *productParam) {
 	if(productParam == nullptr)
 		return;
 
-	originalProduct_ = dynamic_cast<Premade *>(productParam);
+	originalProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
 }
 
 void Normal::setGivenProduct(Product *productParam) {
@@ -325,7 +325,7 @@ void Normal::setGivenProduct(Product *productParam) {
 	if(productParam == nullptr)
 		return;
 
-	givenProduct_ = dynamic_cast<Premade *>(productParam);
+	givenProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
 }
 
 Magistral::Magistral() {}

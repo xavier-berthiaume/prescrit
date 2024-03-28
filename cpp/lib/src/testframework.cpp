@@ -525,3 +525,48 @@ Prescription *testFramework::generatePrescription() {
 
     return generatedPrescription;
 }
+
+Normal *testFramework::generateNormal() {
+
+    Normal *generatedNormal = new Normal();
+
+    Medication *genMedication = generateMedication();
+    
+    generatedNormal->setOriginalProduct(genMedication);
+    generatedNormal->setGivenProduct(genMedication);
+
+    delete genMedication;
+
+    Prescriber *genPrescriber = generatePrescriber();
+
+    generatedNormal->setPrescriber(genPrescriber);
+
+    delete genPrescriber;
+
+    tm *refillDate, *originalDate, *expiryDate;
+    std::tie(refillDate, originalDate, expiryDate) = generatePrescriptionDates();
+
+    generatedNormal->setRefillDate(refillDate);
+    generatedNormal->setOriginalDate(originalDate);
+    generatedNormal->setExpiryDate(expiryDate);
+
+    delete refillDate;
+    delete originalDate;
+    delete expiryDate;
+
+    std:std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(0, 6);
+    
+    unsigned int origQuantity = distribution(generator)*30;
+    unsigned int origRefills = distribution(generator)*2;
+
+    generatedNormal->setOriginalQuantity(origQuantity);
+    generatedNormal->setOriginalRefills(origRefills);
+    generatedNormal->setRemainingQuantity(origQuantity*origRefills);
+    // In all prescriptions the inital prescription that's entered will have
+    // a refill quantity of 0.
+    generatedNormal->setRefillQuantity(0);
+
+    return generatedNormal;
+}

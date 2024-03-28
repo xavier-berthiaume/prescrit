@@ -23,6 +23,14 @@ namespace time_validation {
     bool checkValidDate(const tm *);
 
 	bool checkDateBeforePresent(const tm *);
+
+    tm *addToDate(tm *, const unsigned int &, const unsigned int &, const unsigned int &);
+
+    tm *subtractFromDate(tm *, const unsigned int &, const unsigned int &, const unsigned int &);
+
+    unsigned int convertYearToDays(const unsigned int &);
+
+    unsigned int convertMonthToDays(const unsigned int &);
 };
 
 #endif // !TIME_H 

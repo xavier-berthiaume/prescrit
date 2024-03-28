@@ -27,6 +27,16 @@ void Product::setName(const std::string& nameParam) {
 	name_ = nameParam;
 }
 
+Premade::Premade() {}
+
+Premade::Premade(Premade *cpyObject) {
+
+    name_ = cpyObject->getName();
+    producer_ = cpyObject->getProducer();
+}
+
+Premade::~Premade() {}
+
 std::string Premade::getDetailedName() const {
 
 	return producer_ + " " + Product::getDetailedName();

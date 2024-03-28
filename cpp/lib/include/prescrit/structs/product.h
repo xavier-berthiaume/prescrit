@@ -18,9 +18,10 @@ enum ValidPrescriptionTypes {
 // types are built upon
 class Product {
 protected:
-	std::string name_;
 
+	std::string name_;
 public:
+
 	Product();
 	Product(Product *);
 	~Product();
@@ -36,6 +37,10 @@ protected:
 	std::string producer_;
 
 public:
+    Premade();
+    Premade(Premade *);
+    ~Premade();
+
 	virtual std::string getDetailedName() const;
 	std::string getProducer() const;
 	void setProducer(const std::string&);
@@ -43,13 +48,14 @@ public:
 
 class Medication : public Premade {
 protected:
+
 	IngredientList *ingredients_;
 
 	std::string din_;
 
 	ValidPrescriptionTypes annex_;
-
 public:
+
 	Medication();
 	Medication(Medication *);
 	~Medication();
@@ -66,10 +72,11 @@ public:
 
 class Bandage : public Premade {
 protected:
+    
 	std::tuple<unsigned int, units::SizeUnit> width_, length_;
 	std::string identifier_;
-
 public:
+
 	std::string getDetailedName() const override;
 	std::string getIdentifier() const;
 	std::tuple<unsigned int, units::SizeUnit> getWidth() const;
@@ -82,15 +89,15 @@ public:
 	void setIdentifier(const std::string&);
 	void setWidth(const unsigned int&, units::SizeUnit);
 	void setLength(const unsigned int&, units::SizeUnit);
-
 };
 
 class Syringe : public Premade {
 protected:
+
 	unsigned short guage_;
 	std::string identifier_;
-
 public:
+
 	std::string getDetailedName() const override;
 	std::string getIdentifier() const;
 	unsigned short getGuage() const;

@@ -16,6 +16,8 @@ namespace testFramework {
 
     Prescription *generatePrescription();
 
+    Normal *generateNormal();
+
     Magistral *generateMagistral();
 
     PrescriptionRefillList *generatePrescriptionList();
