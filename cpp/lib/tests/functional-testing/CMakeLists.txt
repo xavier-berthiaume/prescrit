@@ -63,3 +63,9 @@ target_link_libraries(insuranceTest
   PRIVATE structs
 )
 add_test(NAME insuranceTest COMMAND insuranceTest asc 80123123 000000000901)
+
+add_executable(normalTest normalTest.cpp)
+target_link_libraries(normalTest
+    PRIVATE structs
+)
+add_test(NAME normalTest COMMAND normalTest)

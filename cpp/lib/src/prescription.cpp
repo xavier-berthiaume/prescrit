@@ -257,21 +257,36 @@ Normal::Normal() {
 }
 
 Normal::Normal(Normal *cpyObject) {
+    
+    Premade *productParam = cpyObject->getOriginalProduct();
 
-    /*
-     * There's no way this is good, I should be casting the products 
-     * and using the correct copy constructor, otherwise slicing will
-     * occur
-	originalProduct_ = new Premade(cpyObject->getOriginalProduct());
-	givenProduct_ = new Premade(cpyObject->getGivenProduct());
-    */
+    if(dynamic_cast<Medication *>(productParam)) {
+        originalProduct_ = new Medication(dynamic_cast<Medication *>(productParam));
+    } else if(dynamic_cast<Bandage *>(productParam)) {
+        originalProduct_ = new Bandage(dynamic_cast<Bandage *>(productParam));
+    } else if(dynamic_cast<Syringe *>(productParam)) {
+        originalProduct_ = new Syringe(dynamic_cast<Syringe *>(productParam));
+    } else {
+	    originalProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
+    }
 
+    productParam = cpyObject->getGivenProduct();
+
+    if(dynamic_cast<Medication *>(productParam)) {
+        givenProduct_ = new Medication(dynamic_cast<Medication *>(productParam));
+    } else if(dynamic_cast<Bandage *>(productParam)) {
+        givenProduct_ = new Bandage(dynamic_cast<Bandage *>(productParam));
+    } else if(dynamic_cast<Syringe *>(productParam)) {
+        givenProduct_ = new Syringe(dynamic_cast<Syringe *>(productParam));
+    } else {
+	    givenProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
+    }
 
 	originalDate_ = cpyObject->getOriginalDate();
 	expiryDate_ = cpyObject->getExpiryDate();
 	refillDate_ = cpyObject->getRefillDate();
 
-	prescriber_ = cpyObject->getPrescriber();
+	prescriber_ = new Prescriber(cpyObject->getPrescriber());
 
 	originalQuantity_ = cpyObject->getOriginalQuantity();
 	originalRefills_ = cpyObject->getOriginalRefills();
