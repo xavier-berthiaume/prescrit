@@ -57,3 +57,9 @@ target_link_libraries(syringeGenerationTest
     PRIVATE structs
 )
 add_test(NAME syringeGenerationTest COMMAND syringeGenerationTest)
+
+add_executable(normalGenerationTest normalGenerationTest.cpp)
+target_link_libraries(normalGenerationTest
+    PRIVATE structs
+)
+add_test(NAME normalGenerationTest COMMAND normalGenerationTest)

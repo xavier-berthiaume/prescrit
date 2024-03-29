@@ -22,5 +22,23 @@ int main(int argc, char *argv[]) {
 	assert((test_medication.getDIN() == argv[3]));
 	assert((test_medication.getActiveIngredients()->getHead() != nullptr));
 
+    Medication copy_medication = Medication(&test_medication);
+
+    Medication *pointerTest = new Medication(&test_medication);
+
+    pointerTest->AddIngredient(argv[4], std::stoi(argv[5]), units::mg);
+    pointerTest->AddIngredient(argv[4], std::stoi(argv[5]), units::mg);
+    pointerTest->AddIngredient(argv[4], std::stoi(argv[5]), units::mg);
+
+    delete pointerTest;
+
+    Medication *secondPointerTest = new Medication();
+
+    secondPointerTest->setProducer(argv[1]);
+    secondPointerTest->setName(argv[2]);
+    secondPointerTest->setDIN(argv[3]);
+
+    delete secondPointerTest;
+
 	return 0;
 }

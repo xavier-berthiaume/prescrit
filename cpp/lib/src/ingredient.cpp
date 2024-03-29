@@ -4,31 +4,17 @@ Ingredient::Ingredient(const std::string& nameParam,
 		       const unsigned int& magnitudeParam, 
 		       units::DoseUnit unitParam) : ingredientName_(nameParam),
 						    dose_(magnitudeParam),
-						    unit_(unitParam) {}
+						    unit_(unitParam),
+                            next(nullptr) {}
 
-Ingredient::Ingredient(Ingredient *cpyObject) {
+Ingredient::Ingredient(Ingredient *cpyObject) : next(nullptr) {
 
-	ingredientName_ = cpyObject->getName();
-	dose_ = cpyObject->getDose();
-	unit_ = cpyObject->getUnit();
+	ingredientName_ = cpyObject->ingredientName_;
+	dose_ = cpyObject->dose_;
+	unit_ = cpyObject->unit_;
 }
 
 Ingredient::~Ingredient() {}
-
-std::string Ingredient::getName() const {
-
-	return ingredientName_;
-}
-
-unsigned int Ingredient::getDose() const {
-
-	return dose_;
-}
-
-units::DoseUnit Ingredient::getUnit() const {
-
-	return unit_;
-}
 
 std::string Ingredient::getFormattedDose() const {
 

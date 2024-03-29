@@ -24,7 +24,7 @@ public:
 
 	Product();
 	Product(Product *);
-	~Product();
+	virtual ~Product();
 
 	std::string getName() const;
 	virtual std::string getDetailedName() const;
@@ -39,7 +39,7 @@ protected:
 public:
     Premade();
     Premade(Premade *);
-    ~Premade();
+    virtual ~Premade();
 
 	virtual std::string getDetailedName() const;
 	std::string getProducer() const;

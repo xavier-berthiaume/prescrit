@@ -258,8 +258,14 @@ Normal::Normal() {
 
 Normal::Normal(Normal *cpyObject) {
 
+    /*
+     * There's no way this is good, I should be casting the products 
+     * and using the correct copy constructor, otherwise slicing will
+     * occur
 	originalProduct_ = new Premade(cpyObject->getOriginalProduct());
 	givenProduct_ = new Premade(cpyObject->getGivenProduct());
+    */
+
 
 	originalDate_ = cpyObject->getOriginalDate();
 	expiryDate_ = cpyObject->getExpiryDate();
@@ -286,12 +292,28 @@ Normal::~Normal() {
 
 Premade *Normal::getOriginalProduct() const {
 
-	return originalProduct_;
+    if(dynamic_cast<Medication *>(originalProduct_)) {
+	    return dynamic_cast<Medication *>(originalProduct_);
+    } else if(dynamic_cast<Bandage *>(originalProduct_)) {
+        return dynamic_cast<Bandage *>(originalProduct_);
+    } else if(dynamic_cast<Syringe *>(originalProduct_)) {
+        return dynamic_cast<Syringe *>(originalProduct_);
+    } else {
+        return dynamic_cast<Premade *>(originalProduct_);
+    }
 }
 
 Premade *Normal::getGivenProduct() const {
 
-	return givenProduct_;
+    if(dynamic_cast<Medication *>(givenProduct_)) {
+	    return dynamic_cast<Medication *>(givenProduct_);
+    } else if(dynamic_cast<Bandage *>(givenProduct_)) {
+        return dynamic_cast<Bandage *>(givenProduct_);
+    } else if(dynamic_cast<Syringe *>(givenProduct_)) {
+        return dynamic_cast<Syringe *>(givenProduct_);
+    } else {
+        return dynamic_cast<Premade *>(givenProduct_);
+    }
 }
 
 void Normal::setOriginalProduct(Product *productParam) {
@@ -315,7 +337,15 @@ void Normal::setGivenProduct(Product *productParam) {
 	if(productParam == nullptr)
 		return;
 
-	givenProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
+    if(dynamic_cast<Medication *>(productParam)) {
+        givenProduct_ = new Medication(dynamic_cast<Medication *>(productParam));
+    } else if(dynamic_cast<Bandage *>(productParam)) {
+        givenProduct_ = new Bandage(dynamic_cast<Bandage *>(productParam));
+    } else if(dynamic_cast<Syringe *>(productParam)) {
+        givenProduct_ = new Syringe(dynamic_cast<Syringe *>(productParam));
+    } else {
+	    givenProduct_ = new Premade(dynamic_cast<Premade *>(productParam));
+    }
 }
 
 Magistral::Magistral() {}
@@ -360,8 +390,8 @@ void Magistral::removeIngredient(Premade *ingredientParam) {
 }
 
 Product *Magistral::getOriginalProduct() const {
-
-	return product_;
+	
+    return product_;
 }
 
 Product *Magistral::getGivenProduct() const {

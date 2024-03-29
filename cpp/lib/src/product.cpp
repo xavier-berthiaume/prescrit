@@ -55,6 +55,10 @@ void Premade::setProducer(const std::string& producerParam) {
 
 Medication::Medication() {
 
+    name_ = "";
+    producer_ = "";
+    din_ = "";
+    annex_ = Annex1;
 	ingredients_ = new IngredientList();
 }
 
@@ -62,6 +66,8 @@ Medication::Medication(Medication *cpyObject) {
 
 	name_ = cpyObject->getName();
 	producer_ = cpyObject->getProducer();
+    din_ = cpyObject->getDIN();
+    annex_ = cpyObject->getAnnex();
 	ingredients_ = new IngredientList(cpyObject->getActiveIngredients());
 }
 

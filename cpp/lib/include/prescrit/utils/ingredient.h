@@ -13,9 +13,6 @@ struct Ingredient {
 	unsigned int dose_;
 	units::DoseUnit unit_;
 	
-	std::string getName() const;
-	unsigned int getDose() const;
-	units::DoseUnit getUnit() const;
 	std::string getFormattedDose() const;
 	std::string getFormattedName() const;
 
