@@ -69,3 +69,9 @@ target_link_libraries(normalTest
     PRIVATE structs
 )
 add_test(NAME normalTest COMMAND normalTest)
+
+add_executable(magistralTest magistralTest.cpp)
+target_link_libraries(magistralTest
+    PRIVATE structs
+)
+add_test(NAME magistralTest COMMAND magistralTest)

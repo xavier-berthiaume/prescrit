@@ -97,14 +97,14 @@ class Magistral : public Prescription {
 
 	Product *product_;
 	// Just a list of ingredients
-	std::vector<Premade *> ingredients_;
+	std::vector<Premade *> constituentProducts_;
 public:
 
 	Magistral();
 	Magistral(Magistral *);
 	~Magistral();
 
-	std::vector<Premade *> getIngredients() const;
+	std::vector<Premade *> getConstituentProducts() const;
 	void addIngredient(Premade *);
 	void removeIngredient(Premade *);
 

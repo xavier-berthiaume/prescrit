@@ -2,10 +2,12 @@
 
 Ingredient::Ingredient(const std::string& nameParam, 
 		       const unsigned int& magnitudeParam, 
-		       units::DoseUnit unitParam) : ingredientName_(nameParam),
-						    dose_(magnitudeParam),
-						    unit_(unitParam),
-                            next(nullptr) {}
+		       units::DoseUnit unitParam) : next(nullptr) {
+
+    ingredientName_ = nameParam; 
+    dose_ = magnitudeParam;
+    unit_ = unitParam;
+}
 
 Ingredient::Ingredient(Ingredient *cpyObject) : next(nullptr) {
 

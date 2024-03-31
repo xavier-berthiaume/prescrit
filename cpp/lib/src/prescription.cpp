@@ -367,7 +367,24 @@ Magistral::Magistral() {}
 
 Magistral::Magistral(Magistral *cpyObject) {
 
-	ingredients_ = cpyObject->getIngredients();
+    // This doesn't create a deep copy, you have to create
+    // new and identical elements on a per element basis
+	// ingredients_ = cpyObject->getIngredients();
+    
+    // Initialize the array as empty, then copy over element by element
+    constituentProducts_ = {};
+
+    for(unsigned short x = 0; x < cpyObject->getConstituentProducts().size(); x++) {
+        if(dynamic_cast<Medication *>(cpyObject->getConstituentProducts()[x])) {
+            constituentProducts_.push_back(new Medication(dynamic_cast<Medication *>(cpyObject->getConstituentProducts()[x])));
+        } else if(dynamic_cast<Bandage *>(cpyObject->getConstituentProducts()[x])) {
+            constituentProducts_.push_back(new Bandage(dynamic_cast<Bandage *>(cpyObject->getConstituentProducts()[x])));
+        } else if(dynamic_cast<Syringe *>(cpyObject->getConstituentProducts()[x])) {
+            constituentProducts_.push_back(new Syringe(dynamic_cast<Syringe *>(cpyObject->getConstituentProducts()[x])));
+        } else {
+            constituentProducts_.push_back(new Premade(dynamic_cast<Premade *>(cpyObject->getConstituentProducts()[x])));
+        }
+    }
 
 	originalDate_ = cpyObject->getOriginalDate();
 	expiryDate_ = cpyObject->getExpiryDate();
@@ -381,11 +398,18 @@ Magistral::Magistral(Magistral *cpyObject) {
 	refillQuantity_ = cpyObject->getRefillQuantity();
 }
 
-Magistral::~Magistral() {}
+Magistral::~Magistral() {
+    
+    // Delete the items that are in the constituentProducts vector
+    for(unsigned short x = 0; x < constituentProducts_.size(); x++) {
 
-std::vector<Premade *> Magistral::getIngredients() const {
+        delete constituentProducts_[x];
+    }
+}
 
-	return ingredients_;
+std::vector<Premade *> Magistral::getConstituentProducts() const {
+
+	return constituentProducts_;
 }
 
 void Magistral::addIngredient(Premade *ingredientParam) {
@@ -393,7 +417,20 @@ void Magistral::addIngredient(Premade *ingredientParam) {
 	if(ingredientParam == nullptr)
 		return;
 
-	ingredients_.push_back(ingredientParam);
+    // Set a logical maximum to the number of products that can
+    // be in a magistral product
+    if(constituentProducts_.size() > 100)
+        return;
+
+    if(dynamic_cast<Medication *>(ingredientParam)) {
+        constituentProducts_.push_back(new Medication(dynamic_cast<Medication *>(ingredientParam)));
+    } else if(dynamic_cast<Bandage *>(ingredientParam)) {
+        constituentProducts_.push_back(new Bandage(dynamic_cast<Bandage *>(ingredientParam)));
+    } else if(dynamic_cast<Syringe *>(ingredientParam)) {
+        constituentProducts_.push_back(new Syringe(dynamic_cast<Syringe *>(ingredientParam)));
+    } else {
+        constituentProducts_.push_back(new Premade(dynamic_cast<Premade *>(ingredientParam)));
+    }
 }
 
 void Magistral::removeIngredient(Premade *ingredientParam) {
@@ -401,7 +438,9 @@ void Magistral::removeIngredient(Premade *ingredientParam) {
 	if(ingredientParam == nullptr)
 		return;
 
-	ingredients_.erase(std::remove(ingredients_.begin(), ingredients_.end(), ingredientParam), ingredients_.end());
+    // Find the ingredients address within the vector, then delete its pointer.
+	constituentProducts_.erase(std::remove(constituentProducts_.begin(), constituentProducts_.end(), ingredientParam), constituentProducts_.end());
+    delete ingredientParam;
 }
 
 Product *Magistral::getOriginalProduct() const {

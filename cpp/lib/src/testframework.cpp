@@ -108,7 +108,6 @@ std::string testFramework::generateValidCompany() {
         "Teva", 
         "Pro Doc",
         "Auro"
-        // Add more company names as needed
     };
 
     std::random_device rd;
@@ -132,8 +131,7 @@ std::string testFramework::generateValidProductName() {
         "Levothyroxine",
         "Simvastatin",
         "Losartan",
-        "Amlodipine",
-        // Add more medication names as needed
+        "Amlodipine"
     };
 
     std::random_device rd;
@@ -152,7 +150,6 @@ std::string testFramework::generateValidMagistralName() {
         "Tadalafil 1% Cream",
         "Magic Mouth Wash",
         "Newmann Ointment"
-        // Add more medication names as needed
     };
 
     std::random_device rd;
@@ -168,7 +165,7 @@ unsigned int testFramework::generateValidDose() {
 
     std::random_device rd;
     std::mt19937 generator(rd());
-    std::uniform_int_distribution<int> distribution(0, 1000);
+    std::uniform_int_distribution<int> distribution(1, 1000);
 
     return (unsigned int)distribution(generator);
 }
