@@ -1,3 +1,9 @@
+add_executable(ingredientGenerationTest ingredientGenerationTest.cpp)
+target_link_libraries(ingredientGenerationTest
+  PRIVATE structs
+)
+add_test(NAME ingredientGenerationTest COMMAND ingredientGenerationTest)
+
 add_executable(dateGenerationTest dateGenerationTest.cpp)
 target_link_libraries(dateGenerationTest
     PRIVATE structs

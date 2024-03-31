@@ -5,6 +5,7 @@
 #include "units.h"
 
 struct Ingredient {
+
 	Ingredient(const std::string&, const unsigned int&, units::DoseUnit);
 	Ingredient(Ingredient *);
 	~Ingredient();
@@ -18,13 +19,13 @@ struct Ingredient {
 
 	Ingredient *getNext() const;
 	void setNext(Ingredient *);
-
 private:
-	Ingredient *next;
 
+	Ingredient *next;
 };
 
 struct IngredientList {
+
 	IngredientList();
 	IngredientList(IngredientList *);
 	~IngredientList();
@@ -33,10 +34,9 @@ struct IngredientList {
 	void addIngredient(Ingredient *);
 	Ingredient *getNextIngredient(Ingredient *);
 	Ingredient *getHead();
-
 private:
-	Ingredient *head;
 
+	Ingredient *head;
 };
 
 

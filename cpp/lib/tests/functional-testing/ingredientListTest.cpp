@@ -13,5 +13,17 @@ int main(int argc, char *argv[]) {
 	
 	IngredientList testlist = IngredientList();
 
+    testlist.addIngredient(ingredient1);
+    testlist.addIngredient(ingredient2);
+    testlist.addIngredient(ingredient3);
+
+    delete ingredient1;
+    delete ingredient2;
+    delete ingredient3;
+
+    IngredientList *secondList = new IngredientList(&testlist);
+
+    delete secondList;
+
 	return 0;
 }

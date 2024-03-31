@@ -10,6 +10,12 @@ target_link_libraries(ingredientTest
 )
 add_test(NAME ingredientTest COMMAND ingredientTest acetaminophen 325 mg)
 
+add_executable(ingredientListTest ingredientListTest.cpp)
+target_link_libraries(ingredientListTest
+  PRIVATE structs
+)
+add_test(NAME ingredientListTest COMMAND ingredientListTest)
+
 add_executable(productTest productTest.cpp)
 target_link_libraries(productTest
   PRIVATE structs

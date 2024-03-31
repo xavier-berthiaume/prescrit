@@ -42,7 +42,12 @@ IngredientList::IngredientList() : head(nullptr) {}
 
 IngredientList::IngredientList(IngredientList *cpyObject) {
 
-	head = new Ingredient(cpyObject->getHead());
+    if(cpyObject->getHead() != nullptr) {
+        head = new Ingredient(cpyObject->getHead());
+    } else {
+        head = nullptr;
+    }
+
 	Ingredient *currentPositionOriginal = cpyObject->getNextIngredient(cpyObject->getHead());
 	Ingredient *currentPositionNew = head;
 	while(currentPositionOriginal != nullptr) {
@@ -71,8 +76,9 @@ void IngredientList::addIngredient(const std::string& nameParam, const unsigned 
 
 void IngredientList::addIngredient(Ingredient *ingredientParam) {
 
-	ingredientParam->setNext(head);
-	head = ingredientParam;
+    Ingredient *newIngredient = new Ingredient(ingredientParam);
+	newIngredient->setNext(head);
+	head = newIngredient;
 }
 
 Ingredient *IngredientList::getNextIngredient(Ingredient *currentParam) {

@@ -73,48 +73,6 @@ public:
 	void setPreviousRefill(Prescription *);
 };
 
-class Normal : public Prescription {
-
-	// Premades
-	Premade *originalProduct_;
-	Premade *givenProduct_;
-public:
-
-	Normal();
-	Normal(Normal *);
-	~Normal();
-
-	Premade *getOriginalProduct() const override;
-	Premade *getGivenProduct() const override;
-    // For these setters, check the class of object you're receiving
-    // It'll be derived from Product, and then create a correctly
-    // assigned deep copy
-	void setOriginalProduct(Product *) override;
-	void setGivenProduct(Product *) override;
-};
-
-class Magistral : public Prescription {
-
-	Product *product_;
-	// Just a list of ingredients
-	std::vector<Premade *> constituentProducts_;
-public:
-
-	Magistral();
-	Magistral(Magistral *);
-	~Magistral();
-
-	std::vector<Premade *> getConstituentProducts() const;
-	void addIngredient(Premade *);
-	void removeIngredient(Premade *);
-
-	// Although both getters and setters are included here, they will both point to the same thing
-	Product *getOriginalProduct() const override;
-	Product *getGivenProduct() const override;
-	void setOriginalProduct(Product *) override;
-	void setGivenProduct(Product *) override;
-};
-
 struct PrescriptionRefillList {
 
 	PrescriptionRefillList();
