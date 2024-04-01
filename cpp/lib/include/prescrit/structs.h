@@ -11,6 +11,7 @@
 #include "structs/prescription.h"
 #include "structs/normal.h"
 #include "structs/magistral.h"
+#include "structs/prescription-list.h"
 #include "structs/insurance.h"
 
 #endif // !STRUCTS_H

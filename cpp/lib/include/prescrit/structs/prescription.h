@@ -73,21 +73,4 @@ public:
 	void setPreviousRefill(Prescription *);
 };
 
-struct PrescriptionRefillList {
-
-	PrescriptionRefillList();
-	PrescriptionRefillList(PrescriptionRefillList *);
-	~PrescriptionRefillList();
-
-	Prescription *getNextPrescription(Prescription *);
-	Prescription *getHead();
-
-	void setHead(Prescription *);
-
-	bool refillPrescription(const unsigned int&);
-private:
-
-	Prescription *head;
-};
-
 #endif // !PRESCRIPTION_H

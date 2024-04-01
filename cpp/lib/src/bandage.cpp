@@ -1,4 +1,4 @@
-#include <prescrit/structs/bandage.cpp>
+#include <prescrit/structs/bandage.h>
 
 Bandage::Bandage() {
 

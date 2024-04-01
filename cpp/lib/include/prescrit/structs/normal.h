@@ -2,6 +2,10 @@
 #define NORMAL_H
 
 #include "prescription.h"
+#include "premade.h"
+#include "medication.h"
+#include "bandage.h"
+#include "syringe.h"
 
 class Normal : public Prescription {
 

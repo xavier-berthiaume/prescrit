@@ -3,6 +3,11 @@
 
 #include "../globals.h"
 #include "prescription.h"
+#include "product.h"
+#include "premade.h"
+#include "medication.h"
+#include "bandage.h"
+#include "syringe.h"
 
 class Magistral : public Prescription {
 

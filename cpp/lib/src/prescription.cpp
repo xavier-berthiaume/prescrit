@@ -1,6 +1,6 @@
 #include <prescrit/structs/prescription.h> 
 
-Prescription::Prescription() {
+Prescription::Prescription() : previousRefill_(nullptr) {
 
 	prescriber_ = nullptr;
 
@@ -23,6 +23,8 @@ Prescription::Prescription(Prescription *cpyObject) {
 	originalRefills_ = cpyObject->getOriginalRefills();
 	remainingQuantity_ = cpyObject->getRemainingQuantity();
 	refillQuantity_ = cpyObject->getRefillQuantity();
+
+    previousRefill_ = nullptr;    
 }
 
 Prescription::~Prescription() {
@@ -248,58 +250,4 @@ void Prescription::setRefillQuantity(unsigned int quantityParam) {
 void Prescription::setPreviousRefill(Prescription *prescriptionParam) {
 
 	previousRefill_ = prescriptionParam;
-}
-
-PrescriptionRefillList::PrescriptionRefillList() : head{nullptr} {}
-
-PrescriptionRefillList::PrescriptionRefillList(PrescriptionRefillList *cpyObject) {
-
-	head = new Prescription(cpyObject->getHead());
-	Prescription *currentPositionOriginal = cpyObject->getNextPrescription(cpyObject->getHead());
-	Prescription *currentPositionNew = head;
-	while(currentPositionOriginal != nullptr) {
-
-		currentPositionNew->setPreviousRefill(new Prescription(currentPositionOriginal));
-		currentPositionNew = currentPositionNew->getPreviousRefill();
-		currentPositionOriginal = currentPositionOriginal->getPreviousRefill();
-	}
-}
-
-PrescriptionRefillList::~PrescriptionRefillList() {
-
-	while(head != nullptr) {
-
-		Prescription *nextPrescription = head->getPreviousRefill();
-		delete head;
-		head = nextPrescription;
-	}
-}
-
-Prescription *PrescriptionRefillList::getNextPrescription(Prescription *prescriptionParam) {
-
-	return prescriptionParam->getPreviousRefill();
-}
-
-Prescription *PrescriptionRefillList::getHead() {
-
-	return head;
-}
-
-void PrescriptionRefillList::setHead(Prescription *prescriptionParam) {
-
-	head = prescriptionParam;
-}
-
-bool PrescriptionRefillList::refillPrescription(const unsigned int& quantityParam) {
-
-	Prescription *recentRefill = new Prescription(head);
-	if(recentRefill->getRemainingQuantity() < quantityParam)
-		return false;
-	recentRefill->setRefillQuantity(quantityParam);
-	recentRefill->setRemainingQuantity(recentRefill->getRemainingQuantity() - quantityParam);
-
-	recentRefill->setPreviousRefill(head);
-	head = recentRefill;
-	
-	return true;
 }
