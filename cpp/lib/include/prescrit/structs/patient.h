@@ -44,9 +44,21 @@ public:
 	void setFirstName(const std::string&);
 	void setLastName(const std::string&);
 	
+    /**
+     * @deprecated
+     */
 	void setBirthDay(const unsigned short&);
+
+    /**
+     * @deprecated
+     */
 	void setBirthMonth(const unsigned short&);
+
+    /**
+     * @deprecated
+     */
 	void setBirthYear(const unsigned short&);
+
 	void setBirthDate(const tm*);
 
 	void addPhoneNumber(const std::string&);

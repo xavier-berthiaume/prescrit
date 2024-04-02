@@ -44,12 +44,13 @@ tm *testFramework::generateValidBirthday() {
     std::mt19937 generator(rd());
     std::uniform_int_distribution<int> distrbution(0, 100);
 
-    // This is certain to work for any month, since all months have at least 28 days
-    validGeneratedBirthday->tm_mday = distrbution(generator)%28;
+    do {
+        validGeneratedBirthday->tm_mday = distrbution(generator)%31;
 
-    validGeneratedBirthday->tm_mon = distrbution(generator)%12;
+        validGeneratedBirthday->tm_mon = distrbution(generator)%12;
 
-    validGeneratedBirthday->tm_year = distrbution(generator);
+        validGeneratedBirthday->tm_year = distrbution(generator);
+    } while(!time_validation::checkValidDate(validGeneratedBirthday));
 
     return validGeneratedBirthday;
 }
@@ -72,7 +73,7 @@ tm *testFramework::generateInvalidBirthday() {
     std::uniform_int_distribution<int> distributionYear(0, 1000);
     invalidGeneratedBirthday->tm_mday = distributionDay(generator);
     invalidGeneratedBirthday->tm_mon = distributionMonth(generator);
-    invalidGeneratedBirthday->tm_year = distributionYear(generator) + 1000; 
+    invalidGeneratedBirthday->tm_year = distributionYear(generator) + 1100; 
 
     return invalidGeneratedBirthday;
 }

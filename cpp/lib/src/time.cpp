@@ -76,6 +76,88 @@ bool time_validation::checkYearWithinRange(const unsigned short &yearParam) {
 	return true;
 }
 
+bool time_validation::checkDayWithinRange(const tm *timeParam) {
+
+    unsigned short yearParam = timeParam->tm_year+1900;
+    unsigned short monthParam = timeParam->tm_mon+1;
+    unsigned short dayParam = timeParam->tm_mday;
+
+	unsigned short monthDays {0};
+	bool leapyear {false};
+
+	if((yearParam % 4 == 0 && yearParam % 100 != 0) || (yearParam % 400 == 0))
+		leapyear = true;
+
+	switch(monthParam) {
+		case 0:
+			monthDays = 31;
+			break;
+		case 1:
+			if(leapyear) {
+				monthDays = 29;
+			} else {
+				monthDays = 28;
+			}
+			break;
+		case 2:
+			monthDays = 31;
+			break;
+		case 3:
+			monthDays = 30;
+			break;
+		case 4:
+			monthDays = 31;
+			break;
+		case 5:
+			monthDays = 30;
+			break;
+		case 6:
+			monthDays = 31;
+			break;
+		case 7:
+			monthDays = 31;
+			break;
+		case 8:
+			monthDays = 30;
+			break;
+		case 9:
+			monthDays = 31;
+			break;
+		case 10:
+			monthDays = 30;
+			break;
+		case 11:
+			monthDays = 31;
+			break;
+	}
+
+	if(dayParam > monthDays || dayParam <= 0)
+		return false;
+
+	return true;
+
+}
+
+bool time_validation::checkMonthWithinRange(const tm *timeParam) {
+
+    unsigned short monthParam = timeParam->tm_mon;
+	
+	if(monthParam > 11)
+		return false;
+
+	return true;
+}
+
+bool time_validation::checkYearWithinRange(const tm *timeParam) {
+
+    unsigned short yearParam = timeParam->tm_year;
+	
+	if(yearParam < 0 || yearParam > MAXVALIDYEAR-1900)
+		return false;
+
+	return true;
+}
+
 bool time_validation::checkValidDate(const tm *timeToValidate) {
 
     time_t convertedTimeToValidate = std::mktime(const_cast<tm *>(timeToValidate));

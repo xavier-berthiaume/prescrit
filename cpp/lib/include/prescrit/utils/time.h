@@ -10,6 +10,7 @@
 namespace time_validation {
 
 	/**
+     * @deprecated
 	 * @brief Validates that a provided unsigned short is a valid day number within a given month and year.
 	 *
      * @param The first parameter is the day of the month
@@ -21,6 +22,7 @@ namespace time_validation {
 	bool checkDayWithinRange(const unsigned short&, const unsigned short&, const unsigned short&);
 
 	/**
+     * @deprecated
 	 * @brief Validates that a provided unsigned short is a valid month number.
 	 *
      * @param The first parameter is the month, it should be zero-indexed (January is month 0)
@@ -30,6 +32,7 @@ namespace time_validation {
 	bool checkMonthWithinRange(const unsigned short&);
 
 	/**
+     * @deprecated
 	 * @brief Validates that a provided unsigned short is a valid month number.
 	 *
      * @param The first parameter is the year that is to be checked 
@@ -38,6 +41,12 @@ namespace time_validation {
 	 */
 	bool checkYearWithinRange(const unsigned short&);
     
+    bool checkDayWithinRange(const tm *);
+
+    bool checkMonthWithinRange(const tm *);
+
+    bool checkYearWithinRange(const tm *);
+
     bool checkValidDate(const tm *);
 
 	bool checkDateBeforePresent(const tm *);

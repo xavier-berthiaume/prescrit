@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
 	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
 
 	std::tm future_date;
-	future_date.tm_year = 2025;
+	future_date.tm_year = 125;
 	future_date.tm_mon = 11;
 	future_date.tm_mday = 15;
 
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
 	assert((test_patient.getBirthYear() != 2025));
 	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
 	
-	std::tm valid_birth_date;
+	tm valid_birth_date = tm();
 	valid_birth_date.tm_mday = 10;
 	valid_birth_date.tm_mon = 2;
 	// 93 as year in tm struct is 1993

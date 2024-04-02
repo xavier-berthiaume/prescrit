@@ -4,6 +4,8 @@ const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 
 Patient::Patient() {
 	birthdate_ = new std::tm();
+    birthdate_->tm_min = 0;
+    birthdate_->tm_sec = 0;
 }
 
 Patient::~Patient() {
@@ -150,9 +152,9 @@ void Patient::setBirthDate(const tm* birthDateParam) {
 	if(!time_validation::checkDateBeforePresent(birthDateParam))
 		return;
 
-	if(!time_validation::checkDayWithinRange(birthDateParam->tm_mday, birthDateParam->tm_mon, birthDateParam->tm_year+1900) ||
-	   !time_validation::checkMonthWithinRange(birthDateParam->tm_mon-1) ||
-	   !time_validation::checkYearWithinRange(birthDateParam->tm_year+1900))
+	if(!time_validation::checkDayWithinRange(birthDateParam) ||
+	   !time_validation::checkMonthWithinRange(birthDateParam) ||
+	   !time_validation::checkYearWithinRange(birthDateParam))
 		return;
 
 	birthdate_->tm_year = birthDateParam->tm_year;
