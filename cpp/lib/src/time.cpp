@@ -78,13 +78,20 @@ bool time_validation::checkYearWithinRange(const unsigned short &yearParam) {
 
 bool time_validation::checkValidDate(const tm *timeToValidate) {
 
-    if(!checkDayWithinRange(timeToValidate->tm_mday, timeToValidate->tm_mon, timeToValidate->tm_year+1900))
+    time_t convertedTimeToValidate = std::mktime(const_cast<tm *>(timeToValidate));
+    tm maximumValidDate = tm();
+    maximumValidDate.tm_sec = 0;
+    maximumValidDate.tm_min = 0;
+    maximumValidDate.tm_hour = 0;
+    maximumValidDate.tm_mday = 31;
+    maximumValidDate.tm_mon = 11;
+    maximumValidDate.tm_year = MAXVALIDYEAR-1900;
+    time_t maximumFutureTime = mktime(&maximumValidDate);
+
+    if(convertedTimeToValidate < 0)
         return false;
 
-    if(!checkMonthWithinRange(timeToValidate->tm_mon))
-        return false;
-
-    if(!checkYearWithinRange(timeToValidate->tm_year+1900))
+    if(convertedTimeToValidate > maximumFutureTime)
         return false;
 
     return true;
@@ -94,19 +101,11 @@ bool time_validation::checkDateBeforePresent(const tm *dateParam) {
 	
 	const auto currentTime = std::chrono::system_clock::now();
 	const std::time_t currentTime_t = std::chrono::system_clock::to_time_t(currentTime);
-	const std::tm *currentTime_tm = std::localtime(&currentTime_t);
 
-	if(dateParam->tm_year > currentTime_tm->tm_year) {
-		return false;
-	} else if (dateParam->tm_year == currentTime_tm->tm_year) {
-		if(dateParam->tm_mon > currentTime_tm->tm_mon) {
-			return false;
-		} else if (dateParam->tm_mon == currentTime_tm->tm_mon) {
-			if(dateParam->tm_mday > currentTime_tm->tm_mday) {
-				return false;
-			}
-		}
-	}
+    const time_t dateTime_t = mktime(const_cast<tm *>(dateParam));
+
+    if(dateTime_t > currentTime_t)
+        return false;
 
 	return true;
 }

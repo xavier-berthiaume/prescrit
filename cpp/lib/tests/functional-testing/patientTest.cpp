@@ -13,6 +13,7 @@
 
 #include <cassert>
 #include <ctime>
+#include <iostream>
 #include <string>
 #include <prescrit/structs.h>
 #include <prescrit/test-fr.h>
@@ -25,9 +26,18 @@ int main(int argc, char* argv[]) {
 	test_patient.setFirstName(argv[1]);
 	test_patient.setLastName(argv[2]);
 
-	test_patient.setBirthDay((unsigned short)std::stoi(argv[3]));
-	test_patient.setBirthMonth((unsigned short)std::stoi(argv[4]));
-	test_patient.setBirthYear((unsigned short)std::stoi(argv[5]));
+    tm birthday = tm();
+    birthday.tm_mday = std::stoi(argv[3]);
+    birthday.tm_mon = std::stoi(argv[4])-1;
+    birthday.tm_year = std::stoi(argv[5])-1900;
+
+    test_patient.setBirthDate(&birthday);
+
+    std::cout << "Patient: \n"
+        "First Name: " << test_patient.getFirstName() << "\n"
+        "Last Name: " << test_patient.getLastName() << "\n"
+        "Birthday: " << test_patient.getBirthDay() << "/" << test_patient.getBirthMonth() << "/" << test_patient.getBirthYear() << "\n";
+    std::cout << std::endl;
 
 	// Assert that values saved to the patient are the same when retrieved
 	assert((test_patient.getFirstName() == argv[1]));
@@ -82,7 +92,7 @@ int main(int argc, char* argv[]) {
 	
 	std::tm valid_birth_date;
 	valid_birth_date.tm_mday = 10;
-	valid_birth_date.tm_mon = 3;
+	valid_birth_date.tm_mon = 2;
 	// 93 as year in tm struct is 1993
 	valid_birth_date.tm_year = 93;
 
