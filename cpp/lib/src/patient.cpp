@@ -4,8 +4,10 @@ const unsigned short Patient::kMaximumNameLength = MAXNAMELENGTH;
 
 Patient::Patient() {
 	birthdate_ = new std::tm();
+    birthdate_->tm_hour = 0;
     birthdate_->tm_min = 0;
     birthdate_->tm_sec = 0;
+    birthdate_->tm_isdst = -1;
 }
 
 Patient::~Patient() {
