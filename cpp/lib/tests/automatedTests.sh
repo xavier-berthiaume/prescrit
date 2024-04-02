@@ -2,10 +2,13 @@
 
 RELATIVE_PATH="../build"
 OUTPUT_FILE="TestOutput"
-TEST_REPS=100
+TEST_REPS=10000
 
 cd $RELATIVE_PATH
-mkdir "${RELATIVE_PATH}/core-dumps"
+if [ -d "${RELATIVE_PATH}/core-dumps" ]; then
+
+    mkdir "${RELATIVE_PATH}/core-dumps"
+fi
 touch "${RELATIVE_PATH}/${OUTPUT_FILE}"
 
 echo "" > $OUTPUT_FILE
