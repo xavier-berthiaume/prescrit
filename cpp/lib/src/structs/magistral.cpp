@@ -2,6 +2,8 @@
 
 Magistral::Magistral() {
 
+    prescriber_ = nullptr;
+
     originalDate_ = tm();
     originalDate_.tm_isdst = -1;
     expiryDate_ = tm();

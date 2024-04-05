@@ -56,25 +56,38 @@ int main(int argc, char* argv[]) {
 	assert((test_patient.getLastName() != "123456"));
 	assert((test_patient.getLastName() == argv[2]));
 
-	// Assert that after passing invalid dates the patient class won't
-	// change the currently valid data
-	test_patient.setBirthDay(40);
-	assert((test_patient.getBirthDay() != 40));
-	assert((test_patient.getBirthDay() == std::stoi(argv[3])));
-
-	test_patient.setBirthMonth(15);
-	assert((test_patient.getBirthMonth() != 15));
-	assert((test_patient.getBirthMonth() == std::stoi(argv[4])));
-
-	test_patient.setBirthYear(1800);
-	assert((test_patient.getBirthYear() != 1800));
-	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
+    std::tm invalid_date = tm();
+    invalid_date.tm_year = -25; // Invalid year
+    invalid_date.tm_mon = 10; // Valid month
+    invalid_date.tm_mday = 13; // Valid day
+    
+    test_patient.setBirthDate(&invalid_date);
 	
-	test_patient.setBirthYear(2500);
-	assert((test_patient.getBirthYear() != 2500));
+    assert((test_patient.getBirthDay() == std::stoi(argv[3])));
+	assert((test_patient.getBirthMonth() == std::stoi(argv[4])));
 	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
 
-	std::tm future_date;
+    invalid_date.tm_year = 100; // Valid year
+    invalid_date.tm_mon = 30; // Invalid month
+    invalid_date.tm_mday = 13; // Valid day
+
+    test_patient.setBirthDate(&invalid_date);
+
+	assert((test_patient.getBirthDay() == std::stoi(argv[3])));
+	assert((test_patient.getBirthMonth() == std::stoi(argv[4])));
+	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
+
+    invalid_date.tm_year = 100; // Valid year
+    invalid_date.tm_mon = 10; // Valid month
+    invalid_date.tm_mday = 130; // Invalid day
+
+    test_patient.setBirthDate(&invalid_date);
+
+	assert((test_patient.getBirthDay() == std::stoi(argv[3])));
+	assert((test_patient.getBirthMonth() == std::stoi(argv[4])));
+	assert((test_patient.getBirthYear() == std::stoi(argv[5])));
+
+	std::tm future_date = tm();
 	future_date.tm_year = 125;
 	future_date.tm_mon = 11;
 	future_date.tm_mday = 15;

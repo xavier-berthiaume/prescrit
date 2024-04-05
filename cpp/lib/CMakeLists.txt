@@ -18,28 +18,11 @@ install(
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-add_library(structs SHARED
-	"src/patient.cpp"
-	"src/prescriber.cpp"
-	"src/prescription.cpp"
-    "src/normal.cpp"
-    "src/magistral.cpp"
-    "src/prescription-list.cpp"
-	"src/insurance.cpp"
-	"src/product.cpp"
-    "src/premade.cpp"
-    "src/medication.cpp"
-    "src/bandage.cpp"
-    "src/syringe.cpp"
-	"src/time.cpp"
-	"src/phonenumbers.cpp"
-	"src/units.cpp"
-	"src/ingredient.cpp"
-	"src/location.cpp"
-    "src/testframework.cpp"
-)
+add_library(structs SHARED)
 
 add_library(prescrit::structs ALIAS structs)
+
+add_subdirectory(src)
 
 target_include_directories(structs
   PUBLIC

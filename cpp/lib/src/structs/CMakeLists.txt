@@ -1,0 +1,15 @@
+target_sources(structs PRIVATE
+	"patient.cpp"
+	"prescriber.cpp"
+	"prescription.cpp"
+    "normal.cpp"
+    "magistral.cpp"
+    "prescription-list.cpp"
+	"insurance.cpp"
+	"product.cpp"
+    "premade.cpp"
+    "medication.cpp"
+    "bandage.cpp"
+    "syringe.cpp"
+	"ingredient.cpp"
+)

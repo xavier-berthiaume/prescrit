@@ -2,6 +2,8 @@
 
 Normal::Normal() {
 
+    prescriber_ = nullptr;
+
 	originalProduct_ = nullptr;
 	givenProduct_ = nullptr;
 

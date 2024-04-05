@@ -172,13 +172,16 @@ void Patient::setBirthYear(const unsigned short& birthYearParam) {
 
 void Patient::setBirthDate(const tm* birthDateParam) {
 
-	if(!time_validation::checkDateBeforePresent(birthDateParam))
-		return;
-
 	if(!time_validation::checkDayWithinRange(birthDateParam) ||
 	   !time_validation::checkMonthWithinRange(birthDateParam) ||
 	   !time_validation::checkYearWithinRange(birthDateParam))
 		return;
+
+	if(!time_validation::checkDateBeforePresent(birthDateParam))
+		return;
+
+    if(!time_validation::checkValidDate(birthDateParam))
+        return;
 
 	birthdate_.tm_year = birthDateParam->tm_year;
 	birthdate_.tm_mon = birthDateParam->tm_mon;

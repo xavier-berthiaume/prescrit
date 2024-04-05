@@ -39,6 +39,11 @@ std::string testFramework::generateInvalidName() {
 tm *testFramework::generateValidBirthday() {
 
     tm *validGeneratedBirthday = new tm;
+    validGeneratedBirthday->tm_sec = 0;
+    validGeneratedBirthday->tm_min = 0;
+    validGeneratedBirthday->tm_hour = 0;
+    validGeneratedBirthday->tm_isdst = -1;
+    validGeneratedBirthday->tm_zone = "EST\0";
     
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -521,12 +526,21 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
 
     tm *refillDate = new tm, *originalDate = new tm, *expiryDate = new tm;
 
+    refillDate->tm_sec = 0;
+    refillDate->tm_min = 0;
+    refillDate->tm_hour = 0;
     refillDate->tm_isdst = -1;
     refillDate->tm_zone = "EST\0";
 
+    originalDate->tm_sec = 0;
+    originalDate->tm_min = 0;
+    originalDate->tm_hour = 0;
     originalDate->tm_isdst = -1;
     originalDate->tm_zone = "EST\0";
 
+    expiryDate->tm_sec = 0;
+    expiryDate->tm_min = 0;
+    expiryDate->tm_hour = 0;
     expiryDate->tm_isdst = -1;
     expiryDate->tm_zone = "EST\0";
 
@@ -637,7 +651,7 @@ Normal *testFramework::generateNormal() {
 
     delete genPrescriber;
 
-    tm *refillDate, *originalDate, *expiryDate;
+    tm *refillDate {}, *originalDate {}, *expiryDate {};
     std::tie(refillDate, originalDate, expiryDate) = generatePrescriptionDates();
 
     generatedNormal->setRefillDate(refillDate);
