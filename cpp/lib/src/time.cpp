@@ -135,7 +135,6 @@ bool time_validation::checkDayWithinRange(const tm *timeParam) {
 		return false;
 
 	return true;
-
 }
 
 bool time_validation::checkMonthWithinRange(const tm *timeParam) {
@@ -168,6 +167,8 @@ bool time_validation::checkValidDate(const tm *timeToValidate) {
     maximumValidDate.tm_mday = 31;
     maximumValidDate.tm_mon = 11;
     maximumValidDate.tm_year = MAXVALIDYEAR-1900;
+    maximumValidDate.tm_isdst = -1;
+    maximumValidDate.tm_zone = "EST\0";
     time_t maximumFutureTime = mktime(&maximumValidDate);
 
     if(convertedTimeToValidate < 0)

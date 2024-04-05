@@ -1,8 +1,4 @@
-add_executable(patientTest patientTest.cpp)
-target_link_libraries(patientTest
-  PRIVATE structs
-)
-add_test(NAME patientTest COMMAND patientTest Xavier Berthiaume 13 4 1997)
+add_subdirectory(patient)
 
 add_executable(ingredientTest ingredientTest.cpp)
 target_link_libraries(ingredientTest
@@ -81,3 +77,9 @@ target_link_libraries(magistralTest
     PRIVATE structs
 )
 add_test(NAME magistralTest COMMAND magistralTest)
+
+add_executable(timeTest timeTest.cpp)
+target_link_libraries(timeTest
+    PRIVATE structs
+)
+add_test(NAME timeTest COMMAND timeTest)

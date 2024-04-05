@@ -6,6 +6,10 @@ Prescription::Prescription() : previousRefill_(nullptr) {
 
 	originalProduct_ = nullptr;
 	givenProduct_ = nullptr;
+
+    originalDate_ = tm();
+    expiryDate_ = tm();
+    refillDate_ = tm();
 }
 
 Prescription::Prescription(Prescription *cpyObject) {
@@ -115,9 +119,14 @@ void Prescription::setOriginalDate(tm *tmParam) {
     if(!time_validation::checkValidDate(tmParam))
         return;
 
+    /*
     originalDate_.tm_mday = tmParam->tm_mday;
     originalDate_.tm_mon = tmParam->tm_mon;
     originalDate_.tm_year = tmParam->tm_year;
+    originalDate_.tm_isdst = tmParam->
+    */
+
+    originalDate_ = *tmParam;
 }
 
 void Prescription::setExpiryDate(tm *tmParam) {
@@ -125,9 +134,13 @@ void Prescription::setExpiryDate(tm *tmParam) {
     if(!time_validation::checkValidDate(tmParam))
         return;
 
+    /*
     expiryDate_.tm_mday = tmParam->tm_mday;
     expiryDate_.tm_mon = tmParam->tm_mon;
     expiryDate_.tm_year = tmParam->tm_year;
+    */
+
+    expiryDate_ = *tmParam;
 }
 
 void Prescription::setRefillDate(tm *tmParam) {
@@ -135,9 +148,13 @@ void Prescription::setRefillDate(tm *tmParam) {
     if(!time_validation::checkValidDate(tmParam))
         return;
 
+    /*
     refillDate_.tm_mday = tmParam->tm_mday;
     refillDate_.tm_mon = tmParam->tm_mon;
     refillDate_.tm_year = tmParam->tm_year;
+    */
+
+    refillDate_ = *tmParam;
 }
 
 void Prescription::setOriginalDate(const unsigned short& dayParam, 

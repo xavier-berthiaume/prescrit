@@ -4,6 +4,10 @@ Normal::Normal() {
 
 	originalProduct_ = nullptr;
 	givenProduct_ = nullptr;
+
+    originalDate_ = tm();
+    expiryDate_ = tm();
+    refillDate_ = tm();
 }
 
 Normal::Normal(Normal *cpyObject) {
