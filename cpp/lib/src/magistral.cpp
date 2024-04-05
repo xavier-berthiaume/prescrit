@@ -1,6 +1,14 @@
 #include <prescrit/structs/magistral.h>
 
-Magistral::Magistral() {}
+Magistral::Magistral() {
+
+    originalDate_ = tm();
+    originalDate_.tm_isdst = -1;
+    expiryDate_ = tm();
+    expiryDate_.tm_isdst = -1;
+    refillDate_ = tm();
+    refillDate_.tm_isdst = -1;
+}
 
 Magistral::Magistral(Magistral *cpyObject) {
 

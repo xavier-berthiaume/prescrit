@@ -7,9 +7,9 @@ Patient::Patient() {
     firstName_ = std::string();
     lastName_ = std::string();
 
-    std::time_t now = std::time(nullptr);
-	birthdate_ = *std::localtime(&now);
-
+	birthdate_ = tm();
+    birthdate_.tm_isdst = -1;
+    birthdate_.tm_zone = "EST\0";
 }
 
 Patient::~Patient() {}

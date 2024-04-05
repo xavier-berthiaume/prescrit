@@ -520,6 +520,16 @@ std::tuple<tm *, tm *, tm *> testFramework::generatePrescriptionDates() {
     std::uniform_int_distribution<int> distributionYear(currentDate->tm_year-2, currentDate->tm_year);
 
     tm *refillDate = new tm, *originalDate = new tm, *expiryDate = new tm;
+
+    refillDate->tm_isdst = -1;
+    refillDate->tm_zone = "EST\0";
+
+    originalDate->tm_isdst = -1;
+    originalDate->tm_zone = "EST\0";
+
+    expiryDate->tm_isdst = -1;
+    expiryDate->tm_zone = "EST\0";
+
     bool dateIsValid = false;
     do {
         
