@@ -3,15 +3,13 @@
 
 #include "patient.h"
 #include "prescription-list.h"
-#include "prescription.h"
-#include "normal.h"
-#include "magistral.h"
 
-// Singleton implementation
 class PatientFile {
+friend class PatientFileFactory;
 
-    Patient *patient_;
-    std::vector<PrescriptionRefillList *> prescriptions_;
+    std::string fileid_ = {};
+    Patient *patient_ = nullptr;
+    std::vector<PrescriptionRefillList *> prescriptions_ {};
 
     // I should store patient conditions here, but haven't implemented those yet
 
@@ -19,7 +17,14 @@ class PatientFile {
     ~PatientFile();
 public:
 
+    Patient *getPatient() const;
+    uint16_t getPrescriptionCount() const;
+    PrescriptionRefillList *getPrescription(const uint16_t &) const ;
     
+};
+
+class PatientFileFactory {
+
 };
 
 #endif
