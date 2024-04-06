@@ -13,5 +13,7 @@
 #include "structs/magistral.h"
 #include "structs/prescription-list.h"
 #include "structs/insurance.h"
+#include "structs/user.h"
+#include "structs/patient-file.h"
 
 #endif // !STRUCTS_H

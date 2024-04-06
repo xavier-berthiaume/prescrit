@@ -13,4 +13,5 @@ target_sources(structs PRIVATE
     "bandage.cpp"
     "syringe.cpp"
 	"ingredient.cpp"
+    "user.cpp"
 )
