@@ -56,3 +56,19 @@ void PatientFile::setPatient(Patient *patientParam) {
 
     patient_ = new Patient(patientParam);
 }
+
+void PatientFile::addPrescriptionList(PrescriptionRefillList *prescriptionParam) {
+
+    if(prescriptionParam == nullptr)
+        return;
+
+    prescriptions_.push_back(prescriptionParam);
+}
+
+void PatientFile::removePrescriptionList(const uint16_t &indexParam) {
+
+    if(indexParam > prescriptions_.size() - 1)
+        return;
+
+    prescriptions_.erase(prescriptions_.begin() + indexParam);
+}
