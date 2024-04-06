@@ -24,7 +24,7 @@ class Patient {
 public:
 
 	Patient();
-
+	Patient(Patient *);
 	~Patient();
 
 	std::string getFirstName() const;
@@ -36,6 +36,7 @@ public:
 	const unsigned short getBirthDay() const;
 	const unsigned short getBirthMonth() const;
 	const unsigned short getBirthYear() const;
+    const tm *getBirthDate() const;
 
 	std::vector<std::string> getPhoneNumbers() const;
 	std::string getPhoneNumber(const unsigned int&) const;

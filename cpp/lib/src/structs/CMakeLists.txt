@@ -5,6 +5,7 @@ target_sources(structs PRIVATE
     "normal.cpp"
     "magistral.cpp"
     "prescription-list.cpp"
+    "patient-file.cpp"
 	"insurance.cpp"
 	"product.cpp"
     "premade.cpp"

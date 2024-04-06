@@ -10,6 +10,21 @@ Patient::Patient() {
 	birthdate_ = tm();
     birthdate_.tm_isdst = -1;
     birthdate_.tm_zone = "EST\0";
+    
+    phoneNumbers_ = std::vector<std::string>();
+}
+
+Patient::Patient(Patient *cpyObject) {
+
+    firstName_ = cpyObject->getFirstName();
+    lastName_ = cpyObject->getLastName();
+
+    birthdate_ = tm();
+    birthdate_.tm_isdst = -1;
+    birthdate_.tm_zone = "EST\0";
+    this->setBirthDate(cpyObject->getBirthDate());
+
+    phoneNumbers_ = std::vector<std::string>();
 }
 
 Patient::~Patient() {}
@@ -76,6 +91,11 @@ const unsigned short Patient::getBirthMonth() const {
 const unsigned short Patient::getBirthYear() const {
 
 	return birthdate_.tm_year+1900;
+}
+
+const tm *Patient::getBirthDate() const {
+
+    return &birthdate_;
 }
 
 std::vector<std::string> Patient::getPhoneNumbers() const {
