@@ -20,19 +20,21 @@ userLogin::userLogin(QWidget *parent) :
     int charWidth = fontMetrics.horizontalAdvance(QLatin1Char('X'));
     int widthForUsernameMaxChars = charWidth * MAXUSERNAMELEGNTH;
     int widthForPassMaxChars = charWidth * MAXPASSWORDLENGTH;
-    int widthForPin = charWidth * PINLENGTH;
+    int widthForPin = charWidth * PINLENGTH * 4;
 
     usernameEdit->setFixedWidth(widthForUsernameMaxChars);
     usernameEdit->setEnabled(true);
 
     passEdit->setFixedWidth(widthForPassMaxChars);
     passEdit->setEnabled(false);
+    passEdit->setEchoMode(QLineEdit::Password);
 
     pinEdit->setFixedWidth(widthForPin);
     pinEdit->setEnabled(false);
 
     pinConfirmEdit->setFixedWidth(widthForPin);
-    pinConfirmEdit->setFixedWidth(widthForPin);
+    pinConfirmEdit->setEnabled(false);
+
 
     QVBoxLayout *layout = findChild<QVBoxLayout *>("loginLayout");
     setLayout(layout);
