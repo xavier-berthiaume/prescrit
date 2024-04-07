@@ -21,6 +21,9 @@ set(PROJECT_SOURCES
         createuserdialog.cpp
         createuserdialog.h
         createuserdialog.ui
+        userlogin.h
+        userlogin.cpp
+        userlogin.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
