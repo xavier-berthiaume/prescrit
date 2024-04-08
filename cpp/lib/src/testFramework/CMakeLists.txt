@@ -2,6 +2,11 @@ add_library(testframework SHARED)
 
 add_library(prescrit::testframework ALIAS testframework)
 
+set_target_properties(testframework PROPERTIES
+    PREFIX "lib"
+    POSITION_INDEPENDENT_CODE ON
+)
+
 target_sources(testframework PRIVATE 
     "testframework.cpp"
 )
@@ -28,6 +33,6 @@ install(
 install(
   EXPORT testframeworkTargets
   FILE prescrittestframeworkTargets.cmake
-  NAMESPACE ${PROJECT_NAME}::
+  NAMESPACE prescrit::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/prescrit
 )

@@ -2,7 +2,7 @@
 set(_prescrit_supported_components structs utils network testframework)
 
 foreach(_comp ${prescrit_FIND_COMPONENTS})
-  if (NOT _comp IN_LIST _person_supported_components)
+  if (NOT _comp IN_LIST _prescrit_supported_components)
     set(prescrit_FOUND False)
     set(prescrit_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
   endif()
