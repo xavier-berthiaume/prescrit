@@ -1,5 +1,5 @@
 @PACKAGE_INIT@
-set(_prescrit_supported_components structs utils)
+set(_prescrit_supported_components structs utils network testframework)
 
 foreach(_comp ${prescrit_FIND_COMPONENTS})
   if (NOT _comp IN_LIST _person_supported_components)

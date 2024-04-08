@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(prescritStructs LANGUAGES CXX)
+project(prescrit LANGUAGES CXX)
 
 set(version 0.1)
 
@@ -18,36 +18,8 @@ install(
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-add_library(structs SHARED)
-
-add_library(prescrit::structs ALIAS structs)
-
 add_subdirectory(src)
 
-target_include_directories(structs
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-target_compile_definitions(structs PRIVATE PRESCRIT_STRUCTS_LIBRARY)
-
-install(
-  TARGETS structs
-  EXPORT structsTargets
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-
-install(
-  EXPORT structsTargets
-  FILE prescritstructsTargets.cmake
-  NAMESPACE ${PROJECT_NAME}::
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/prescrit
-)
 write_basic_package_version_file(
   ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
   VERSION ${version}

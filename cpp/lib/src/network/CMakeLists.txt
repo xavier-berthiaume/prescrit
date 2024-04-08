@@ -1,23 +1,24 @@
-add_library(utils SHARED)
+add_library(network SHARED)
 
-add_library(prescrit::utils ALIAS utils)
+add_library(prescrit::network ALIAS network)
 
-target_sources(utils PRIVATE
-	"time.cpp"
-	"phonenumbers.cpp"
-	"units.cpp"
-	"location.cpp"
+target_sources(network PRIVATE
+    "rpc_interface.capnp.c++"
 )
 
-target_include_directories(utils
+target_link_libraries(network
+    PUBLIC structs
+)
+
+target_include_directories(network
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 install(
-  TARGETS utils
-  EXPORT utilsTargets
+  TARGETS network 
+  EXPORT networkTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -25,8 +26,8 @@ install(
 )
 
 install(
-  EXPORT utilsTargets
-  FILE prescritutilsTargets.cmake
+  EXPORT networkTargets
+  FILE prescritnetworkTargets.cmake
   NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/prescrit
 )
