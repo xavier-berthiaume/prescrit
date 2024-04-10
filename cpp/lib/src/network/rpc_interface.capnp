@@ -1,5 +1,13 @@
 @0xf261570004261ab3;
 
-interface RpcInterface {
-    sayHello @0 () -> (text :Text);
+struct HiMsg {
+  name @0 :Text;
+}
+
+struct HelloResults {
+  greeting @0 :Text;
+}
+
+interface RpcService {
+  hello @0 (request: HiMsg) -> (response: HelloResults);
 }

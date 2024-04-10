@@ -11,7 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(prescrit REQUIRED)
+find_package(prescrit REQUIRED COMPONENTS utils structs network)
+find_package(CapnProto REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -49,7 +50,12 @@ else()
     endif()
 endif()
 
-target_link_libraries(prescrit-client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(prescrit-client
+    PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+    PRIVATE prescrit::structs
+    PRIVATE prescrit::network
+    ${CAPNP_LIBRARIES}
+)
 
 set_target_properties(prescrit-client PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
