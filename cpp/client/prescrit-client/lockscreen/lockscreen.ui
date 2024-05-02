@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>537</width>
-    <height>494</height>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,12 @@
        </item>
        <item>
         <widget class="QLineEdit" name="pinEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maxLength">
           <number>4</number>
          </property>

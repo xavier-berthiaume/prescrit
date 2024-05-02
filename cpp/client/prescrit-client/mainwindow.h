@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "lockscreen.h"
+#include "lockscreen/lockscreen.h"
 
 #include <QMainWindow>
 

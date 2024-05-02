@@ -22,9 +22,12 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        lockscreen.cpp
-        lockscreen.h
-        lockscreen.ui
+        lockscreen/lockscreen.cpp
+        lockscreen/lockscreen.h
+        lockscreen/lockscreen.ui
+        lockscreen/createuserwindow.cpp
+        lockscreen/createuserwindow.h
+        lockscreen/createuserwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
