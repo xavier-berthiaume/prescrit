@@ -15,6 +15,7 @@
 #error "Version mismatch between generated code and library headers.  You must use the same version of the Cap'n Proto compiler and library."
 #endif
 
+#include "pharmacy_user.capnp.h"
 
 CAPNP_BEGIN_HEADER
 
@@ -24,6 +25,8 @@ namespace schemas {
 CAPNP_DECLARE_SCHEMA(b88ac5584f59652e);
 CAPNP_DECLARE_SCHEMA(b2b9005c5d25dc42);
 CAPNP_DECLARE_SCHEMA(ea98825e55d643a4);
+CAPNP_DECLARE_SCHEMA(ec1cb1e8f3f4edad);
+CAPNP_DECLARE_SCHEMA(9c3b4f2dcf2b18b8);
 
 }  // namespace schemas
 }  // namespace capnp
@@ -39,6 +42,8 @@ struct PrescritCore {
 
   struct EchoParams;
   struct EchoResults;
+  struct CreateUserParams;
+  struct CreateUserResults;
 
   #if !CAPNP_LITE
   struct _capnpPrivate {
@@ -78,6 +83,36 @@ struct PrescritCore::EchoResults {
   };
 };
 
+struct PrescritCore::CreateUserParams {
+  CreateUserParams() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(ec1cb1e8f3f4edad, 0, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct PrescritCore::CreateUserResults {
+  CreateUserResults() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(9c3b4f2dcf2b18b8, 1, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
 // =======================================================================================
 
 #if !CAPNP_LITE
@@ -101,6 +136,8 @@ public:
 
   ::capnp::Request< ::PrescritCore::EchoParams,  ::PrescritCore::EchoResults> echoRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::PrescritCore::CreateUserParams,  ::PrescritCore::CreateUserResults> createUserRequest(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
 
 protected:
   Client() = default;
@@ -121,6 +158,10 @@ protected:
   typedef  ::PrescritCore::EchoResults EchoResults;
   typedef ::capnp::CallContext<EchoParams, EchoResults> EchoContext;
   virtual ::kj::Promise<void> echo(EchoContext context);
+  typedef  ::PrescritCore::CreateUserParams CreateUserParams;
+  typedef  ::PrescritCore::CreateUserResults CreateUserResults;
+  typedef ::capnp::CallContext<CreateUserParams, CreateUserResults> CreateUserContext;
+  virtual ::kj::Promise<void> createUser(CreateUserContext context);
 
   inline  ::PrescritCore::Client thisCap() {
     return ::capnp::Capability::Server::thisCap()
@@ -275,6 +316,164 @@ private:
 };
 #endif  // !CAPNP_LITE
 
+class PrescritCore::CreateUserParams::Reader {
+public:
+  typedef CreateUserParams Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasUser() const;
+  inline  ::Serializers::User::Reader getUser() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class PrescritCore::CreateUserParams::Builder {
+public:
+  typedef CreateUserParams Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasUser();
+  inline  ::Serializers::User::Builder getUser();
+  inline void setUser( ::Serializers::User::Reader value);
+  inline  ::Serializers::User::Builder initUser();
+  inline void adoptUser(::capnp::Orphan< ::Serializers::User>&& value);
+  inline ::capnp::Orphan< ::Serializers::User> disownUser();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class PrescritCore::CreateUserParams::Pipeline {
+public:
+  typedef CreateUserParams Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::Serializers::User::Pipeline getUser();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class PrescritCore::CreateUserResults::Reader {
+public:
+  typedef CreateUserResults Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool getStatus() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class PrescritCore::CreateUserResults::Builder {
+public:
+  typedef CreateUserResults Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool getStatus();
+  inline void setStatus(bool value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class PrescritCore::CreateUserResults::Pipeline {
+public:
+  typedef CreateUserResults Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 // =======================================================================================
 
 #if !CAPNP_LITE
@@ -301,6 +500,59 @@ inline  ::PrescritCore::Client& PrescritCore::Client::operator=(Client&& other) 
 }
 
 #endif  // !CAPNP_LITE
+inline bool PrescritCore::CreateUserParams::Reader::hasUser() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool PrescritCore::CreateUserParams::Builder::hasUser() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::Serializers::User::Reader PrescritCore::CreateUserParams::Reader::getUser() const {
+  return ::capnp::_::PointerHelpers< ::Serializers::User>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::Serializers::User::Builder PrescritCore::CreateUserParams::Builder::getUser() {
+  return ::capnp::_::PointerHelpers< ::Serializers::User>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::Serializers::User::Pipeline PrescritCore::CreateUserParams::Pipeline::getUser() {
+  return  ::Serializers::User::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void PrescritCore::CreateUserParams::Builder::setUser( ::Serializers::User::Reader value) {
+  ::capnp::_::PointerHelpers< ::Serializers::User>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::Serializers::User::Builder PrescritCore::CreateUserParams::Builder::initUser() {
+  return ::capnp::_::PointerHelpers< ::Serializers::User>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void PrescritCore::CreateUserParams::Builder::adoptUser(
+    ::capnp::Orphan< ::Serializers::User>&& value) {
+  ::capnp::_::PointerHelpers< ::Serializers::User>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::Serializers::User> PrescritCore::CreateUserParams::Builder::disownUser() {
+  return ::capnp::_::PointerHelpers< ::Serializers::User>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool PrescritCore::CreateUserResults::Reader::getStatus() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline bool PrescritCore::CreateUserResults::Builder::getStatus() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void PrescritCore::CreateUserResults::Builder::setStatus(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
 
 CAPNP_END_HEADER
 

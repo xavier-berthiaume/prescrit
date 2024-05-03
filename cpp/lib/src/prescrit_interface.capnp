@@ -6,4 +6,7 @@ using User = (import "pharmacy_user.capnp").User;
 interface PrescritCore {
 
     echo @0 () -> ();
+
+    # Base user functions
+    createUser @1 (user : User) -> (status : Bool);
 }

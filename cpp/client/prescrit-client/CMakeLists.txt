@@ -28,6 +28,8 @@ set(PROJECT_SOURCES
         lockscreen/createuserwindow.cpp
         lockscreen/createuserwindow.h
         lockscreen/createuserwindow.ui
+        rpcclient.cpp
+        rpcclient.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
