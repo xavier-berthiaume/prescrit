@@ -16,6 +16,7 @@ find_package(CapnProto REQUIRED)
 set(SERIALIZERS_DIR "${CMAKE_SOURCE_DIR}/lib")
 add_library(serializers STATIC IMPORTED)
 set_target_properties(serializers PROPERTIES IMPORTED_LOCATION ${SERIALIZERS_DIR}/build/libserializers.a)
+include_directories(${SERIALIZERS_DIR})
 
 set(PROJECT_SOURCES
         main.cpp
