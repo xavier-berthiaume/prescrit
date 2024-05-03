@@ -13,10 +13,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(CapnProto REQUIRED)
 
-set(SERIALIZERS_DIR "${CMAKE_SOURCE_DIR}/lib")
-add_library(serializers STATIC IMPORTED)
-set_target_properties(serializers PROPERTIES IMPORTED_LOCATION ${SERIALIZERS_DIR}/build/libserializers.a)
-include_directories(${SERIALIZERS_DIR})
+set(SERIALIZERS_DIR "${CMAKE_SOURCE_DIR}/lib/src")
 
 set(PROJECT_SOURCES
         main.cpp
@@ -55,6 +52,8 @@ else()
         )
     endif()
 endif()
+
+target_include_directories(prescrit-client PUBLIC ${SERIALIZERS_DIR})
 
 target_link_libraries(prescrit-client
     PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
