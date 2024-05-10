@@ -9,7 +9,7 @@ const quint32 Client::kPort_ = 6000;
 
 Client::Client()
 {
-
+    client_ = nullptr;
 }
 
 Client::~Client()
@@ -30,8 +30,13 @@ void Client::connect()
     // client, then delete it before
     // creating a new connection
     if(client_ != nullptr)
-        disconnect();
+    {
 
+        qDebug() << "Deleting the current connection";
+        disconnect();
+    }
+
+    qDebug() << "Creating a new client connection";
     client_ = new capnp::EzRpcClient(kHost_.toStdString(), kPort_);
 }
 
@@ -42,6 +47,15 @@ void Client::disconnect()
 
 Client *Client::getInstance()
 {
+
+    if(instance == nullptr)
+    {
+
+        qDebug() << "Creating a new Client instance";
+        instance = new Client();
+        instance->connect();
+    }
+
     return instance;
 }
 

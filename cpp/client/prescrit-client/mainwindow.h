@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include "lockscreen/lockscreen.h"
+#include "rpcclient.h"
 
+#include <QDebug>
 #include <QMainWindow>
 #include <QLabel>
 #include <QTimer>
@@ -28,5 +30,7 @@ private:
     LockScreen *lockscreen;
 
     void initializeStatusBar();
+
+    void updateConnectionLabel();
 };
 #endif // MAINWINDOW_H

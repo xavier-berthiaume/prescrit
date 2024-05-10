@@ -2,6 +2,7 @@
 #define RPCCLIENT_H
 
 #include <QString>
+#include <QDebug>
 
 #include <capnp/ez-rpc.h>
 
@@ -20,7 +21,6 @@ class Client final {
 
     // Destroys the instance of the capnp client connection
     void disconnect();
-
 
     capnp::EzRpcClient *client_;
 

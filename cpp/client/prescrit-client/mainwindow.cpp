@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     lockscreen = new LockScreen(this);
     lock();
+
+    initializeStatusBar();
 }
 
 MainWindow::~MainWindow()
@@ -29,9 +31,28 @@ void MainWindow::unlock()
 void MainWindow::initializeStatusBar()
 {
 
-    QLabel *connectionStatus = new QLabel(this);
-    connectionStatus->setText("Disconnected");
+    QTimer *connectionCheckTimer = new QTimer(this);
+    connectionCheckTimer->setInterval(5000);
+    connectionCheckTimer->start();
+    connect(connectionCheckTimer, &QTimer::timeout, this, &MainWindow::updateConnectionLabel);
 
-    QTimer *connectionCheckTimer = new QTimer(connectionStatus);
-    connect(connectionCheckTimer, &QTimer::timeout, );
+    statusBar()->showMessage("Disconnected");
+}
+
+void MainWindow::updateConnectionLabel()
+{
+
+    if(Client::getInstance() == nullptr)
+        return;
+
+    qDebug() << "Checking connection status";
+    if(Client::getInstance()->checkConnectionStatus())
+    {
+        qDebug() << "Connection is established";
+        statusBar()->showMessage("Connected");
+    } else {
+
+        qDebug() << "Connection is not established";
+        statusBar()->showMessage("Disconnected");
+    }
 }
