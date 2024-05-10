@@ -7,9 +7,14 @@ set(version 0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
+# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-add_library(serializers STATIC
-    "src/patient.capnp.c++"
-    "src/pharmacy_user.capnp.c++"
+add_subdirectory(src)
+
+set_target_properties(serializers PROPERTIES 
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )
+
+target_include_directories(serializers PUBLIC src)

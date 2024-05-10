@@ -1,5 +1,7 @@
 #include "rpcclient.h"
 
+#include "lib/src/prescrit_interface.capnp.h"
+
 Client *Client::instance = nullptr;
 
 const QString Client::kHost_ = "localhost";

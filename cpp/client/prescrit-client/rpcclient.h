@@ -5,7 +5,6 @@
 
 #include <capnp/ez-rpc.h>
 
-#include "lib/src/prescrit_interface.capnp.h"
 
 class Client final {
     static Client *instance;
