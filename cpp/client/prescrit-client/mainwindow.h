@@ -4,6 +4,8 @@
 #include "lockscreen/lockscreen.h"
 
 #include <QMainWindow>
+#include <QLabel>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,10 +20,13 @@ public:
     ~MainWindow();
 
     void lock();
+    void unlock();
 
 private:
     Ui::MainWindow *ui;
 
     LockScreen *lockscreen;
+
+    void initializeStatusBar();
 };
 #endif // MAINWINDOW_H

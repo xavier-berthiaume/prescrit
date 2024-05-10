@@ -20,3 +20,18 @@ void MainWindow::lock()
 {
     setCentralWidget(lockscreen);
 }
+
+void MainWindow::unlock()
+{
+
+}
+
+void MainWindow::initializeStatusBar()
+{
+
+    QLabel *connectionStatus = new QLabel(this);
+    connectionStatus->setText("Disconnected");
+
+    QTimer *connectionCheckTimer = new QTimer(connectionStatus);
+    connect(connectionCheckTimer, &QTimer::timeout, );
+}
