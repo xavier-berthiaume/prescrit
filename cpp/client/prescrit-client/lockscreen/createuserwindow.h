@@ -5,6 +5,7 @@
 
 #include <QDialog>
 #include <QPushButton>
+#include <QLabel>
 
 namespace Ui {
 class createUserWindow;
@@ -33,6 +34,9 @@ private:
     void toggleOkButton();
 
     bool validateName(const QString &arg1);
+
+    void displayStatusLabel(const QString &statusmessage);
+    void hideStatusLabel(const QString &statusToHide);
 };
 
 #endif // CREATEUSERWINDOW_H

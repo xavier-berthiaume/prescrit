@@ -9,6 +9,8 @@ createUserWindow::createUserWindow(QWidget *parent) :
 
     setWindowTitle("Create a New User");
     findChild<QDialogButtonBox *>("buttonBox")->button(QDialogButtonBox::Ok)->setEnabled(false);
+    findChild<QLabel *>("statusLabel")->setText("");
+    findChild<QLabel *>("statusLabel")->hide();
 }
 
 createUserWindow::~createUserWindow()
@@ -57,6 +59,23 @@ bool createUserWindow::validateName(const QString &name)
     return true;
 }
 
+void createUserWindow::displayStatusLabel(const QString &statusmessage)
+{
+
+        QLabel *statuslabel = findChild<QLabel *>("statusLabel");
+        statuslabel->setStyleSheet("color: red;");
+        statuslabel->setText(statusmessage);
+        statuslabel->show();
+}
+
+void createUserWindow::hideStatusLabel(const QString &statusToHide)
+{
+
+        QLabel *statuslabel = findChild<QLabel *>("statusLabel");
+        if(statuslabel->text() == statusToHide)
+            statuslabel->hide();
+}
+
 void createUserWindow::on_fNameEdit_textChanged(const QString &arg1)
 {
 
@@ -64,12 +83,16 @@ void createUserWindow::on_fNameEdit_textChanged(const QString &arg1)
     if(validateName(arg1)) {
         findChild<QLineEdit *>("fNameEdit")->setStyleSheet("background-color: green;");
         fNameOk = true;
+
+        hideStatusLabel("The first name isn't valid");
     } else if (arg1 == "") {
         findChild<QLineEdit *>("fNameEdit")->setStyleSheet("");
         fNameOk = false;
     } else {
         findChild<QLineEdit *>("fNameEdit")->setStyleSheet("background-color: red;");
         fNameOk = false;
+
+        displayStatusLabel("The first name isn't valid");
     }
 
     toggleOkButton();
@@ -82,12 +105,15 @@ void createUserWindow::on_lNameEdit_textChanged(const QString &arg1)
     if(validateName(arg1)) {
         findChild<QLineEdit *>("lNameEdit")->setStyleSheet("background-color: green;");
         lNameOk = true;
+
+        hideStatusLabel("The last name isn't valid");
     } else if (arg1 == "") {
         findChild<QLineEdit *>("lNameEdit")->setStyleSheet("");
         lNameOk = false;
     } else {
         findChild<QLineEdit *>("lNameEdit")->setStyleSheet("background-color: red;");
         lNameOk = false;
+        displayStatusLabel("The last name isn't valid");
     }
 
     toggleOkButton();
@@ -98,6 +124,13 @@ void createUserWindow::on_lNameEdit_textChanged(const QString &arg1)
 // This will avoid unnecessary requests to the server
 void createUserWindow::on_uNameEdit_textChanged(const QString &arg1)
 {
+    // Make sure the client is connected
+    if(!Client::getInstance()->checkConnectionStatus()) {
+        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: red;");
+        displayStatusLabel("There is no connection to the server currently");
+        uNameOk = false;
+        return;
+    }
 
     // When the user enters text here send it to the server, make sure
     // that it isn't already taken, change the background-color
@@ -105,11 +138,15 @@ void createUserWindow::on_uNameEdit_textChanged(const QString &arg1)
     if(Client::getInstance()->checkUsernameAvailable(arg1)) {
         findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: green;");
         uNameOk = true;
+
+        hideStatusLabel("The username is already taken");
+        hideStatusLabel("There is no connection to the server currently");
     } else if (arg1 == "") {
         findChild<QLineEdit *>("uNameEdit")->setStyleSheet("");
         uNameOk = false;
     } else {
         findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: red;");
+        displayStatusLabel("The username is already taken");
         uNameOk = false;
     }
 
