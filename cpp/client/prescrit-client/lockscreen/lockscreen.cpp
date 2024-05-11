@@ -17,3 +17,9 @@ LockScreen::~LockScreen()
 {
     delete ui;
 }
+
+void LockScreen::on_newUserButton_clicked()
+{
+
+}
+

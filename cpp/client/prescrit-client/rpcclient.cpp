@@ -14,12 +14,14 @@ Client::Client()
 
 Client::~Client()
 {
+
     if(client_ != nullptr)
         delete client_;
 }
 
 void Client::connect()
 {
+
     // If there isn't an instance already
     // created, then abandon the
     // connection attempt
@@ -42,6 +44,7 @@ void Client::connect()
 
 void Client::disconnect()
 {
+
     delete client_;
 }
 
@@ -61,6 +64,7 @@ Client *Client::getInstance()
 
 bool Client::checkConnectionStatus()
 {
+
     try {
 
         auto promise = client_->getMain<PrescritCore>().echoRequest().send();
@@ -80,6 +84,7 @@ bool Client::createUser(
         const QString &passParam
         )
 {
+
     capnp::MallocMessageBuilder messageBuilder;
     Serializers::User::Builder userBuilder = messageBuilder.initRoot<Serializers::User>();
 

@@ -45,8 +45,10 @@ void MainWindow::updateConnectionLabel()
     if(Client::getInstance() == nullptr)
         return;
 
+    bool connection = Client::getInstance()->checkConnectionStatus();
+
     qDebug() << "Checking connection status";
-    if(Client::getInstance()->checkConnectionStatus())
+    if(connection)
     {
         qDebug() << "Connection is established";
         statusBar()->showMessage("Connected");
@@ -54,5 +56,8 @@ void MainWindow::updateConnectionLabel()
 
         qDebug() << "Connection is not established";
         statusBar()->showMessage("Disconnected");
+        qDebug() << "Trying to reconnect";
+        Client::getInstance()->connect();
     }
+
 }

@@ -16,18 +16,18 @@ class Client final {
     Client();
     ~Client();
 
-    // Creates an instance of the capnp client connection
-    void connect();
-
-    // Destroys the instance of the capnp client connection
-    void disconnect();
-
     capnp::EzRpcClient *client_;
 
 public:
     static Client *getInstance();
 
     bool checkConnectionStatus();
+
+    // Creates an instance of the capnp client connection
+    void connect();
+
+    // Destroys the instance of the capnp client connection
+    void disconnect();
 
     bool createUser(
         const QString&,

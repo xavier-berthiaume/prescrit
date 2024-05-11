@@ -15,6 +15,9 @@ public:
     explicit LockScreen(QWidget *parent = nullptr);
     ~LockScreen();
 
+private slots:
+    void on_newUserButton_clicked();
+
 private:
     Ui::LockScreen *ui;
 };
