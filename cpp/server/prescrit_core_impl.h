@@ -7,6 +7,7 @@ struct PrescritCoreImpl final : public PrescritCore::Server {
 
     kj::Promise<void> echo(EchoContext context);
     kj::Promise<void> createUser(CreateUserContext context);
+    kj::Promise<void> checkUsernameAvailable(CheckUsernameAvailableContext context);
 
 };
 

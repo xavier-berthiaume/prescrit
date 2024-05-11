@@ -100,3 +100,13 @@ bool Client::createUser(
 
     return result.getStatus();
 }
+
+bool Client::checkUsernameAvailable(const QString &uName)
+{
+
+    auto promise = client_->getMain<PrescritCore>().checkUsernameAvailableRequest();
+    promise.setName(uName.toStdString());
+    auto result = promise.send().wait(client_->getWaitScope());
+
+    return result.getStatus();
+}

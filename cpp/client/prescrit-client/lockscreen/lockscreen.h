@@ -1,6 +1,8 @@
 #ifndef LOCKSCREEN_H
 #define LOCKSCREEN_H
 
+#include "createuserwindow.h"
+
 #include <QWidget>
 
 namespace Ui {

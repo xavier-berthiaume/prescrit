@@ -9,8 +9,6 @@ LockScreen::LockScreen(QWidget *parent) :
 
     // this->setWindowTitle("Locked");
     // this->setWindowModality(Qt::ApplicationModal);
-
-
 }
 
 LockScreen::~LockScreen()
@@ -21,5 +19,7 @@ LockScreen::~LockScreen()
 void LockScreen::on_newUserButton_clicked()
 {
 
+    createUserWindow *modal = new createUserWindow(this);
+    modal->show();
 }
 

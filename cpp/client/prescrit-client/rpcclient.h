@@ -36,6 +36,8 @@ public:
         const QString&
     );
 
+    bool checkUsernameAvailable(const QString &);
+
 };
 
 #endif // RPCCLIENT_H
