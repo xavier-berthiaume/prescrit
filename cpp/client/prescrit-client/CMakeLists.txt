@@ -26,6 +26,9 @@ set(PROJECT_SOURCES
         lockscreen/createuserwindow.cpp
         lockscreen/createuserwindow.h
         lockscreen/createuserwindow.ui
+        lockscreen/logindialogwindow.cpp
+        lockscreen/logindialogwindow.h
+        lockscreen/logindialogwindow.ui
         rpcclient.cpp
         rpcclient.h
 )
