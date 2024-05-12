@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     lock();
 
     initializeStatusBar();
+    setWindowTitle("Prescrit EMR Core V0.1");
 }
 
 MainWindow::~MainWindow()
