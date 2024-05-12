@@ -5,16 +5,23 @@ createUserWindow::createUserWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::createUserWindow)
 {
+
     ui->setupUi(this);
 
     setWindowTitle("Create a New User");
     findChild<QDialogButtonBox *>("buttonBox")->button(QDialogButtonBox::Ok)->setEnabled(false);
     findChild<QLabel *>("statusLabel")->setText("");
     findChild<QLabel *>("statusLabel")->hide();
+
+    noEditTimer = new QTimer();
+    noEditTimer->setSingleShot(true);
+    connect(noEditTimer, &QTimer::timeout, this, &createUserWindow::handle_uName_validation);
+    connect(findChild<QLineEdit *>("uNameEdit"), &QLineEdit::textChanged, this, &createUserWindow::startTimer);
 }
 
 createUserWindow::~createUserWindow()
 {
+
     delete ui;
 }
 
@@ -124,6 +131,7 @@ void createUserWindow::on_lNameEdit_textChanged(const QString &arg1)
 // This will avoid unnecessary requests to the server
 void createUserWindow::on_uNameEdit_textChanged(const QString &arg1)
 {
+
     // Make sure the client is connected
     if(!Client::getInstance()->checkConnectionStatus()) {
         findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: red;");
@@ -132,23 +140,7 @@ void createUserWindow::on_uNameEdit_textChanged(const QString &arg1)
         return;
     }
 
-    // When the user enters text here send it to the server, make sure
-    // that it isn't already taken, change the background-color
-    // depending on availability
-    if(Client::getInstance()->checkUsernameAvailable(arg1)) {
-        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: green;");
-        uNameOk = true;
-
-        hideStatusLabel("The username is already taken");
-        hideStatusLabel("There is no connection to the server currently");
-    } else if (arg1 == "") {
-        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("");
-        uNameOk = false;
-    } else {
-        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: red;");
-        displayStatusLabel("The username is already taken");
-        uNameOk = false;
-    }
+    findChild<QLineEdit *>("uNameEdit")->setStyleSheet("");
 
     toggleOkButton();
 }
@@ -160,3 +152,45 @@ void createUserWindow::on_pEdit_textChanged(const QString &arg1)
 
     toggleOkButton();
 }
+
+void createUserWindow::handle_uName_validation()
+{
+
+    QLineEdit *uName = findChild<QLineEdit *>("uNameEdit");
+
+    // When the user enters text here send it to the server, make sure
+    // that it isn't already taken, change the background-color
+    // depending on availability
+    if(Client::getInstance()->checkUsernameAvailable(uName->text())) {
+        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: green;");
+        uNameOk = true;
+
+        hideStatusLabel("The username is already taken");
+        hideStatusLabel("There is no connection to the server currently");
+    } else if (uName->text() == "") {
+        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("");
+        uNameOk = false;
+    } else {
+        findChild<QLineEdit *>("uNameEdit")->setStyleSheet("background-color: red;");
+        displayStatusLabel("The username is already taken");
+        uNameOk = false;
+    }
+}
+
+void createUserWindow::startTimer()
+{
+
+    noEditTimer->start(300);
+}
+
+void createUserWindow::on_buttonBox_accepted()
+{
+
+    Client::getInstance()->createUser(
+        findChild<QLineEdit *>("fNameEdit")->text(),
+        findChild<QLineEdit *>("lNameEdit")->text(),
+        findChild<QLineEdit *>("uNameEdit")->text(),
+        findChild<QLineEdit *>("pEdit")->text()
+    );
+}
+

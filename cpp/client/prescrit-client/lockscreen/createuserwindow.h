@@ -6,6 +6,7 @@
 #include <QDialog>
 #include <QPushButton>
 #include <QLabel>
+#include <QTimer>
 
 namespace Ui {
 class createUserWindow;
@@ -25,10 +26,17 @@ private slots:
     void on_uNameEdit_textChanged(const QString &arg1);
     void on_pEdit_textChanged(const QString &arg1);
 
+    void handle_uName_validation();
+    void startTimer();
+
+    void on_buttonBox_accepted();
+
 private:
     Ui::createUserWindow *ui;
 
     bool fNameOk = false, lNameOk = false, uNameOk = false, pOk = false;
+
+    QTimer *noEditTimer;
 
     bool checkAllFieldsComplete();
     void toggleOkButton();
@@ -37,6 +45,7 @@ private:
 
     void displayStatusLabel(const QString &statusmessage);
     void hideStatusLabel(const QString &statusToHide);
+
 };
 
 #endif // CREATEUSERWINDOW_H
