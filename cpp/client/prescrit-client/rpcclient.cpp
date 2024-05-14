@@ -85,6 +85,7 @@ bool Client::createUser(
         )
 {
 
+    qDebug() << "Preparing message containing user data";
     capnp::MallocMessageBuilder messageBuilder;
     Serializers::User::Builder userBuilder = messageBuilder.initRoot<Serializers::User>();
 
@@ -95,9 +96,11 @@ bool Client::createUser(
 
     auto req = client_->getMain<PrescritCore>().createUserRequest();
     req.setUser(userBuilder);
+    qDebug() << "Sending request";
 
     auto result = req.send().wait(client_->getWaitScope());
 
+    qDebug() << "Obtained response: " << result.getStatus();
     return result.getStatus();
 }
 

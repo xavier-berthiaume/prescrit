@@ -186,11 +186,19 @@ void createUserWindow::startTimer()
 void createUserWindow::on_buttonBox_accepted()
 {
 
-    Client::getInstance()->createUser(
+    bool response = Client::getInstance()->createUser(
         findChild<QLineEdit *>("fNameEdit")->text(),
         findChild<QLineEdit *>("lNameEdit")->text(),
         findChild<QLineEdit *>("uNameEdit")->text(),
         findChild<QLineEdit *>("pEdit")->text()
     );
+
+    if(response) {
+    // User creation was successful
+
+    } else {
+    // User creation wasn't successful
+
+    }
 }
 

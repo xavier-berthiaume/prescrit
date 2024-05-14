@@ -29,13 +29,19 @@ struct Column {
     void *datapointer;
 
     // Any extra components that describe the data column
-    bool unique = false;
     bool primary_key = false;
+    bool auto_increment = false;
+    bool unique = false;
+    bool not_null = false;
 
     Column(
         const std::string &, 
         const Datatypes, 
-        void *
+        void *,
+        bool unique = false,
+        bool not_null = false,
+        bool ai = false,
+        bool pk = false
     );
 };
 

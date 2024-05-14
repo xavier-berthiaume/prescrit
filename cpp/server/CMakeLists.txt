@@ -13,9 +13,15 @@ add_executable(server main.cpp)
 
 target_sources(server PUBLIC
     "prescrit_core_impl.cpp"
+    "DatabaseHandler.cpp"
+    "Mariadb.cpp"
+    "data_column.cpp"
+    "storable.cpp"
+    "user.cpp"
 )
 
 target_link_libraries(server
     PRIVATE "${SERIALIZERS_DIR}/build/libserializers.a"
+    PRIVATE mariadbcpp
     ${CAPNP_LIBRARIES}
 )
