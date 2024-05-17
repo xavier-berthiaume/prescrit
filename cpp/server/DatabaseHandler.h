@@ -19,7 +19,7 @@ struct AbstractDatabaseHandler {
     virtual bool saveStorable(Storable *) = 0;
     // Save the storable to the database, and return the created database storable
     virtual bool saveAndReturnStorable(Storable *) = 0;
-    virtual void readStorable(Storable *) = 0;
+    virtual void readStorable(Storable *, std::vector<unsigned int>) = 0;
     virtual void updateStorable(Storable *) = 0;
     virtual void deleteStorable(Storable *) = 0;
 

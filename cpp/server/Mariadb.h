@@ -100,7 +100,7 @@ public:
 
     bool saveStorable(Storable *) override;
     bool saveAndReturnStorable(Storable *) override;
-    void readStorable(Storable *) override;
+    void readStorable(Storable *, std::vector<unsigned int>) override;
     void updateStorable(Storable *) override;
     void deleteStorable(Storable *) override;
 

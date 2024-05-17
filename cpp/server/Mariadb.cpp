@@ -345,20 +345,16 @@ bool MariadbHandler::saveAndReturnStorable(Storable *storableParam) {
     return true;
 }
 
-void MariadbHandler::readStorable(Storable *storableParam) {
+void MariadbHandler::readStorable(Storable *storableParam, std::vector<unsigned int> columnsToRead) {
         
     std::string sqlquery = "SELECT * FROM " + storableParam->kTableName_ + " WHERE ";
     
-    int firstColumn = 1;
+    for(unsigned int columnPosition : columnsToRead) {
+        Column column = storableParam->kColumnList_[columnPosition];
 
-    for(int i = firstColumn; i < storableParam->kColumnList_.size(); i++) {
-        Column datacolumn = storableParam->kColumnList_[i];
-
-        sqlquery.append(datacolumn.name);
-
-        if(i != storableParam->kColumnList_.size()-1) {
-            sqlquery.append(",");
-        }
+        sqlquery.append(column.name);
+        sqlquery.append("=");
+        // sqlquery.append();
     }
 
     // Read into the storable object the data that's retrieved from the database
