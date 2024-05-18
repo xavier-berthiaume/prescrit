@@ -98,9 +98,27 @@ public:
      */
     static void cleanup();
 
+    /**
+     * @brief Save to the database a storable object.
+     */
     bool saveStorable(Storable *) override;
+
+    /**
+     * @brief Save to the database a storable object and bind all of its
+     * fields in the database to the storable object.
+     *
+     * @details This is intended to allow the storable object that's passed
+     * to the function to come out of the function with some of its database
+     * specific fields filled out, such as its ID field, which might not be
+     * known beforehand.
+     */
     bool saveAndReturnStorable(Storable *) override;
+
+    /**
+     * @brief Reads from the database a single storable object and
+     */
     void readStorable(Storable *, std::vector<unsigned int>) override;
+    void readMultipleStorables(std::vector<Storable *>, std::vector<unsigned int>) override;
     void updateStorable(Storable *) override;
     void deleteStorable(Storable *) override;
 
