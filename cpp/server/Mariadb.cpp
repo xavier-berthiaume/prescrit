@@ -121,10 +121,12 @@ std::string MariadbHandler::dataTypeToString(Datatypes &datatypeParam) {
     return returnstring;
 }
     
-std::unique_ptr<sql::PreparedStatement> MariadbHandler::prepareSqlStatement(const std::string &preparedQuery, Storable *storableParam, std::vector<int> columnList = {}) {
+std::unique_ptr<sql::PreparedStatement> MariadbHandler::prepareSqlStatement(const std::string &preparedQuery, Storable *storableParam, std::vector<unsigned int> columnList = {}) {
 
     std::unique_ptr<sql::PreparedStatement> query_statement(dbConn_->prepareStatement(preparedQuery));
     std::string placeholder_string {};
+
+    unsigned int queryVariablePosition = 1;
 
     for(int col : columnList) {
         Column datacolumn = storableParam->kColumnList_[col];
@@ -132,58 +134,69 @@ std::unique_ptr<sql::PreparedStatement> MariadbHandler::prepareSqlStatement(cons
         try {
             switch(datacolumn.datatype) {
                 case BOOL:
-                    query_statement->setBoolean(col+1, *static_cast<bool *>(datacolumn.datapointer));
+                    query_statement->setBoolean(queryVariablePosition, *static_cast<bool *>(datacolumn.datapointer));
                     break;
                 case INT8:
-                    query_statement->setInt(col+1, *static_cast<int8_t *>(datacolumn.datapointer));
+                    query_statement->setInt(queryVariablePosition, *static_cast<int8_t *>(datacolumn.datapointer));
                     break;
                 case INT16:
-                    query_statement->setInt(col+1, *static_cast<int16_t *>(datacolumn.datapointer));
+                    query_statement->setInt(queryVariablePosition, *static_cast<int16_t *>(datacolumn.datapointer));
                     break;
                 case INT32:
-                    query_statement->setInt(col+1, *static_cast<int32_t *>(datacolumn.datapointer));
+                    query_statement->setInt(queryVariablePosition, *static_cast<int32_t *>(datacolumn.datapointer));
                     break;
                 case INT64:
-                    query_statement->setInt64(col+1, *static_cast<int64_t *>(datacolumn.datapointer));
+                    query_statement->setInt64(queryVariablePosition, *static_cast<int64_t *>(datacolumn.datapointer));
                     break;
                 case UINT8:
-                    query_statement->setUInt(col+1, *static_cast<uint8_t *>(datacolumn.datapointer));
+                    query_statement->setUInt(queryVariablePosition, *static_cast<uint8_t *>(datacolumn.datapointer));
                     break;
                 case UINT16:
-                    query_statement->setUInt(col+1, *static_cast<uint16_t *>(datacolumn.datapointer));
+                    query_statement->setUInt(queryVariablePosition, *static_cast<uint16_t *>(datacolumn.datapointer));
                     break;
                 case UINT32:
-                    query_statement->setUInt(col+1, *static_cast<uint32_t *>(datacolumn.datapointer));
+                    query_statement->setUInt(queryVariablePosition, *static_cast<uint32_t *>(datacolumn.datapointer));
                     break;
                 case UINT64:
-                    query_statement->setUInt64(col+1, *static_cast<uint64_t *>(datacolumn.datapointer));
+                    query_statement->setUInt64(queryVariablePosition, *static_cast<uint64_t *>(datacolumn.datapointer));
                     break;
                 case CHAR:
                     placeholder_string = std::string(1, *static_cast<char *>(datacolumn.datapointer));
-                    query_statement->setString(col+1, placeholder_string);
+                    query_statement->setString(queryVariablePosition, placeholder_string);
                     break;
                 case STRING16:
-                    query_statement->setString(col+1, *static_cast<std::string *>(datacolumn.datapointer));
+                    query_statement->setString(queryVariablePosition, *static_cast<std::string *>(datacolumn.datapointer));
                     break;
                 case STRING32:
-                    query_statement->setString(col+1, *static_cast<std::string *>(datacolumn.datapointer));
+                    query_statement->setString(queryVariablePosition, *static_cast<std::string *>(datacolumn.datapointer));
                     break;
                 case STRING64:
-                    query_statement->setString(col+1, *static_cast<std::string *>(datacolumn.datapointer));
+                    query_statement->setString(queryVariablePosition, *static_cast<std::string *>(datacolumn.datapointer));
                     break;
                 default:
                     std::cout << "Unknown datatype" << std::endl;
                     throw(sql::SQLException());
             }
+
+            queryVariablePosition++;
         } catch (sql::SQLException e) {
-            std::cout << "Error when preparing the SQL statement for storable object in table " << storableParam->kTableName_ << std::endl;
+            std::cout << "Error when preparing the SQL statement for storable object in table " << storableParam->kTableName_ << "\n";
+            std::cout << "\tCurrent variable status: "
+                         "queryVariablePosition: " << queryVariablePosition
+                         << "preparedQuery: " << preparedQuery << std::endl;
         }
     }
 
     return std::move(query_statement);
 }
 
-void MariadbHandler::bindResultToStorable(sql::ResultSet *res, Storable *storableParam, std::vector<int> columnList = {}) {
+void MariadbHandler::bindResultToStorable(sql::ResultSet *res, Storable *storableParam, std::vector<unsigned int> columnList = {}) {
+
+    // If no columnlist is provided, assume you're binding all columns
+    if(columnList.size() == 0) { 
+        columnList.resize(storableParam->kColumnList_.size());
+        std::iota(columnList.begin(), columnList.end(), 0);
+    }
 
     for(int col : columnList) {
         Column datacolumn = storableParam->kColumnList_[col];
@@ -191,50 +204,53 @@ void MariadbHandler::bindResultToStorable(sql::ResultSet *res, Storable *storabl
         try {
             switch(datacolumn.datatype) {
                 case BOOL:
-                    *static_cast<bool *>(datacolumn.datapointer) = res->getBoolean(col);
+                    *static_cast<bool *>(datacolumn.datapointer) = res->getBoolean(col+1);
                     break;
                 case INT8:
-                    *static_cast<int8_t *>(datacolumn.datapointer) = res->getInt(col);
+                    *static_cast<int8_t *>(datacolumn.datapointer) = res->getInt(col+1);
                     break;
                 case INT16:
-                    *static_cast<int16_t *>(datacolumn.datapointer) = res->getInt(col);
+                    *static_cast<int16_t *>(datacolumn.datapointer) = res->getInt(col+1);
                     break;
                 case INT32:
-                    *static_cast<int32_t *>(datacolumn.datapointer) = res->getInt(col);
+                    *static_cast<int32_t *>(datacolumn.datapointer) = res->getInt(col+1);
                     break;
                 case INT64:
-                    *static_cast<int64_t *>(datacolumn.datapointer) = res->getInt64(col);
+                    *static_cast<int64_t *>(datacolumn.datapointer) = res->getInt64(col+1);
                     break;
                 case UINT8:
-                    *static_cast<uint8_t *>(datacolumn.datapointer) = res->getUInt(col);
+                    *static_cast<uint8_t *>(datacolumn.datapointer) = res->getUInt(col+1);
                     break;
                 case UINT16:
-                    *static_cast<uint16_t *>(datacolumn.datapointer) = res->getUInt(col);
+                    *static_cast<uint16_t *>(datacolumn.datapointer) = res->getUInt(col+1);
                     break;
                 case UINT32:
-                    *static_cast<uint32_t *>(datacolumn.datapointer) = res->getUInt(col);
+                    *static_cast<uint32_t *>(datacolumn.datapointer) = res->getUInt(col+1);
                     break;
                 case UINT64:
-                    *static_cast<uint64_t *>(datacolumn.datapointer) = res->getUInt64(col);
+                    *static_cast<uint64_t *>(datacolumn.datapointer) = res->getUInt64(col+1);
                     break;
                 case CHAR:
-                    *static_cast<char *>(datacolumn.datapointer) = res->getString(col)[0];
+                    *static_cast<char *>(datacolumn.datapointer) = res->getString(col+1)[0];
                     break;
                 case STRING16:
-                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col);
+                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col+1);
                     break;
                 case STRING32:
-                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col);
+                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col+1);
                     break;
                 case STRING64:
-                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col);
+                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col+1);
+                    break;
+                case STRING:
+                    *static_cast<std::string *>(datacolumn.datapointer) = res->getString(col+1);
                     break;
                 default:
                     std::cout << "Unknown datatype" << std::endl;
                     throw(sql::SQLException());
             }
         } catch (sql::SQLException e) {
-            std::cout << "Error when preparing the SQL statement for storable object in table " << storableParam->kTableName_ << std::endl;
+            std::cout << "Error when binding the SQL statement for storable object in table " << storableParam->kTableName_ << std::endl;
         }
         
     }
@@ -270,7 +286,7 @@ bool MariadbHandler::saveStorable(Storable *storableParam) {
         }
     }
 
-    std::vector<int> columnList(storableParam->kColumnList_.size() - firstColumn);
+    std::vector<unsigned int> columnList(storableParam->kColumnList_.size() - firstColumn);
     std::iota(columnList.begin(), columnList.end(), firstColumn);
     std::unique_ptr<sql::PreparedStatement> query = MariadbHandler::prepareSqlStatement(sqlquery, storableParam, columnList);
 
@@ -327,7 +343,7 @@ bool MariadbHandler::saveAndReturnStorable(Storable *storableParam) {
         }
     }
 
-    std::vector<int> columnList(storableParam->kColumnList_.size() - firstColumn);
+    std::vector<unsigned int> columnList(storableParam->kColumnList_.size() - firstColumn);
     std::iota(columnList.begin(), columnList.end(), firstColumn);
     std::unique_ptr<sql::PreparedStatement> query = MariadbHandler::prepareSqlStatement(sqlquery, storableParam, columnList);
 
@@ -336,6 +352,8 @@ bool MariadbHandler::saveAndReturnStorable(Storable *storableParam) {
         while(res->next()) {
             bindResultToStorable(res, storableParam, columnList);
         }
+        
+        delete res;
     } catch(sql::SQLException e) {
         std::cout << e.what() << std::endl;
         // Just print the exception and move on, don't touch the storable object
@@ -349,18 +367,35 @@ void MariadbHandler::readStorable(Storable *storableParam, std::vector<unsigned 
         
     std::string sqlquery = "SELECT * FROM " + storableParam->kTableName_ + " WHERE ";
     
+    unsigned int currentIndex = 0;
     for(unsigned int columnPosition : columnsToRead) {
         Column column = storableParam->kColumnList_[columnPosition];
 
         sqlquery.append(column.name);
-        sqlquery.append("=");
-        // sqlquery.append();
+        sqlquery.append("=?");
+
+
+        if (currentIndex == columnsToRead.size() - 1) {
+            sqlquery.append(";"); 
+        } else {
+            sqlquery.append(", ");
+        }
+
+        currentIndex++;
     }
+    
+    std::unique_ptr<sql::PreparedStatement> query = MariadbHandler::prepareSqlStatement(sqlquery, storableParam, columnsToRead);
 
     // Read into the storable object the data that's retrieved from the database
     // In case you get multiple objects, not sure what to do yet
     try {
+        sql::ResultSet *res = query->executeQuery();
+        while(res->next()) {
+            std::cout << "Found at least 1 result for storable, binding now\n";
+            bindResultToStorable(res, storableParam);
+        }
 
+        delete res;
     } catch(sql::SQLException e) {
         std::cout << e.what() << std::endl;
         // Just print the exception and move on, don't touch the storable object

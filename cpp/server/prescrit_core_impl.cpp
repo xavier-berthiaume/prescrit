@@ -52,14 +52,27 @@ kj::Promise<void> PrescritCoreImpl::checkUsernameAvailable(CheckUsernameAvailabl
     std::cout << "CheckUsernameAvailable call\n";
     std::cout << "Username passed: " << context.getParams().getName().cStr() << "\n";
 
-    // Actually poll the database to see if the sent username exists
-    // For now this will be a dummy function that just says true/false
-    // on some set username for testing purposes
-    if(context.getParams().getName() == "xavier1") {
-        context.getResults().setStatus(true);
-    } else {
-        context.getResults().setStatus(false);
-    }
+    std::cout << "Checking for username in database...\n";
 
+    AbstractDatabaseHandler *db = AbstractDatabaseHandler::getInstance();
+    
+    // Create a storable with only the username field filled out, then read it from the database
+    User *user = new User();
+    user->username_ = context.getParams().getName().cStr();
+    std::vector<unsigned int> columnList = {3};
+    db->readStorable(user, columnList);
+
+    // If the user object has an ID of 0, then that means that there isn't a database
+    // entry that 'filled out' the information of the user object, therefore there's no
+    // entry.
+    if(user->id_ != 0) {
+        std::cout << "Username is taken" << std::endl;
+        context.getResults().setStatus(false);
+    } else {
+        std::cout << "Username is not taken" << std::endl;
+        context.getResults().setStatus(true);
+    }
+    
+    delete user;
     return kj::READY_NOW;
 }

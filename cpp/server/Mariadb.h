@@ -45,7 +45,7 @@ class MariadbHandler final : public AbstractDatabaseHandler {
      *
      * @return A unique_ptr to the prepared statement.
      */
-    std::unique_ptr<sql::PreparedStatement> prepareSqlStatement(const std::string &, Storable *, std::vector<int>);
+    std::unique_ptr<sql::PreparedStatement> prepareSqlStatement(const std::string &, Storable *, std::vector<unsigned int>);
 
     /**
      * @brief Takes apart the data from the result set and
@@ -62,7 +62,7 @@ class MariadbHandler final : public AbstractDatabaseHandler {
      * result set will have the same columns as what the
      * storable object expects.
      */
-    void bindResultToStorable(sql::ResultSet *, Storable *, std::vector<int>);
+    void bindResultToStorable(sql::ResultSet *, Storable *, std::vector<unsigned int>);
 public:
 
     /**
