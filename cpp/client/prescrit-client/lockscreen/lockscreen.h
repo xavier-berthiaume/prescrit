@@ -1,6 +1,7 @@
 #ifndef LOCKSCREEN_H
 #define LOCKSCREEN_H
 
+#include "logindialogwindow.h"
 #include "createuserwindow.h"
 
 #include <QWidget>
@@ -19,6 +20,8 @@ public:
 
 private slots:
     void on_newUserButton_clicked();
+
+    void on_loginButton_clicked();
 
 private:
     Ui::LockScreen *ui;

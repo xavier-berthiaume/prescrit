@@ -402,6 +402,10 @@ void MariadbHandler::readStorable(Storable *storableParam, std::vector<unsigned 
     }
 }
 
+void MariadbHandler::readMultipleStorables(std::vector<Storable *> storableVectorParam, std::vector<unsigned int>) {
+
+}
+
 void MariadbHandler::updateStorable(Storable *) {
 
     // Here you assume that all fields of the storable object are already filled out

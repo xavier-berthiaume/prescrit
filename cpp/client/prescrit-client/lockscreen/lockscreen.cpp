@@ -23,3 +23,11 @@ void LockScreen::on_newUserButton_clicked()
     modal->show();
 }
 
+
+void LockScreen::on_loginButton_clicked()
+{
+
+    LoginDialogWindow *modal = new LoginDialogWindow(this);
+    modal->show();
+}
+

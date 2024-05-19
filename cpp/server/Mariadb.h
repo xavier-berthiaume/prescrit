@@ -115,7 +115,15 @@ public:
     bool saveAndReturnStorable(Storable *) override;
 
     /**
-     * @brief Reads from the database a single storable object and
+     * @brief Queries the database for an entry that has fields similar to
+     * the passed storable object.
+     *
+     * @details Create an sql 'select from' query using the fields that are
+     * numbered out in the passed vector. For example, if we have a storable
+     * object with the second and fourth field filled with data, then we
+     * build our sql query as follows: 
+     *
+     * SELECT * FROM table_name WHERE second_field=storable->second_field, fourth_field=storable->fourth_field
      */
     void readStorable(Storable *, std::vector<unsigned int>) override;
     void readMultipleStorables(std::vector<Storable *>, std::vector<unsigned int>) override;
